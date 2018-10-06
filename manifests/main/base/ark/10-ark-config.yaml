@@ -22,3 +22,12 @@ persistentVolumeProvider:
   name: aws
   config:
     region: us-east-1
+backupStorageProvider:
+  bucket: qicoo-bucket-01
+  config:
+    region: us-east-1
+  name: aws
+backupSyncPeriod: 30m
+gcSyncPeriod: 30m
+restoreOnlyMode: false
+scheduleSyncPeriod: 1m
