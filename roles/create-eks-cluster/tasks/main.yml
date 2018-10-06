@@ -1,0 +1,15 @@
+- name: "Create EKS Cluster"
+  shell: |
+     eksctl create cluster \
+        --name {{ EKS.CLUSTER_NAME }} \
+        --nodes {{ EKS.NODE }} \
+        --nodes-min {{EKS.MIN_NODE }} \
+        --nodes-max {{EKS.MAX_NODE }} \
+        --node-type {{EKS.FLAVOR}} \
+        --region {{ REGION }}
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always

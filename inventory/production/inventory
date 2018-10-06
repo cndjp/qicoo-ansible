@@ -1,0 +1,8 @@
+[ciservers]
+localhost
+
+[cliservers]
+localhost
+
+[all:vars]
+ENV=production

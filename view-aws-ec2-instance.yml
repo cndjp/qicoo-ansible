@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - view-aws-ec2-instance
+  vars_files:
+    - vars/all.yml

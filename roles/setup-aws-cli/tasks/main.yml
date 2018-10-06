@@ -1,0 +1,24 @@
+- name: "create .aws dir"
+  file:
+    dest=~/.aws/
+    state=directory
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+
+- name: "copy config"
+  template: 
+    src=template/{{ ENV }}/aws/cli/config.j2
+    dest=~/.aws/config
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+  tags:
+    - always
+
+- name: "copy credentials"
+  template: 
+    src=template/{{ ENV }}/aws/cli/credentials.j2
+    dest=~/.aws/credentials
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+  tags:
+    - always
