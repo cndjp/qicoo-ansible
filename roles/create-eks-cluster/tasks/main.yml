@@ -1,4 +1,4 @@
-- name: "Create EKS Cluster"
+- name: "Create RDS Cluster"
   shell: |
      eksctl create cluster \
         --name {{ EKS.CLUSTER_NAME }} \
@@ -8,20 +8,6 @@
         --node-type {{EKS.FLAVOR}} \
         --region {{ REGION }}
   register: result
-
-- name: "mkdir .kube"
-  file: path=/root/.kube state=directory owner=root group=root mode=700
-
-- name: "regist var1"
-  shell: aws eks describe-cluster --name {{ EKS.CLUSTER_NAME }} --query cluster.endpoint
-  register: endpoint
-
-- name: "regist var2"
-  shell: aws eks describe-cluster --name {{ EKS.CLUSTER_NAME }} --query cluster.certificateAuthority.data
-  register: base64
-
-- name: "eks template create"
-  template: src=template/config-{{ EKS.CLUSTER_NAME }}.j2 dest=/root/.kube/config-{{ EKS.CLUSTER_NAME }} owner=root group=root mode=0600
 
 - debug: var=result.stdout_lines
   when: result | success

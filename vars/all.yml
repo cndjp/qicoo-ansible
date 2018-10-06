@@ -1,7 +1,12 @@
+## general 
 ENV: production
-REGION: us-west-2
+REGION: us-east-1
 GET_URL_TEMP_DIRECTORY: /tmp
+WORK_USER:
+  NAME: root
+  GROUP: root
 
+# cli installer
 AWS_CLI:
   URL: https://bootstrap.pypa.io/get-pip.py
   FILE_NAME: get-pip.py
@@ -18,13 +23,17 @@ EKSCTL_CLI:
   URL: https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz
   FILE_NAME: eksctl
 
+# aws resource
 EKS:
-  CLUSTER_NAME: qicoo-eks
+  CLUSTER_NAME: qicoo-eks-001
   NODE: 1
   MIN_NODE: 1
   MAX_NODE: 1 
   FLAVOR: t2.medium  
 
-WORK_USER:
-  NAME: root
-  GROUP: root
+RDS:
+  NODE_NAME: qicoo-rds-001
+  FLAVOR: db.t2.micro
+  DISK: 20
+  USERNAME: "{{ lookup('env', 'MYSQL_USERNAME') }}"
+  PASSWORD: "{{ lookup('env', 'MYSQL_PASSWORD') }}"
