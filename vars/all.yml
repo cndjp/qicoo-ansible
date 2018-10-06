@@ -25,15 +25,23 @@ EKSCTL_CLI:
 
 # aws resource
 EKS:
-  CLUSTER_NAME: qicoo-eks-001
+  CLUSTER_NAME: qicoo-eks-01
   NODE: 1
   MIN_NODE: 1
   MAX_NODE: 1 
   FLAVOR: t2.medium  
 
 RDS:
-  NODE_NAME: qicoo-rds-001
+  NODE_NAME: qicoo-rds-01
   FLAVOR: db.t2.micro
   DISK: 20
   USERNAME: "{{ lookup('env', 'MYSQL_USERNAME') }}"
   PASSWORD: "{{ lookup('env', 'MYSQL_PASSWORD') }}"
+
+ELASTIC_CACHE:
+  CLUSTER_NAME: qicoo-elasticache-01
+  CLUSTER_NODE_TYPE: cache.t2.micro
+  CACHE_ENGINE: redis
+  CACHE_ENGINE_VERSION: 4.0.10
+  PARAMETER_GROUP: default.redis4.0
+  REPLICA_NODES: 1
