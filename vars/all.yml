@@ -1,5 +1,5 @@
 ENV: production
-REGION: us-east-1
+REGION: us-west-2
 GET_URL_TEMP_DIRECTORY: /tmp
 
 AWS_CLI:
@@ -19,7 +19,7 @@ EKSCTL_CLI:
   FILE_NAME: eksctl
 
 EKS:
-  CLUSTER_NAME: qicoo-cluster
+  CLUSTER_NAME: qicoo-eks
   NODE: 1
   MIN_NODE: 1
   MAX_NODE: 1 
