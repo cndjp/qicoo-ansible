@@ -28,6 +28,9 @@ KUSTOMIZE_CLI:
   FILE_NAME: kustomize
 
 ## aws resource
+S3:
+  BUCKET: qicoo-bucket-01
+
 EKS:
   CLUSTER_NAME: qicoo-eks-01
   NODE: 1
