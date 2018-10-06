@@ -21,4 +21,4 @@ metadata:
 persistentVolumeProvider:
   name: aws
   config:
-    region: <YOUR_REGION>
+    region: us-east-1

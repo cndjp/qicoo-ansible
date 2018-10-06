@@ -1,4 +1,4 @@
 resources:
 - ./test/00-test-service.yml
-- ./ark/00-ark-config.yaml
-- ./ark/10-deployment.yaml
+- ./ark/10-ark-config.yaml
+- ./ark/20-deployment.yaml
