@@ -1,4 +1,4 @@
-- name: "Create RDS Cluster"
+- name: "Create EKS Cluster"
   shell: |
      eksctl create cluster \
         --name {{ EKS.CLUSTER_NAME }} \

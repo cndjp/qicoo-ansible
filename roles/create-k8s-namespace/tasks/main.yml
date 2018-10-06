@@ -1,0 +1,9 @@
+- name: "Create K8S Namespace"
+  shell: |
+     kubectl apply -f manifests/*
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always
