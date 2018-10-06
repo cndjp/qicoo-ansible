@@ -6,7 +6,7 @@ WORK_USER:
   NAME: root
   GROUP: root
 
-# cli installer
+## cli installer
 AWS_CLI:
   URL: https://bootstrap.pypa.io/get-pip.py
   FILE_NAME: get-pip.py
@@ -23,7 +23,11 @@ EKSCTL_CLI:
   URL: https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz
   FILE_NAME: eksctl
 
-# aws resource
+KUSTOMIZE_CLI:
+  URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.8/kustomize_1.0.8_linux_amd64
+  FILE_NAME: kustomize
+
+## aws resource
 EKS:
   CLUSTER_NAME: qicoo-eks-01
   NODE: 1
