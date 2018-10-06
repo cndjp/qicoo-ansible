@@ -1,0 +1,4 @@
+bases:
+- ./stagement
+- ./production
+- ./spinnaker
