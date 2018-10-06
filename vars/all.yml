@@ -27,6 +27,10 @@ KUSTOMIZE_CLI:
   URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.8/kustomize_1.0.8_linux_amd64
   FILE_NAME: kustomize
 
+ARK_CLI:
+  URL: https://github.com/heptio/ark/releases/download/v0.9.7/ark-v0.9.7-linux-amd64.tar.gz
+  FILE_NAME: ark
+
 ## aws resource
 S3:
   BUCKET: qicoo-bucket-01
