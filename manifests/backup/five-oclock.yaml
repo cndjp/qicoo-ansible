@@ -1,11 +1,11 @@
 apiVersion: ark.heptio.com/v1
 kind: Schedule
 metadata:
-  name: five-min
+  name: five-oclock
   namespace: heptio-ark
 spec:
 #  schedule: 4 0 * * *  
-  schedule: '*/5 0 * * *'
+  schedule: 0 40 * * *
   template:
     excludedNamespaces: null
     excludedResources: null
