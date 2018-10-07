@@ -2,6 +2,7 @@
 ENV: production
 REGION: us-east-1
 GET_URL_TEMP_DIRECTORY: /tmp
+HEPTIO_ARK_CREDENTIALS: /root/heptio-ark-credentials
 WORK_USER:
   NAME: root
   GROUP: root
