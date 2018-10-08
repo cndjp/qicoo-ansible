@@ -1,0 +1,13 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+    namespace: heptio-ark
+    name: ark
+spec:
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                component: ark
+            annotations:
+                iam.amazonaws.com/role: arn:aws:iam::821898376409:user/heptio-ark

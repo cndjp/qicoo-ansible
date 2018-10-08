@@ -1,0 +1,105 @@
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [delete-eks-cluster : Delete EKS Cluster] *********************************
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [delete-eks-cluster : Delete EKS Cluster] *********************************
+changed: [localhost]
+
+TASK [delete-eks-cluster : debug] **********************************************
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+ok: [localhost] => {
+    "result.stdout_lines": [
+        "2018-10-07T08:37:25Z [ℹ]  deleting EKS cluster \"qicoo-eks-01\"", 
+        "2018-10-07T08:37:25Z [ℹ]  will delete stack \"eksctl-qicoo-eks-01-nodegroup-0\"", 
+        "2018-10-07T08:37:25Z [ℹ]  waiting for stack \"eksctl-qicoo-eks-01-nodegroup-0\" to get deleted", 
+        "2018-10-07T08:40:07Z [✖]  unexpected status \"DELETE_FAILED\" while waiting for CloudFormation stack \"eksctl-qicoo-eks-01-nodegroup-0\" to reach \"DELETE_COMPLETE\" status", 
+        "2018-10-07T08:40:07Z [ℹ]  fetching stack events in attempt to troubleshoot the root cause of the failure", 
+        "2018-10-07T08:40:08Z [✖]  AWS::CloudFormation::Stack/eksctl-qicoo-eks-01-nodegroup-0: DELETE_FAILED – \"The following resource(s) failed to delete: [NodeInstanceRole]. \"", 
+        "2018-10-07T08:40:08Z [✖]  AWS::IAM::Role/NodeInstanceRole: DELETE_FAILED – \"Cannot delete entity, must detach all policies first. (Service: AmazonIdentityManagement; Status Code: 409; Error Code: DeleteConflict; Request ID: 8e3b5002-ca0c-11e8-aa6d-e92155be53df)\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroup/SG: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Role/NodeInstanceRole: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::InstanceProfile/NodeInstanceProfile: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroup/SG: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::InstanceProfile/NodeInstanceProfile: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::LaunchConfiguration/NodeLaunchConfig: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::LaunchConfiguration/NodeLaunchConfig: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::AutoScalingGroup/NodeGroup: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterClusterAPI: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterCluster: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterCP: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterSG: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyTagDiscovery: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterCluster: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterAPI: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyStackSignal: DELETE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterClusterAPI: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterCP: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterCluster: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyTagDiscovery: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterAPI: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::AutoScalingGroup/NodeGroup: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterSG: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterCluster: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyStackSignal: DELETE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::CloudFormation::Stack/eksctl-qicoo-eks-01-nodegroup-0: DELETE_IN_PROGRESS – \"User Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::CloudFormation::Stack/eksctl-qicoo-eks-01-nodegroup-0: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::AutoScalingGroup/NodeGroup: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::AutoScalingGroup/NodeGroup: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::AutoScalingGroup/NodeGroup: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::LaunchConfiguration/NodeLaunchConfig: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::LaunchConfiguration/NodeLaunchConfig: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::AutoScaling::LaunchConfiguration/NodeLaunchConfig: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::InstanceProfile/NodeInstanceProfile: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyStackSignal: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyTagDiscovery: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::InstanceProfile/NodeInstanceProfile: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::InstanceProfile/NodeInstanceProfile: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyStackSignal: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyTagDiscovery: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyStackSignal: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Policy/PolicyTagDiscovery: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Role/NodeInstanceRole: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterClusterAPI: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterCluster: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterAPI: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterCluster: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterCP: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterSG: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterClusterAPI: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterCluster: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterCluster: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterAPI: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterCluster: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterClusterAPI: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterAPI: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterCP: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupEgress/EgressInterCluster: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterSG: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterClusterCP: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroupIngress/IngressInterSG: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroup/SG: CREATE_COMPLETE", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroup/SG: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Role/NodeInstanceRole: CREATE_IN_PROGRESS – \"Resource creation Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::IAM::Role/NodeInstanceRole: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::EC2::SecurityGroup/SG: CREATE_IN_PROGRESS", 
+        "2018-10-07T08:40:08Z [ℹ]  AWS::CloudFormation::Stack/eksctl-qicoo-eks-01-nodegroup-0: CREATE_IN_PROGRESS – \"User Initiated\"", 
+        "2018-10-07T08:40:08Z [ℹ]  will delete stack \"eksctl-qicoo-eks-01-cluster\"", 
+        "2018-10-07T08:40:11Z [✔]  the following EKS cluster resource(s) for \"qicoo-eks-01\" will be deleted: cluster. If in doubt, check CloudFormation console"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=1    unreachable=0    failed=0   
+
