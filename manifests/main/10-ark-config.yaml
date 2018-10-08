@@ -27,8 +27,7 @@ backupStorageProvider:
   bucket: qicoo-bucket-01
   config:
     region: us-east-1
-backupSyncPeriod: 30m
-gcSyncPeriod: 30m
-scheduleSyncPeriod: 1m
-restoreOnlyMode: false
-
+#backupSyncPeriod: 30m
+#gcSyncPeriod: 30m
+#scheduleSyncPeriod: 1m
+#restoreOnlyMode: false
