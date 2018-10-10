@@ -47,8 +47,6 @@ RDS:
   NODE_NAME: qicoo-rds-01
   FLAVOR: db.t2.micro
   DISK: 20
-  USERNAME: "{{ lookup('env', 'MYSQL_USERNAME') }}"
-  PASSWORD: "{{ lookup('env', 'MYSQL_PASSWORD') }}"
 
 ELASTIC_CACHE:
   CLUSTER_NAME: qicoo-elasticache-01
