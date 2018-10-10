@@ -1,0 +1,10 @@
+- name: "make install"
+  shell: make install -C git-secrets
+
+- name: "apply repo"
+  become: yes
+  shell: git secrets --install
+
+- name: "register aws deny"
+  become: yes
+  shell: git secrets --register-aws --global
