@@ -4,3 +4,4 @@
     - setup-aws-cli
   vars_files:
     - vars/all.yml
+    - vars/secret.yml
