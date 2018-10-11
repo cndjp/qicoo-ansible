@@ -9,7 +9,7 @@
 
 - name: "pip"
   become: yes
-  shell: pip install awscli --upgrade --user
+  shell: pip install awscli --user
 
 - name: "PATH setup"
   become: yes
