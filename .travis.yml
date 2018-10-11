@@ -1,3 +1,4 @@
+sudo: false
 language: bash
 addons:
   apt:
@@ -11,4 +12,4 @@ install:
 before_script: 
  - echo test > ~/.vault_password
 script: 
- - sudo bats travis-check.sh  
+ - bats travis-check.sh  
