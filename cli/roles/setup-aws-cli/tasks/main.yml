@@ -7,7 +7,7 @@
 
 - name: "copy config"
   template: 
-    src=template/aws/cli/config.j2
+    src={{ ansible_env.PWD }}/template/aws/cli/config.j2
     dest=~/.aws/config
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
@@ -16,7 +16,7 @@
 
 - name: "copy credentials"
   template: 
-    src=template/aws/cli/credentials.j2
+    src={{ ansible_env.PWD }}/template/aws/cli/credentials.j2
     dest=~/.aws/credentials
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
