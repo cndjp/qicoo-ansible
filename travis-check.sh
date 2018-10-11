@@ -8,6 +8,5 @@ for DIR in ${ARY[@]}; do
   done
 done
 
-make install -C cli/git-secrets
-git secrets --register-aws --global
-git secrets --scan . 
+cli/git-secrets/git-secrets --register-aws --global
+cli/git-secrets/git-secrets --scan . 
