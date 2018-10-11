@@ -8,5 +8,5 @@ for DIR in ${ARY[@]}; do
   done
 done
 
-cli/git-secrets/git-secrets --register-aws --global
-cli/git-secrets/git-secrets --scan . 
+cli/git-secrets --register-aws --global
+cli/git-secrets --scan . 
