@@ -7,3 +7,6 @@ for DIR in ${ARY[@]}; do
     ansible-playbook -i localhost, -c local ${FILE} --syntax-check
   done
 done
+
+cli/git-secrets/git-secrets --register-aws --global
+cli/git-secrets/git-secrets --scan . 
