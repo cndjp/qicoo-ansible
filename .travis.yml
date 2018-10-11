@@ -8,5 +8,5 @@ addons:
     - bats
     - bc
 install: pip install --user ansible
-before_script: touch ~/.vault_password
+before_script: echo test > ~/.vault_password
 script: bats ansible-syntax-check.sh 
