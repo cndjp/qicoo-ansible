@@ -1,0 +1,10 @@
+- name: "Delete EKS Cluster"
+  shell: |
+     eksctl delete cluster \
+         --name {{ EKS.CLUSTER_NAME }}
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always

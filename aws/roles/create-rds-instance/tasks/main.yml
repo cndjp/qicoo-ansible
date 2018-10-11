@@ -1,0 +1,15 @@
+- name: "Create EKS Cluster"
+  shell: |     
+     aws rds create-db-instance \ 
+        --db-instance-identifier {{ RDS.NODE_NAME }} \
+        --db-instance-class {{ RDS.FLAVOR }} \
+        --engine MySQL \
+        --allocated-storage {{ RDS.DISK }} \
+        --master-username {{ SECRET.AWS.RDS_MYSQL_USER }} \
+        --master-user-password {{ SECRET.AWS.RDS_MYSQL_PASSWORD }}
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always

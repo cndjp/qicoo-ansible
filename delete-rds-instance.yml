@@ -1,5 +1,0 @@
-- hosts: localhost
-  roles:
-    - delete-rds-instance
-  vars_files:
-    - vars/all.yml

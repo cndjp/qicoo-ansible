@@ -1,5 +1,0 @@
-- hosts: localhost
-  roles:
-    - create-heptio-backup
-  vars_files:
-    - vars/all.yml

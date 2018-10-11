@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - install-eks-cli
+  vars_files:
+    - ../vars/all.yml
