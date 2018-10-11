@@ -12,6 +12,4 @@ install:
 before_script: 
  - echo test > ~/.vault_password
 script: 
- - bats ansible-syntax-check.sh  
- - bats 'cli/git-secrets/git-secrets --register-aws --global'
- - bats 'cli/git-secrets/git-secrets --scan . '
+ - bats travis-check.sh  
