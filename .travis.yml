@@ -7,9 +7,15 @@ addons:
     packages:
     - bats
     - bc
+<<<<<<< HEAD
 install: 
  - pip install --user ansible
  - ansible-playbook -i localhost, -c local install-git-secrets.yml
 script: 
  - bats ansible-syntax-check.sh  
  - git secrets --scan . 
+=======
+install: pip install --user ansible
+before_script: echo test > ~/.vault_password
+script: bats ansible-syntax-check.sh 
+>>>>>>> 14b9c536cf29f430b38d4141390f68d986441aa9
