@@ -11,3 +11,5 @@ done
 make install -C cli/git-secrets/ 
 git secrets --register-aws --global
 git secrets --scan . 
+
+echo -e "\nCheck Done."
