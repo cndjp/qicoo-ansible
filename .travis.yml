@@ -7,4 +7,5 @@ addons:
     packages:
     - bats
     - bc
+install: pip install --user ansible
 script: bats  ansible-syntax-check.sh 
