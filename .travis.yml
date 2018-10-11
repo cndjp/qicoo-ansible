@@ -9,6 +9,8 @@ addons:
     - bc
 install: 
  - pip install --user ansible
+before_script: 
+ - echo test > ~/.vault_password
  - ansible-playbook -i localhost, -c local cli/install-git-secrets.yml
 script: 
  - bats ansible-syntax-check.sh  
