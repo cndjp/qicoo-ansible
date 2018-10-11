@@ -1,0 +1,14 @@
+- name: "ark download"
+  become: yes
+  get_url: url={{ ARK_CLI.URL }} dest={{ GET_URL_TEMP_DIRECTORY }}
+
+- name: "ark unarchive"
+  command: tar zxvf {{ GET_URL_TEMP_DIRECTORY }}/{{ ARK_CLI.FILE_NAME }}-v0.9.7-linux-amd64.tar.gz chdir=/{{ GET_URL_TEMP_DIRECTORY }}
+
+- name: "ark chmod"
+  become: yes
+  file: dest={{ GET_URL_TEMP_DIRECTORY }}/{{ ARK_CLI.FILE_NAME }} mode=a+x
+
+- name: "ark move"
+  become: yes
+  shell: mv {{ GET_URL_TEMP_DIRECTORY }}/{{ ARK_CLI.FILE_NAME }} /bin/{{ ARK_CLI.FILE_NAME }}

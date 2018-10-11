@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - create-elasticache-cluster
+  vars_files:
+    - ../vars/all.yml

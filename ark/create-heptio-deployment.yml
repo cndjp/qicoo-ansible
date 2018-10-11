@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - create-heptio-deployment
+  vars_files:
+    - ../vars/all.yml

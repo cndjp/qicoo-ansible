@@ -1,0 +1,9 @@
+- name: "Create K8S Namespace"
+  shell: |
+     kubectl create secret generic cloud-credentials --namespace heptio-ark --from-file cloud=/root/.aws/credentials
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always

@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - create-s3-bucket
+  vars_files:
+    - ../vars/all.yml
