@@ -4,8 +4,8 @@ REGION: us-west-2
 GET_URL_TEMP_DIRECTORY: /tmp
 ARK_BACKUP_NAME: qicoo-backup
 WORK_USER:
-  NAME: root
-  GROUP: root
+  NAME: qicoo
+  GROUP: qicoo
 
 ## cli installer
 AWS_CLI:
