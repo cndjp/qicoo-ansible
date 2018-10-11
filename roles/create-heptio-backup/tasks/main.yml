@@ -1,9 +1,0 @@
-- name: "Create Ark Backup"
-  shell: |
-     ark backup create {{ {{ ARK_BACKUP_NAME }} }} --include-namespaces spinnaker,production,stagement
-  register: result
-
-- debug: var=result.stdout_lines
-  when: result | success
-  tags:
-    - always
