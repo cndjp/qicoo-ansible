@@ -9,7 +9,7 @@ addons:
     - bc
 install: 
  - pip install --user ansible
- - ansible-playbook -i localhost, -c local install-git-secrets.yml
+ - ansible-playbook -i localhost, -c local cli/install-git-secrets.yml
 script: 
  - bats ansible-syntax-check.sh  
  - git secrets --scan . 
