@@ -1,9 +1,0 @@
-- name: "Create Ark Restore"
-  shell: |
-     ark restore create --from-backup {{ ARK_BACKUP_NAME }}
-  register: result
-
-- debug: var=result.stdout_lines
-  when: result | success
-  tags:
-    - always
