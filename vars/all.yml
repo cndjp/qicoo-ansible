@@ -24,6 +24,10 @@ ARK_CLI:
   URL: https://github.com/heptio/ark/releases/download/v0.9.7/ark-v0.9.7-linux-amd64.tar.gz
   FILE_NAME: ark
 
+HAL_CLI:
+  URL: https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
+  SHELL: InstallHalyard.sh
+
 ## aws resource
 S3:
   BUCKET: qicoo-bucket-01
@@ -33,6 +37,7 @@ EKS:
     MANAGED_ACOUNT_STACK: spinnaker-managed-infrastructure-setup
     MANAGING_ACOUNT_STACK: spinnaker-managing-infrastructure-setup
     SERVICE_ACOUNT: spinnaker-service-account
+    CONTEXT: aws
   CLUSTER:
     CLUSTER_NAME: qicoo-eks-01
     NODE: 1
