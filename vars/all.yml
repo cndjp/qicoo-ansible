@@ -8,10 +8,6 @@ WORK_USER:
   GROUP: qicoo
 
 ## cli installer
-AWS_CLI:
-  URL: https://bootstrap.pypa.io/get-pip.py
-  FILE_NAME: get-pip.py
-
 KUBECTL_CLI:
   URL: https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/kubectl 
   FILE_NAME: kubectl
