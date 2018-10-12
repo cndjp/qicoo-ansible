@@ -29,11 +29,16 @@ S3:
   BUCKET: qicoo-bucket-01
 
 EKS:
-  CLUSTER_NAME: qicoo-eks-01
-  NODE: 1
-  MIN_NODE: 1
-  MAX_NODE: 1 
-  FLAVOR: t2.medium  
+  SPINNAKER:
+    MANAGED_ACOUNT_STACK: spinnaker-managed-infrastructure-setup
+    MANAGING_ACOUNT_STACK: spinnaker-managing-infrastructure-setup
+    SERVICE_ACOUNT: spinnaker-service-account
+  CLUSTER:
+    CLUSTER_NAME: qicoo-eks-01
+    NODE: 1
+    MIN_NODE: 1
+    MAX_NODE: 1 
+    FLAVOR: t2.medium  
 
 RDS:
   NODE_NAME: qicoo-rds-01
