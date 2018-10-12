@@ -16,10 +16,6 @@ AWS_IAM_AUTH_CLI:
   URL: https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
   FILE_NAME: aws-iam-authenticator
 
-EKSCTL_CLI:
-  URL: https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz
-  FILE_NAME: eksctl
-
 KUSTOMIZE_CLI:
   URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.8/kustomize_1.0.8_linux_amd64
   FILE_NAME: kustomize
