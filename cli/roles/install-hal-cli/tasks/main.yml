@@ -1,0 +1,11 @@
+- name: "hal download"
+  become: yes
+  get_url: url={{ HAL_CLI.URL }} dest={{ GET_URL_TEMP_DIRECTORY }}
+
+- name: "hal chmod"
+  become: yes
+  file: dest={{ GET_URL_TEMP_DIRECTORY }}/{{ HAL_CLI.SHELL }} mode=a+x
+
+- name: "hal install"
+  become: yes
+  shell: sudo bash {{ GET_URL_TEMP_DIRECTORY }}/{{ HAL_CLI.SHELL }}
