@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - install-eks-cli
+    - install-kubeandauth-cli
   vars_files:
     - ../vars/all.yml
