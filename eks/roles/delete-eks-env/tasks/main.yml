@@ -10,15 +10,15 @@
 
 - name: "Delete EKS Nodes"
   cloudformation:
-     stack_name:  {{ EKS.SPINNAKER.EC2_NODEGROUP }} 
+     stack_name:  "{{ EKS.SPINNAKER.EC2_NODEGROUP }}" 
      state: "absent"
 
 - name: "Delete Managed Infrastructure"
   cloudformation:
-     stack-name: {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
+     stack_name: "{{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}"
      state: "absent"
 
 - name: "Delete Managing Infrastructure"
   cloudformation:
-    stack-name: {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}
-    state: "absent"
+     stack_name: "{{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}"
+     state: "absent"
