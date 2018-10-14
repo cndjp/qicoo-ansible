@@ -1,3 +1,9 @@
+- name: "Check Cloudformation Stack1"
+  shell: |
+     aws cloudformation list-stacks --query 'StackSummaries[?StackStatus==`CREATE_COMPLETE`]'  | jq -r .[].StackName | grep {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}
+  register: checkstack1
+  ignore_errors: True
+
 - name: "Setup EKS Cluster & Managing Account"
   shell: |
      aws cloudformation deploy \ 
@@ -5,6 +11,7 @@
          --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml \
          --parameter-overrides UseAccessKeyForAuthentication=false EksClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \
          --capabilities CAPABILITY_NAMED_IAM
+  when: checkstack1 | failed
 
 - name: "Register VPC ID"
   shell: |
@@ -12,7 +19,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query 'Stacks[0].Outputs[?OutputKey==`VpcId`].OutputValue' \ 
           --output text
-  register: EKS.SPINNAKER.VPC_ID
+  register: E_S_VPC_ID
 
 - name: "Register Secrity Group"
   shell: |
@@ -20,7 +27,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SecurityGroups`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.CONTROL_PLANE_SG
+  register: E_S_CONTROL_PLANE_SG
 
 - name: "Register Auth ARN"
   shell: |
@@ -28,7 +35,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`AuthArn`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.AUTH_ARN
+  register: E_S_AUTH_ARN
 
 - name: "Register Subnets"
   shell: |
@@ -36,7 +43,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SubnetIds`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.SUBNETS
+  register: E_S_SUBNETS
 
 - name: "Register Managing id"
   shell: |
@@ -44,7 +51,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`ManagingAccountId`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.MANAGING_ACCOUNT_ID
+  register: E_S_MANAGING_ACCOUNT_ID
 
 - name: "Register EKS Cluster Endpoint"
   shell: |
@@ -52,7 +59,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterEndpoint`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CLUSTER_ENDPOINT
+  register: E_S_EKS_CLUSTER_ENDPOINT
 
 - name: "Register EKS Cluster Name"
   shell: |
@@ -60,7 +67,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterName`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CLUSTER_NAME
+  register: E_S_EKS_CLUSTER_NAME
 
 - name: "Register EKS CA Data"
   shell: |
@@ -68,7 +75,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterCA`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CA_DATA
+  register: E_S_EKS_CA_DATA
 
 - name: "Register Spinnaker Instance Profile ARN"
   shell: |
@@ -76,15 +83,22 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SpinnakerInstanceProfileArn`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.SPINNAKER_INSTANCE_PROFILE_ARN
+  register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
+
+- name: "Check Cloudformation Stack2"
+  shell: |
+     aws cloudformation list-stacks --query 'StackSummaries[?StackStatus==`CREATE_COMPLETE`]'  | jq -r .[].StackName | grep {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
+  register: checkstack2
+  ignore_errors: True
 
 - name: "Setup Managed Account"
   shell: |
      aws cloudformation deploy \
          --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
-         --template-file {{ ansible_env.PWD }}/files/eks-spinakker-managed.yaml \
-         --parameter-overrides AuthArn={{ EKS.SPINNAKER.AUTH_ARN.stdout_lines }} ManagingAccountId={{ EKS.SPINNAKER.MANAGING_ACCOUNT_ID.stdout_lines }} \
+         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml \
+         --parameter-overrides AuthArn={{ E_S_AUTH_ARN.stdout }} ManagingAccountId={{ E_S_MANAGING_ACCOUNT_ID.stdout }} \
          --capabilities CAPABILITY_NAMED_IAM
+  when: checkstack2 | failed
 
 - name: "Create .kube dir"
   file:
@@ -117,17 +131,17 @@
         --context {{ EKS.SPINNAKER.CONTEXT }} \
         -n spinnaker \
         -o jsonpath='{.secrets[0].name}' 
-  register: EKS.SPINNAKER.SECRET
+  register: E_S_SECRET
 
 - name: "Register EKS Token"
   shell: |
-     kubectl get secret {{ EKS.SPINNAKER.SECRET.stdout_lines }} \ 
+     kubectl get secret {{ E_S_SECRET.stdout }} \ 
         --context {{ EKS.SPINNAKER.CONTEXT }} \
         -n spinnaker \
         -o jsonpath='{.data.token}' | base64 --decode
-  register: EKS.SPINNAKER.TOKEN
+  register: E_S_TOKEN
 
 - name: "Setup Context User"
   shell: |
-     kubectl config set-credentials {{ EKS.SPINNAKER.CONTEXT }}-token-user --token {{ EKS.SPINNAKER.TOKEN.stdout_lines }} && \
-     kubectl config set-context $CONTEXT --user {{ EKS.SPINNAKER.CONTEXT }}-token-user
+     kubectl config set-credentials {{ EKS.SPINNAKER.CONTEXT }}-token-user --token {{ E_S_TOKEN.stdout }} && \
+     kubectl config set-context {{ EKS.SPINNAKER.CONTEXT }} --user {{ EKS.SPINNAKER.CONTEXT }}-token-user
