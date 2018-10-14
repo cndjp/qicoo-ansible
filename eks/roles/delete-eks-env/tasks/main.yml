@@ -9,13 +9,16 @@
      state: absent
 
 - name: "Delete EKS Nodes"
-  shell: |
-     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.EC2_NODEGROUP }} 
+  cloudformation:
+     stack_name:  {{ EKS.SPINNAKER.EC2_NODEGROUP }} 
+     state: "absent"
 
 - name: "Delete Managed Infrastructure"
-  shell: |
-     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
+  cloudformation:
+     stack-name: {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
+     state: "absent"
 
 - name: "Delete Managing Infrastructure"
-  shell: |
-     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}
+  cloudformation:
+    stack-name: {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}
+    state: "absent"
