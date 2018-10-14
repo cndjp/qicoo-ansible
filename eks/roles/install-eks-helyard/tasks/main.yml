@@ -47,7 +47,8 @@
      hal config provider docker-registry account add {{ SECRET.DOCKER_HUB.USER }} \
          --address {{ DOCKER_HUB.ADDRESS }}
          --repositories {{ DOCKER_HUB.REPOSITORIES }}
-         --username {{ SECRET.DOCKER_HUB.PASSWORD }}
+         --username {{ SECRET.DOCKER_HUB.USER }}
+         --passowrd {{ SECRET.DOCKER_HUB.PASSWORD }}
 
 - name: "Setup kayenta Setting"
   shell: |
