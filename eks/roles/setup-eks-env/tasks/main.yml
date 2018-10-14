@@ -81,13 +81,16 @@
           --output text
   register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
 
-  #  - name: "Setup Managed Account"
-  #  shell: |
-  #     aws cloudformation deploy \
-  #      --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
-  #      --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml \
-  #      --parameter-overrides AuthArn={{ E_S_AUTH_ARN.stdout }} ManagingAccountId={{ E_S_MANAGING_ACCOUNT_ID.stdout }} \
-  #      --capabilities CAPABILITY_NAMED_IAM
+- name: "Setup Managed Account"
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}"
+     state: "present"
+     disable_rollback: true
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml"
+     template_parameters:
+        AuthArn: "{{ E_S_AUTH_ARN.stdout }}"
+        ManagingAccountId: "{{ E_S_MANAGING_ACCOUNT_ID.stdout }}"
+     region: "{{ REGION }}"
 
 - name: "Create .kube dir"
   file:
