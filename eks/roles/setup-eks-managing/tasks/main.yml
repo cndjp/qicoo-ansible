@@ -2,7 +2,7 @@
   shell: |
      aws cloudformation deploy \ 
          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
-         --template-file ./files/eks-spinakker-managing.yml \
+         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml \
          --parameter-overrides UseAccessKeyForAuthentication=false EksClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \
          --capabilities CAPABILITY_NAMED_IAM
 
@@ -82,7 +82,7 @@
   shell: |
      aws cloudformation deploy \
          --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
-         --template-file ./files/eks-spinakker-managing.yml \
+         --template-file {{ ansible_env.PWD }}/files/eks-spinakker-managed.yaml \
          --parameter-overrides AuthArn={{ EKS.SPINNAKER.AUTH_ARN.stdout_lines }} ManagingAccountId={{ EKS.SPINNAKER.MANAGING_ACCOUNT_ID.stdout_lines }} \
          --capabilities CAPABILITY_NAMED_IAM
 
