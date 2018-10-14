@@ -64,18 +64,13 @@ ELASTIC_CACHE:
 
 ## Slack Informing
 SLACK:
-   BOT_NAME:
-   TOKEN:
+   BOT_NAME: qicoo-spinnaker-bot
 
-## GitHub
-GITHUB:
-   TOKEN_FILE:
-   ARTIFACT_ACCOUNT_NAME:
+## Docker
+DOCKER_HUB:
+   ADDRESS: index.docker.io
+   REPOSITORIES: qicoo-docker-repo
 
-## DockerHub
-DOCKER:
-   ADDRESS:
-   REPOSITORIES:
-   USERNAME:
-   PASSWORD:
-
+## Kayenta
+KAYENTA:
+   USER: qicoo-kayenta-user

@@ -1,33 +1,50 @@
 - name: "Distributed installation on Kubernetes"
-    shell: |
-       hal config deploy edit --type distributed --account-name aws
+  shell: |
+     hal config deploy edit --type distributed --account-name aws && \
+     hal config edit --timezone Asia/Tokyo
 
 - name: "Setup Register S3 Bucket as a halyard Storage"
-    shell: |
-       hal config storage s3 edit \
-           --access-key-id {{ SECRET.AWS.AWS_ACCESS_KEY_ID }} \
-           --secret-access-key {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }} \
-           --bucket {{ S3.SPINNAKER.BUCKET }} \
-           --region {{ REGION }}
+  shell: |
+     hal config storage s3 edit \
+         --access-key-id {{ SECRET.AWS.AWS_ACCESS_KEY_ID }} \
+         --secret-access-key {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }} \
+         --bucket {{ S3.SPINNAKER.BUCKET }} \
+         --region {{ REGION }}
 
 - name: "Setup Register S3 Bucket as a halyard Storage"
-    shell: |
-       hal config storage edit --type s3
+  shell: |
+     hal config storage edit --type s3
 
 - name: "Setup Slack Extensitons"
-    shell: |
-       hal config notification slack enable
-       hal config notification slack edit \
-           --bot-name {{ SLACK.BOT_NAME }} \
-           --token {{ SLACK.TOKEN }}
+  shell: |
+     hal config notification slack enable && \
+     hal config notification slack edit \
+         --bot-name {{ SLACK.BOT_NAME }} \
+         --token {{ SLACK.TOKEN }}
 
-- name: "Create Token File"
+- name: "Setup GitHub Extensions"
+  shell: |
+     hal config features edit --artifacts true \
+     hal config artifact github enable \
+     hal config artifact github account add {{ SECRET.GITHUB.USER }} \
+         --username {{ SECRET.GITHUB.USER }}
+         --password {{ SECRET.GITHUB.PASSWORD }}
 
-- name: "Setup GitHub Extensitons"
-    shell: |
-       hal config features edit --artifacts true \
-       hal config artifact github enable \
-       hal config artifact github account add {{ GITHUB.ARTIFACT_ACCOUNT_NAME }} \
-           --username {{ GITHUB.ARTIFACT_ACCOUNT_NAME }} \
-           --password \
-           --token
+- name: "Setup Docker Hub Extensions"
+  shell: |
+     hal config provider docker-registry enable && \
+     hal config provider docker-registry account add {{ SECRET.DOCKER_HUB.USER }} \
+         --address {{ DOCKER_HUB.ADDRESS }}
+         --repositories {{ DOCKER_HUB.REPOSITORIES }}
+         --username {{ SECRET.DOCKER_HUB.PASSWORD }}
+
+- name: "Setup kayenta Setting"
+  shell: |
+     hal config canary enable && \
+     hal config canary aws enable && \
+     hal config canary edit --show-all-configs-enabled false
+
+- name: "Setup kayenta AWS Setting"
+  shell: |
+        hal config canary aws account add {{ KAYENTA.USER }} --bucket {{ S3.SPINNAKER.BUCKET }} --deployment --no-validate --root-folder keyanta && \
+        hal config canary aws account add {{ KAYENTA.USER }} --bucket {{ S3.SPINNAKER.BUCKET }} --region {{ REGION }} --access-key-id {{ SECRET.AWS.AWS_ACCESS_KEY_ID }} --secret-access-key {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }}
