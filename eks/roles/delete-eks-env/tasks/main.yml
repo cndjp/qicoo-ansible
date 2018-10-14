@@ -1,0 +1,21 @@
+- name: "Delete Hal Config"
+  file:
+     path: ~/.hal/config
+     state: absent
+
+- name: "Delete Kube Config"
+  file:
+     path: ~/.kube/config
+     state: absent
+
+- name: "Delete EKS Nodes"
+  shell: |
+     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.EC2_NODEGROUP }} 
+
+- name: "Delete Managed Infrastructure"
+  shell: |
+     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
+
+- name: "Delete Managing Infrastructure"
+  shell: |
+     aws cloudformation delete-stack --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}

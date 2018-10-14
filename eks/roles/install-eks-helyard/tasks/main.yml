@@ -1,0 +1,17 @@
+- name: "Distributed installation on Kubernetes"
+    shell: |
+       hal config deploy edit --type distributed --account-name aws
+
+- name: "Setup Register S3 Bucket as a halyard Storage"
+    shell: |
+       hal config storage s3 edit \
+           --access-key-id {{ SECRET.AWS.AWS_ACCESS_KEY_ID }} \
+           --secret-access-key {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }} \
+           --bucket {{ S3.SPINNAKER.BUCKET }} \
+           --region {{ REGION }}
+
+- name: "Setup Register S3 Bucket as a halyard Storage"
+    shell: |
+       hal config storage edit --type s3
+
+
