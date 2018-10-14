@@ -138,17 +138,12 @@
      kubectl config set-credentials {{ EKS.SPINNAKER.CONTEXT }}-token-user --token {{ E_S_TOKEN.stdout }} && \
      kubectl config set-context {{ EKS.SPINNAKER.CONTEXT }} --user {{ EKS.SPINNAKER.CONTEXT }}-token-user
 
-- name: "Check Hal config Exists"
-  stat: path=~/.hal/config
-  register: checkhalconfigexists
-  ignore_errors: True
-
 - name: "Setup Halyard CloudProvider"
   shell: |
      hal config provider kubernetes enable && \
      hal config provider kubernetes account add kubernetes-master --provider-version v2 --context $(kubectl config current-context) && \
      hal config features edit --artifacts true
-  when: checkhalconfigexists.stat.exists == False
+  ignore_errors: True
 
 - name: "Deploy EC2 NodeGroup"
   cloudformation:
