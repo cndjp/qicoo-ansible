@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - install-eks-helyard 
+  vars_files:
+    - ../vars/all.yml
