@@ -14,4 +14,20 @@
     shell: |
        hal config storage edit --type s3
 
+- name: "Setup Slack Extensitons"
+    shell: |
+       hal config notification slack enable
+       hal config notification slack edit \
+           --bot-name {{ SLACK.BOT_NAME }} \
+           --token {{ SLACK.TOKEN }}
 
+- name: "Create Token File"
+
+- name: "Setup GitHub Extensitons"
+    shell: |
+       hal config features edit --artifacts true \
+       hal config artifact github enable \
+       hal config artifact github account add {{ GITHUB.ARTIFACT_ACCOUNT_NAME }} \
+           --username {{ GITHUB.ARTIFACT_ACCOUNT_NAME }} \
+           --password \
+           --token
