@@ -1,13 +1,3 @@
-- name: "Delete Hal Config"
-  file:
-     path: ~/.hal/config
-     state: absent
-
-- name: "Delete Kube Config"
-  file:
-     path: ~/.kube/config
-     state: absent
-
 - name: "Delete EKS Nodes"
   cloudformation:
      stack_name:  "{{ EKS.SPINNAKER.EC2_NODEGROUP }}" 
