@@ -5,8 +5,8 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::297295734308:role/SpinnakerAuthRole 
-      username: system:node:{{EC2PrivateDNSName}}
+    - rolearn: arn:aws:iam::297295734308:role/SpinnakerAuthRole
+      username: system:node:{{ EC2PrivateDNSName }}
       groups:
         - system:bootstrappers
         - system:nodes
