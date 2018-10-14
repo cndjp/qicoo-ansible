@@ -46,7 +46,7 @@ EKS:
     CLUSTER_NAME: qicoo-eks-01
     NODE: 3
     MIN_NODE: 3
-    MAX_NODE: 6 
+    MAX_NODE: 3 
     FLAVOR: t2.medium  
 
 RDS:
@@ -61,3 +61,21 @@ ELASTIC_CACHE:
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
+
+## Slack Informing
+SLACK:
+   BOT_NAME:
+   TOKEN:
+
+## GitHub
+GITHUB:
+   TOKEN_FILE:
+   ARTIFACT_ACCOUNT_NAME:
+
+## DockerHub
+DOCKER:
+   ADDRESS:
+   REPOSITORIES:
+   USERNAME:
+   PASSWORD:
+
