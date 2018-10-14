@@ -158,7 +158,7 @@
      template_parameters:
         NodeInstanceProfile: "{{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN.stdout }}"
         NodeInstanceType: "{{ EKS.CLUSTER.FLAVOR }}"
-        ClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+        ClusterName: "{{ E_S_EKS_CLUSTER_NAME }}"
         NodeGroupName: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
         ClusterControlPlaneSecurityGroup: "{{ E_S_CONTROL_PLANE_SG.stdout }}"
         Subnets: "{{ E_S_SUBNETS.stdout }}"

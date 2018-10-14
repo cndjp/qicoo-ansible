@@ -21,7 +21,7 @@ users:
       args:
         - "token"
         - "-i"
-        - "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+        - "{{ E_S_EKS_CLUSTER_NAME.stdout }}"
         # - "-r"
         # - "<role-arn>"
       # env:
