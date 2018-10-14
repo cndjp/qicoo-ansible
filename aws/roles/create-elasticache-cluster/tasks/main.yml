@@ -1,12 +1,12 @@
 - name: "Create ElastiCache Cluster"
-  shell: |
-     aws elasticache create-cache-cluster \
-         --cache-cluster-id {{ ELASTIC_CACHE.CLUSTER_NAME }} \
-         --cache-node-type {{ ELASTIC_CACHE.CLUSTER_NODE_TYPE }} \
-         --engine {{ ELASTIC_CACHE.CACHE_ENGINE }} \
-         --engine-version {{ ELASTIC_CACHE.CACHE_ENGINE_VERSION }} \
-         --cache-parameter-group {{ ELASTIC_CACHE.PARAMETER_GROUP }} \
-         --num-cache-nodes {{ ELASTIC_CACHE.REPLICA_NODES }}
+  elasticache:
+     name: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
+     state: present
+     engine: "{{ ELASTIC_CACHE.CACHE_ENGINE }}"
+     cache_engine_version: "{{ ELASTIC_CACHE.CACHE_ENGINE_VERSION }}"
+     node_type: "{{ ELASTIC_CACHE.CLUSTER_NODE_TYPE }}"
+     num_nodes: "{{ ELASTIC_CACHE.REPLICA_NODES }}"
+     region: "{{ REGION }}"
   register: result
 
 - debug: var=result.stdout_lines

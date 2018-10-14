@@ -1,7 +1,7 @@
 - name: "Delete ElastiCache Cluster"
-  shell: |
-     aws elasticache delete-cache-cluster \
-         --cache-cluster-id {{ ELASTIC_CACHE.CLUSTER_NAME }}
+  elasticache:
+     name: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
+     state: absent
   register: result
 
 - debug: var=result.stdout_lines
