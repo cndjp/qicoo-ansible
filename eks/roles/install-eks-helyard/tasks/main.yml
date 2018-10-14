@@ -22,13 +22,24 @@
          --bot-name {{ SLACK.BOT_NAME }} \
          --token {{ SLACK.TOKEN }}
 
+- name: "Create GitHub Tokenfile"
+  template:
+    src={{ ansible_env.PWD }}/template/github-token.txt.j2
+    dest={{ GET_URL_TEMP_DIRECTORY }}/github-token.txt
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+    mode="u=rw,g=rw,o=rw"
+  tags:
+    - always
+
 - name: "Setup GitHub Extensions"
   shell: |
      hal config features edit --artifacts true \
      hal config artifact github enable \
      hal config artifact github account add {{ SECRET.GITHUB.USER }} \
-         --username {{ SECRET.GITHUB.USER }}
-         --password {{ SECRET.GITHUB.PASSWORD }}
+         --username {{ SECRET.GITHUB.USER }} \
+         --password {{ SECRET.GITHUB.PASSWORD }} \
+         --token-file {{ GET_URL_TEMP_DIRECTORY }}/github-token.txt
 
 - name: "Setup Docker Hub Extensions"
   shell: |
