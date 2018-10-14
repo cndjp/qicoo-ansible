@@ -1,17 +1,19 @@
-- name: "Check Cloudformation Stack1"
-  shell: |
-     aws cloudformation list-stacks --query 'StackSummaries[?StackStatus==`CREATE_COMPLETE`]'  | jq -r .[].StackName | grep {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}
-  register: checkstack1
-  ignore_errors: True
+#- name: "Setup EKS Cluster & Managing Account"
+#  shell: |
+#     aws cloudformation deploy \ 
+#         --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+#         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml \
+#         --parameter-overrides UseAccessKeyForAuthentication=false EksClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \
+#         --capabilities CAPABILITY_NAMED_IAM
 
 - name: "Setup EKS Cluster & Managing Account"
-  shell: |
-     aws cloudformation deploy \ 
-         --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
-         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml \
-         --parameter-overrides UseAccessKeyForAuthentication=false EksClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \
-         --capabilities CAPABILITY_NAMED_IAM
-  when: checkstack1 | failed
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}"
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml"
+     template_parameters:
+        UseAccessKeyForAuthentication: "false"
+        EksClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+     region: "{{ REGION }}"
 
 - name: "Register VPC ID"
   shell: |
@@ -85,20 +87,23 @@
           --output text
   register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
 
-- name: "Check Cloudformation Stack2"
-  shell: |
-     aws cloudformation list-stacks --query 'StackSummaries[?StackStatus==`CREATE_COMPLETE`]'  | jq -r .[].StackName | grep {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}
-  register: checkstack2
-  ignore_errors: True
+#- name: "Setup Managed Account"
+#  shell: |
+#     aws cloudformation deploy \
+#         --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
+#         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml \
+#         --parameter-overrides AuthArn={{ E_S_AUTH_ARN.stdout }} ManagingAccountId={{ E_S_MANAGING_ACCOUNT_ID.stdout }} \
+#         --capabilities CAPABILITY_NAMED_IAM
 
 - name: "Setup Managed Account"
-  shell: |
-     aws cloudformation deploy \
-         --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
-         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml \
-         --parameter-overrides AuthArn={{ E_S_AUTH_ARN.stdout }} ManagingAccountId={{ E_S_MANAGING_ACCOUNT_ID.stdout }} \
-         --capabilities CAPABILITY_NAMED_IAM
-  when: checkstack2 | failed
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}"
+     state: "present"
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml"
+     template_parameters:
+        AuthArn: "{{ E_S_AUTH_ARN.stdout }}"
+        ManagingAccountId: "{{ E_S_MANAGING_ACCOUNT_ID.stdout }}"
+     region: "{{ REGION }}"
 
 - name: "Create .kube dir"
   file:
@@ -152,21 +157,37 @@
      hal config provider kubernetes account add kubernetes-master --provider-version v2 --context $(kubectl config current-context) && \
      hal config features edit --artifacts true
 
+#- name: "Deploy EC2 NodeGroup"
+#  shell: |
+#     aws cloudformation deploy \ 
+#         --stack-name {{ EKS.SPINNAKER.EC2_NODEGROUP }} \ 
+#         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-nodegroup.yaml \
+#         --parameter-overrides NodeInstanceProfile={{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN }} \
+#                               NodeInstanceType={{ EKS.CLUSTER.FLAVOR }} \
+#                               ClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \ 
+#                               NodeGroupName={{ EKS.SPINNAKER.EC2_NODEGROUP }} \
+#                               ClusterControlPlaneSecurityGroup={{ E_S_CONTROL_PLANE_SG }} \
+#                               Subnets={{ E_S_CONTROL_SUBNETS }} \
+#                               VpcId={{ E_S_VPC_ID }} \
+#                               NodeAutoScalingGroupMinSize={{ EKS.CLUSTER.MIN_NODE }} \
+#                               NodeAutoScalingGroupMaxSize={{ EKS.CLUSTER.MAX_NODE }} \
+#         --capabilities CAPABILITY_NAMED_IAM
+
 - name: "Deploy EC2 NodeGroup"
-  shell: |
-     aws cloudformation deploy \ 
-         --stack-name {{ EKS.SPINNAKER.EC2_NODEGROUP }} \ 
-         --template-file {{ ansible_env.PWD }}/files/eks-spinnaker-nodegroup.yaml \
-         --parameter-overrides NodeInstanceProfile={{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN }} \
-                               NodeInstanceType={{ EKS.CLUSTER.FLAVOR }} \
-                               ClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \ 
-                               NodeGroupName={{ EKS.SPINNAKER.EC2_NODEGROUP }} \
-                               ClusterControlPlaneSecurityGroup={{ E_S_CONTROL_PLANE_SG }} \
-                               Subnets={{ E_S_CONTROL_SUBNETS }} \
-                               VpcId={{ E_S_VPC_ID }} \
-                               NodeAutoScalingGroupMinSize={{ EKS.CLUSTER.MIN_NODE }} \
-                               NodeAutoScalingGroupMaxSize={{ EKS.CLUSTER.MAX_NODE }} \
-         --capabilities CAPABILITY_NAMED_IAM
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-nodegroup.yaml"
+     template_parameters:
+        NodeInstanceProfile: "{{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN }}"
+        NodeInstanceType: "{{ EKS.CLUSTER.FLAVOR }}"
+        ClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+        NodeGroupName: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+        ClusterControlPlaneSecurityGroup: "{ E_S_CONTROL_PLANE_SG }}"
+        Subnet: "{{ E_S_CONTROL_SUBNETS }}"
+        VpcId: "{{ E_S_VPC_ID }}"
+        NodeAutoScalingGroupMinSize: "{{ EKS.CLUSTER.MIN_NODE }}"
+        NodeAutoScalingGroupMaxSize: "{{ EKS.CLUSTER.MAX_NODE }}"
+     region: "{{ REGION }}"
 
 - name: "Create AWS Auth Configmap Template"
   template:
