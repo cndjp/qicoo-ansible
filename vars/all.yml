@@ -30,8 +30,8 @@ HAL_CLI:
 
 ## aws resource
 S3:
-  BASE:
-    BUCKET: qicoo-bucket-01
+  BACKUP:
+    BUCKET: qicoo-backupbucket-01
   SPINNAKER:
     BUCKET: qicoo-spinnakerbucket-01
 
