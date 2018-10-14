@@ -15,7 +15,7 @@ preferences: {}
 users:
 - name: aws
   user:
-    exec:
+    exec: heptio-authenticator-aws
       apiVersion: client.authentication.k8s.io/v1alpha1
       command: {{ AWS_IAM_AUTH_CLI.FILE_NAME }}
       args:
