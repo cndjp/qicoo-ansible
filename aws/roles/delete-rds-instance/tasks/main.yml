@@ -1,9 +1,8 @@
 - name: "Delete RDS Instance"
-  shell: |     
-    aws rds delete-db-instance \
-         --db-instance-identifier {{ RDS.NODE_NAME }} \
-         --skip-final-snapshot
-
+  rds:
+     command: delete
+     instance_name: "{{ RDS.NODE_NAME }}"
+     region: "{{ REGION }}"
   register: result
 
 - debug: var=result.stdout_lines
