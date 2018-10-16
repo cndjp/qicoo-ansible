@@ -10,6 +10,12 @@ ansibleうんとかなんとかコマンド打つのが面倒なので便利な�
 $ alias a="ansible-playbook -i localhost, -c local"
 ```
 
+普通はこんな風にコマンドを打つ発動する事を想定。
+
+```
+$ a cli/install-aws-cli.yml
+```
+
 ## パラメータ
 
 ほぼ全て
@@ -20,13 +26,6 @@ $ vim vars/all.yml
 暗号化されたクレデンシャル情報
 ```
 $ vim vars/all.yml
-```
-
-
-普通はこんな風にコマンドを打つ発動する事を想定。
-
-```
-$ a cli/install-aws-cli.yml
 ```
 
 ## デプロイする
