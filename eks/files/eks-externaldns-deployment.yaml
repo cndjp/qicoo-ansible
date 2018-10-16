@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: external-dns
+  name: external-dns
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      serviceAccountName: external-dns # 作成したServiceAccountを指定
+      containers:
+      - name: external-dns
+        image: registry.opensource.zalan.do/teapot/external-dns:latest
+        args:
+        - --source=service # serviceとingressを対象にする
+        - --source=ingress
+        - --domain-filter=qicoo.tokyo #namespaceと同じ値を持つドメインの場合は登録する
+        - --provider=aws-sd #Route53のServiceDiscoveryに登録
+        - --aws-zone-type=private #privateのdns-namespaceを使用するため。publicのものを使用する場合はpublic
+        - --txt-owner-id=my-cluster-id
+        env:
+        - name: AWS_REGION
+          value: us-west-2
