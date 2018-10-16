@@ -175,3 +175,26 @@
   shell: |
      kubectl apply -f {{ ansible_env.PWD }}/files/eks-awsauth-configmap.yaml
 
+- name: "Assing EKS DOMAIN_NAME & VPC"
+  shell: |
+     aws servicediscovery create-public-dns-namespace --name qicoo.tokyo
+
+- name: "Register Spinnaker Private NamespaceN"
+  shell: |
+     aws servicediscovery list-namespaces \
+          --query  'Namespaces[?Name==`qicoo.tokyo`].Id' \
+          --output text
+  register: E_S_NAMESPACE
+
+- name: "Assing EKS DOMAIN_NAME & IP"
+  shell: |
+     aws servicediscovery create-service --name www --dns-config "NamespaceId={{ E_S_NAMESPACE }},RoutingPolicy=WEIGHTED,DnsRecords=[{Type=A,TTL=60}]"
+
+- name: "Deploy external-dns serviceacount"
+  shell:
+     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-serviceaccount.yaml
+
+- name: "Deploy external-dns Deployment"
+  shell:
+     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-deployment.yaml
+
