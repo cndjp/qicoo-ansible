@@ -30,19 +30,23 @@ HAL_CLI:
 
 ## aws resource
 S3:
-  BUCKET: qicoo-bucket-01
+  BACKUP:
+    BUCKET: qicoo-backupbucket-01
+  SPINNAKER:
+    BUCKET: qicoo-spinnakerbucket-01
 
 EKS:
   SPINNAKER:
     MANAGED_ACOUNT_STACK: spinnaker-managed-infrastructure-setup
     MANAGING_ACOUNT_STACK: spinnaker-managing-infrastructure-setup
+    EC2_NODEGROUP: spinnaker-eks-nodes
     SERVICE_ACOUNT: spinnaker-service-account
     CONTEXT: aws
   CLUSTER:
     CLUSTER_NAME: qicoo-eks-01
-    NODE: 1
-    MIN_NODE: 1
-    MAX_NODE: 1 
+    NODE: 3
+    MIN_NODE: 3
+    MAX_NODE: 3 
     FLAVOR: t2.medium  
 
 RDS:
@@ -57,3 +61,16 @@ ELASTIC_CACHE:
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
+
+## Slack Informing
+SLACK:
+   BOT_NAME: qicoo-spinnaker-bot
+
+## Docker
+DOCKER_HUB:
+   ADDRESS: index.docker.io
+   REPOSITORIES: qicoo-docker-repo
+
+## Kayenta
+KAYENTA:
+   USER: qicoo-kayenta-user

@@ -1,0 +1,23 @@
+- name: "kubectl download"
+  become: yes
+  get_url: url={{ KUBECTL_CLI.URL }} dest={{ GET_URL_TEMP_DIRECTORY }}
+
+- name: "kubectl chmod"
+  become: yes
+  file: dest={{ GET_URL_TEMP_DIRECTORY }}/{{ KUBECTL_CLI.FILE_NAME }} mode=a+x
+
+- name: "kubectl move"
+  become: yes
+  shell: sudo mv {{ GET_URL_TEMP_DIRECTORY }}/{{ KUBECTL_CLI.FILE_NAME }} /bin/{{ KUBECTL_CLI.FILE_NAME }}
+
+- name: "aws-iam-authenticator download"
+  become: yes
+  get_url: url={{ AWS_IAM_AUTH_CLI.URL }} dest={{ GET_URL_TEMP_DIRECTORY }}
+
+- name: "aws-iam-authenticator chmod"
+  become: yes
+  file: dest={{ GET_URL_TEMP_DIRECTORY }}/{{ AWS_IAM_AUTH_CLI.FILE_NAME }} mode=a+x
+
+- name: "aws-iam-authenticator move"
+  become: yes
+  shell: sudo mv {{ GET_URL_TEMP_DIRECTORY }}/{{ AWS_IAM_AUTH_CLI.FILE_NAME }} /bin/{{ AWS_IAM_AUTH_CLI.FILE_NAME }}

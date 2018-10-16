@@ -1,10 +1,13 @@
 - name: "Setup EKS Cluster & Managing Account"
-  shell: |
-     aws cloudformation deploy \ 
-         --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
-         --template-file ./files/eks-spinakker-managing.yml \
-         --parameter-overrides UseAccessKeyForAuthentication=false EksClusterName={{ EKS.CLUSTER.CLUSTER_NAME }} \
-         --capabilities CAPABILITY_NAMED_IAM
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }}"
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-managing.yaml"
+     disable_rollback: true
+     template_parameters:
+        UseAccessKeyForAuthentication: "false"
+        EksClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+     region: "{{ REGION }}"
+
 
 - name: "Register VPC ID"
   shell: |
@@ -12,7 +15,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query 'Stacks[0].Outputs[?OutputKey==`VpcId`].OutputValue' \ 
           --output text
-  register: EKS.SPINNAKER.VPC_ID
+  register: E_S_VPC_ID
 
 - name: "Register Secrity Group"
   shell: |
@@ -20,7 +23,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SecurityGroups`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.CONTROL_PLANE_SG
+  register: E_S_CONTROL_PLANE_SG
 
 - name: "Register Auth ARN"
   shell: |
@@ -28,7 +31,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`AuthArn`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.AUTH_ARN
+  register: E_S_AUTH_ARN
 
 - name: "Register Subnets"
   shell: |
@@ -36,7 +39,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SubnetIds`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.SUBNETS
+  register: E_S_SUBNETS
 
 - name: "Register Managing id"
   shell: |
@@ -44,7 +47,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`ManagingAccountId`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.MANAGING_ACCOUNT_ID
+  register: E_S_MANAGING_ACCOUNT_ID
 
 - name: "Register EKS Cluster Endpoint"
   shell: |
@@ -52,7 +55,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterEndpoint`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CLUSTER_ENDPOINT
+  register: E_S_EKS_CLUSTER_ENDPOINT
 
 - name: "Register EKS Cluster Name"
   shell: |
@@ -60,7 +63,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterName`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CLUSTER_NAME
+  register: E_S_EKS_CLUSTER_NAME
 
 - name: "Register EKS CA Data"
   shell: |
@@ -68,7 +71,7 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`EksClusterCA`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.EKS_CA_DATA
+  register: E_S_EKS_CA_DATA
 
 - name: "Register Spinnaker Instance Profile ARN"
   shell: |
@@ -76,15 +79,18 @@
           --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
           --query  'Stacks[0].Outputs[?OutputKey==`SpinnakerInstanceProfileArn`].OutputValue' \
           --output text
-  register: EKS.SPINNAKER.SPINNAKER_INSTANCE_PROFILE_ARN
+  register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
 
 - name: "Setup Managed Account"
-  shell: |
-     aws cloudformation deploy \
-         --stack-name {{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }} \
-         --template-file ./files/eks-spinakker-managing.yml \
-         --parameter-overrides AuthArn={{ EKS.SPINNAKER.AUTH_ARN.stdout_lines }} ManagingAccountId={{ EKS.SPINNAKER.MANAGING_ACCOUNT_ID.stdout_lines }} \
-         --capabilities CAPABILITY_NAMED_IAM
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.MANAGED_ACOUNT_STACK }}"
+     state: "present"
+     disable_rollback: true
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-managed.yaml"
+     template_parameters:
+        AuthArn: "{{ E_S_AUTH_ARN.stdout }}"
+        ManagingAccountId: "{{ E_S_MANAGING_ACCOUNT_ID.stdout }}"
+     region: "{{ REGION }}"
 
 - name: "Create .kube dir"
   file:
@@ -104,7 +110,7 @@
 
 - name: "Create Namespace"
   shell: |
-     kubectl create namespace spinnaker
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-spinnaker-namespace.yaml
 
 - name: "Create Spinakker Service Account"
   shell: |
@@ -117,17 +123,55 @@
         --context {{ EKS.SPINNAKER.CONTEXT }} \
         -n spinnaker \
         -o jsonpath='{.secrets[0].name}' 
-  register: EKS.SPINNAKER.SECRET
+  register: E_S_SECRET
 
 - name: "Register EKS Token"
   shell: |
-     kubectl get secret {{ EKS.SPINNAKER.SECRET.stdout_lines }} \ 
+     kubectl get secret {{ E_S_SECRET.stdout }} \ 
         --context {{ EKS.SPINNAKER.CONTEXT }} \
         -n spinnaker \
         -o jsonpath='{.data.token}' | base64 --decode
-  register: EKS.SPINNAKER.TOKEN
+  register: E_S_TOKEN
 
 - name: "Setup Context User"
   shell: |
-     kubectl config set-credentials {{ EKS.SPINNAKER.CONTEXT }}-token-user --token {{ EKS.SPINNAKER.TOKEN.stdout_lines }} && \
-     kubectl config set-context $CONTEXT --user {{ EKS.SPINNAKER.CONTEXT }}-token-user
+     kubectl config set-credentials {{ EKS.SPINNAKER.CONTEXT }}-token-user --token {{ E_S_TOKEN.stdout }} && \
+     kubectl config set-context {{ EKS.SPINNAKER.CONTEXT }} --user {{ EKS.SPINNAKER.CONTEXT }}-token-user
+
+- name: "Setup Halyard CloudProvider"
+  shell: |
+     hal config provider kubernetes enable && \
+     hal config provider kubernetes account add kubernetes-master --provider-version v2 --context $(kubectl config current-context) && \
+     hal config features edit --artifacts true
+  ignore_errors: True
+
+- name: "Deploy EC2 NodeGroup"
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+     disable_rollback: true
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-nodegroup.yaml"
+     template_parameters:
+        NodeInstanceProfile: "{{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN.stdout }}"
+        NodeInstanceType: "{{ EKS.CLUSTER.FLAVOR }}"
+        ClusterName: "{{ E_S_EKS_CLUSTER_NAME.stdout }}"
+        NodeGroupName: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+        ClusterControlPlaneSecurityGroup: "{{ E_S_CONTROL_PLANE_SG.stdout }}"
+        Subnets: "{{ E_S_SUBNETS.stdout }}"
+        VpcId: "{{ E_S_VPC_ID.stdout }}"
+        NodeAutoScalingGroupMinSize: "{{ EKS.CLUSTER.MIN_NODE }}"
+        NodeAutoScalingGroupMaxSize: "{{ EKS.CLUSTER.MAX_NODE }}"
+     region: "{{ REGION }}"
+
+- name: "Create AWS Auth Configmap Template"
+  template:
+    src={{ ansible_env.PWD }}/template/eks-awsauth-configmap.yaml.j2
+    dest={{ ansible_env.PWD }}/files/eks-awsauth-configmap.yaml
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+  tags:
+    - alway
+
+- name: "Create AWS Auth Configmap"
+  shell: |
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-awsauth-configmap.yaml
+

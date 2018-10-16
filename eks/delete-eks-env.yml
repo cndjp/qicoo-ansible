@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - delete-eks-cluster
+    - delete-eks-env 
   vars_files:
     - ../vars/all.yml
