@@ -8,4 +8,4 @@
 
 - name: "hal install"
   become: yes
-  shell: sudo bash {{ GET_URL_TEMP_DIRECTORY }}/{{ HAL_CLI.SHELL }}
+  shell: bash {{ GET_URL_TEMP_DIRECTORY }}/{{ HAL_CLI.SHELL }}

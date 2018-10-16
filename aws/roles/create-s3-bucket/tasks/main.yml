@@ -1,11 +1,9 @@
-- name: "Create S3 Bucket"
-  shell: |
-     aws s3api create-bucket \
-         --bucket {{ S3.BUCKET }} \
-         --region {{ REGION }}
-  register: result
+- name: "Create S3 Backup Bucket"
+  s3_bucket:
+     name: "{{ S3.BACKUP.BUCKET }}"
+     region: "{{ REGION }}"
 
-- debug: var=result.stdout_lines
-  when: result | success
-  tags:
-    - always
+- name: "Create S3 SPINNAKER Bucket"
+  s3_bucket:
+     name: "{{ S3.SPINNAKER.BUCKET }}"
+     region: "{{ REGION }}"
