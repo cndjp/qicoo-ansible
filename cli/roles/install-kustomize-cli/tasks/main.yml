@@ -7,5 +7,5 @@
   file: dest={{ GET_URL_TEMP_DIRECTORY }}/{{ KUSTOMIZE_CLI.FILE_NAME }}_1.0.8_linux_amd64 mode=a+x
 
 - name: "kustomize move"
-  become: yse
+  become: yes
   shell: mv {{ GET_URL_TEMP_DIRECTORY }}/{{ KUSTOMIZE_CLI.FILE_NAME }}_1.0.8_linux_amd64 /bin/{{ KUSTOMIZE_CLI.FILE_NAME }}

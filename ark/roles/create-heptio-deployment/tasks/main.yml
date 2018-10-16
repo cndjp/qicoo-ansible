@@ -1,15 +1,25 @@
 - name: "Create Ark Env"
   shell: |
-     kubectl apply -f manifests/main/00-prereqs.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/manifests/main/00-prereqs.yaml
 
 - name: "Create Ark Secret"
   shell: |
-     kubectl create secret generic cloud-credentials --namespace heptio-ark --from-file cloud=~/.aws/credentials
+     kubectl create secret generic cloud-credentials --namespace heptio-ark --from-file cloud=/home/qicoo/.aws/credentials
+  ignore_errors: True
+
+- name: "Create Ark Config Manifest"
+  template:
+    src={{ ansible_env.PWD }}/template/10-ark-config.yaml.j2
+    dest={{ ansible_env.PWD }}/manifests/main/10-ark-config.yaml
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+  tags:
+    - always
 
 - name: "Create Ark Config"
   shell: |
-     kubectl apply -f manifests/main/10-ark-config.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/manifests/main/10-ark-config.yaml
 
 - name: "Create Ark Deployment"
   shell: |
-     kubectl apply -f manifests/main/20-deployment.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/manifests/main/20-deployment.yaml
