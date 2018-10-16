@@ -70,7 +70,7 @@ SLACK:
 ## Docker
 DOCKER_HUB:
    ADDRESS: index.docker.io
-   REPOSITORIES: qicoo-docker-repo
+   REPOSITORIES: qicoo-api
 
 ## Kayenta
 KAYENTA:
