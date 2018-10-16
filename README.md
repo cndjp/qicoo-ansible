@@ -3,7 +3,7 @@
 # qicoo-ansible
 qicoo-controller-01サーバから打つ事をにより発動するコントローラとそれをコード化したansibleで管理する。
 
-以下のコマンドは `qicoo-ansible` ディレクトリ配下で行う事を前提とする。
+以下のコマンドは `qicoo-ansible` レポジトリ配下で行う事を前提とする。
 
 ```
 $ cd qicoo-ansible
@@ -65,7 +65,7 @@ $ hal deploy apply
 $ hal deploy connect
 ```
 
-これでhttp://<qicoo-controller-01のIP>で見れる。
+これで `http://<qicoo-controller-01のIP>` で見れる。
 
 ### Arkでデプロイする
 
