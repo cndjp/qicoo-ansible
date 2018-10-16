@@ -3,6 +3,12 @@
 # qicoo-ansible
 qicoo-controller-01サーバから打つ事をにより発動するコントローラとそれをコード化したansibleで管理する。
 
+以下のコマンドは `qicoo-ansible` ディレクトリ配下で行う事を前提とする。
+
+```
+$ cd qicoo-ansible
+```
+
 ## Alias
 ansibleうんとかなんとかコマンド打つのが面倒なので便利なエイリアスを既に設定してあります。
 
