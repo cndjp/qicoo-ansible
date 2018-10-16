@@ -2,7 +2,6 @@
 ENV: production
 REGION: us-west-2
 GET_URL_TEMP_DIRECTORY: /tmp
-ARK_BACKUP_NAME: qicoo-backup
 WORK_USER:
   NAME: qicoo
   GROUP: qicoo
@@ -62,6 +61,14 @@ ELASTIC_CACHE:
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
+
+## ARK seting
+ARK:
+  BACKUP_NAME: qicoo-backup
+  BACKUP_SYNC_PERIOD: 30m
+  GC_SYNC_PERIOD: 30m
+  SCHEDULE_SYNC_PERIOD: 1m
+  RESTORE_ONLY_MODE: false
 
 ## Slack Informing
 SLACK:
