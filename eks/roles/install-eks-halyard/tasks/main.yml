@@ -6,11 +6,12 @@
 
 - name: "Setup Register S3 Bucket as a halyard Storage"
   shell: |
-     hal config storage s3 edit \
+     echo {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }} | hal config storage s3 edit \
          --access-key-id {{ SECRET.AWS.AWS_ACCESS_KEY_ID }} \
-         --secret-key-id {{ SECRET.AWS.AWS_SECRET_ACCESS_KEY }} \
+         --secret-access-key \
          --bucket {{ S3.SPINNAKER.BUCKET }} \
          --region {{ REGION }}
+  ignore_errors: True
 
 - name: "Setup Register S3 Bucket as a halyard Storage"
   shell: |
