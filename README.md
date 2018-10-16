@@ -4,10 +4,10 @@
 qicoo-controller-01サーバから打つ事をにより発動するコントローラとそれをコード化したansibleで管理する。
 
 ## Alias
-ansibleうんとかなんとかコマンド打つのが面倒なので便利なエイリアスに。
+ansibleうんとかなんとかコマンド打つのが面倒なので便利なエイリアスを既に設定してあります。
 
 ```
-$ alias a="ansible-playbook -i localhost, -c local
+$ alias a="ansible-playbook -i localhost, -c local"
 ```
 
 普通はこんな風にコマンドを打つ発動する事を想定。
