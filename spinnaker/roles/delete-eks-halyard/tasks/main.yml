@@ -1,0 +1,9 @@
+- name: "Delte Halyard"
+  shell: |
+     hal deploy clean
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+     - always

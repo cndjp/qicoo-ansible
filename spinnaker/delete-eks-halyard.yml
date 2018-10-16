@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - delte-eks-halyard 
+  vars_files:
+    - ../vars/all.yml
