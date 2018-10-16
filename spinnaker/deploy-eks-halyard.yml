@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - deploy-eks-halyard 
+  vars_files:
+    - ../vars/all.yml

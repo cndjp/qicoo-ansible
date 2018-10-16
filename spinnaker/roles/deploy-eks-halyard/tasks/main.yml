@@ -1,0 +1,14 @@
+- name: "Set Deploy Halyard Version"
+  shell: |
+     hal config version edit --version {{ SPINNAKER.VERSION }}
+  ignore_errors: True
+
+- name: "Deploy Halyard"
+  shell: |
+     hal deploy apply
+  register: result
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+     - always

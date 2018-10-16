@@ -42,6 +42,7 @@ EKS:
     EC2_NODEGROUP: spinnaker-eks-nodes
     SERVICE_ACOUNT: spinnaker-service-account
     CONTEXT: aws
+    VERSION: 1.9.5
   CLUSTER:
     CLUSTER_NAME: qicoo-eks-01
     NODE: 3
