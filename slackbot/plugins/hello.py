@@ -8,12 +8,12 @@ import subprocess
 def listen_func(message):
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
-    subprocess.run(["/home/qicoo/test.sh"])
+    subprocess.run(["/home/qicoo/qicoo-ansible/bat/all-up.sh"])
     message.reply('デプロイ終わったんじゃあないか。')
 
 @listen_to('下げて')
 def listen_func(message):
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('全部消す？そいつはグレートだぜ、ちょっと待ってな。')
-    subprocess.run(["/home/qicoo/test.sh"])
+    subprocess.run(["/home/qicoo/icoo-ansible/bat/all-down.sh"])
     message.reply('ほぅら、消し終わったぜ。')
