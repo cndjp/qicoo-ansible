@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ANSIBLE_CTL="ansible-playbook -i localhost, -c local"
+ANSIBLE_CTL="/home/qicoo/.local/bin/ansible-playbook -i localhost, -c local"
 TIMESTAMP=$(date "+%Y%m%d%H%M%S")
 ALLUP_LOG_DIR="/home/qicoo/qicoo-all-up/"
 
