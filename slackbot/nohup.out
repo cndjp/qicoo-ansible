@@ -1,217 +1,0 @@
-failed to handle message <@UB6P8MB4Y>さんがチャンネルのトピックを設定しました: 上げて:qicooのインフラを全部上げます。
-下げて:qicooのインフラを全部下げます。 with plugin "listen_func"
-Traceback (most recent call last):
-  File "/home/qicoo/.local/lib/python3.5/site-packages/slackbot/dispatcher.py", line 55, in _dispatch_msg_handler
-    func(Message(self._client, msg), *args)
-  File "/home/qicoo/qicoo-ansible/slackbot/plugins/hello.py", line 18, in listen_func
-    subprocess.run(["/home/qicoo/icoo-ansible/bat/all-down.sh"])
-  File "/usr/lib/python3.5/subprocess.py", line 383, in run
-    with Popen(*popenargs, **kwargs) as process:
-  File "/usr/lib/python3.5/subprocess.py", line 676, in __init__
-    restore_signals, start_new_session)
-  File "/usr/lib/python3.5/subprocess.py", line 1282, in _execute_child
-    raise child_exception_type(errno_num, err_msg)
-FileNotFoundError: [Errno 2] No such file or directory: '/home/qicoo/icoo-ansible/bat/all-down.sh'
-/home/qicoo/qicoo-ansible/bat/all-up.sh: line 10: ~/qicoo-all-up//qicoo-all-up_20181017113740.log: No such file or directory
-/home/qicoo/qicoo-ansible/bat/all-up.sh: line 11: ~/qicoo-all-up//qicoo-all-up_20181017113740.log: No such file or directory
-/home/qicoo/qicoo-ansible/bat/all-up.sh: line 12: ~/qicoo-all-up//qicoo-all-up_20181017113740.log: No such file or directory
-/home/qicoo/qicoo-ansible/bat/all-up.sh: line 13: ~/qicoo-all-up//qicoo-all-up_20181017113740.log: No such file or directory
-/home/qicoo/qicoo-ansible/bat/all-up.sh: line 14: ~/qicoo-all-up//qicoo-all-up_20181017113740.log: No such file or directory
-[0m
-[0m
-[2A[0m[0m[2K[0m[32m[1m+ [0m[1mGet current deployment[0m
-[0m[2K[0m  [0mSuccess[0m[0m
-[0m
-[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating halconfig with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating cndjpintegrate with DockerRegistryAccountValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating cndjpintegrate with DockerRegistryAccountValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating cndjpintegrate with DockerRegistryAccountValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mRunning validation[0m: Validating security with HalconfigValidator[0m[0m
-[2A[0m[0m[2K[0m[32m[1m+ [0m[1mPrep deployment[0m
-[0m[2K[0m  [0mSuccess[0m[0m
-[2K[0m[0mProblems in [0m[1mdefault.security[0m:[0m[0m
-[33m[1m- WARNING [0mYour UI or API domain does not have override base URLs
-  set even though your Spinnaker deployment is a Distributed deployment on a
-  remote cloud provider. As a result, you will need to open SSH tunnels against
-  that deployment to access Spinnaker.[0m[0m
-[35m[1m? [0mWe recommend that you instead configure an authentication
-  mechanism (OAuth2, SAML2, or x509) to make it easier to access Spinnaker
-  securely, and then register the intended Domain and IP addresses that your
-  publicly facing services will be using.[0m[0m
-[0m[0m
-[32m[1m+ [0mPreparation complete... deploying Spinnaker[0m[0m
-[0m
-[0m
-[2A[0m[0m[2K[0m[32m[1m+ [0m[1mGet current deployment[0m
-[0m[2K[0m  [0mSuccess[0m[0m
-[0m
-[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Building service endpoints[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for clouddriver[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 1 profile and discovered 0 custom profiles for deck[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for echo[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for echo[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for echo[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 4 profiles and discovered 0 custom profiles for front50[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 4 profiles and discovered 0 custom profiles for front50[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for gate[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for igor[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for kayenta[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 2 profiles and discovered 0 custom profiles for kayenta[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m^ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m* [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 0 profiles and discovered 0 custom profiles for redis[0m[0m
-[2A[0m[0m[2K[0m[34m[1m_ [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 17 profiles and discovered 0 custom profiles for rosco[0m[0m
-[2A[0m[0m[2K[0m[34m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mGenerating all Spinnaker profile files and endpoints[0m: Generated 17 profiles and discovered 0 custom profiles for rosco[0m[0m
-[2A[0m[0m[2K[0m[31m[1m- [0m[1mApply deployment[0m
-[0m[2K[0m  [0mFailure[0m[0m
-[2K[0m[0mProblems in [0m[1mGlobal[0m:[0m[0m
-[31m[1m! ERROR [0mFailed check for Namespace/spinnaker in null
-Unable to connect to the server: dial tcp: lookup
-  D59DF0E3D2FB28CCA0455F95F69CA7BD.sk1.us-west-2.eks.amazonaws.com on
-  169.254.169.254:53: no such host
-
-[0m[0m
-[0m[0m
-[31m[1m- [0mFailed to deploy Spinnaker.[0m[0m
