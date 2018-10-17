@@ -31,7 +31,7 @@ $ vim vars/all.yml
 
 暗号化されたクレデンシャル情報
 ```
-$ vim vars/all.yml
+$ vim vars/secret.yml
 ```
 
 ## デプロイする
