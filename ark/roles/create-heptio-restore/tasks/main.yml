@@ -1,6 +1,11 @@
+- name: "Register Last Dir"
+  shell: |
+    aws s3api list-objects --bucket {{ S3.BACKUP.BUCKET }} | jq -r .Contents[].Key | awk -F '[/]' '{print $1}' | uniq
+  register: RESTORE_DIR
+
 - name: "Create Ark Restore"
   shell: |
-     ark restore create --from-backup {{ ARK.BACKUP_NAME }} --include-namespace production,stagement
+    ark restore create --from-backup {{ RESTORE_DIR.stdout }} --include-namespaces {{ ARK.RESTORE_NAMESPACES }}
   register: result
 
 - debug: var=result.stdout_lines
