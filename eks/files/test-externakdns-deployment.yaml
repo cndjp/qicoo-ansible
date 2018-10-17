@@ -1,9 +1,15 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: nginx
+  namespace: test
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: www.qicoo.tokyo #service名.namespace名
+    external-dns.alpha.kubernetes.io/hostname: www.qicoo.tokyo
 spec:
   type: LoadBalancer
   ports:
@@ -17,6 +23,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nginx
+  namespace: test
 spec:
   template:
     metadata:

@@ -177,13 +177,13 @@
 
 - name: "Deploy External-dns Namespace"
   shell:
-     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-namespace.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-namespace.yaml
 
 - name: "Deploy External-dns Serviceacount"
   shell:
-     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-serviceaccount.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-serviceaccount.yaml
 
 - name: "Deploy External-dns Deployment"
   shell:
-     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-deployment.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-deployment.yaml
 

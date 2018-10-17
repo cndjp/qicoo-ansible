@@ -1,4 +1,4 @@
-- name: "Create EKS Cluster"
+- name: "Create RDS Instance"
   rds:
      command: create
      instance_name: "{{ RDS.NODE_NAME }}"

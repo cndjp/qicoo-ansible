@@ -4,6 +4,7 @@ metadata:
   labels:
     app: external-dns
   name: external-dns
+  namespace: external-dns
 spec:
   strategy:
     type: Recreate
