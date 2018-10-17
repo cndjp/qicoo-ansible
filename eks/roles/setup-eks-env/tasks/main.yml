@@ -175,7 +175,7 @@
   shell: |
      kubectl apply -f {{ ansible_env.PWD }}/files/eks-awsauth-configmap.yaml
 
-- name: "Assing EKS DOMAIN_NAME & VPC"
+- name: "Assign EKS DOMAIN_NAME & VPC"
   shell: |
      aws servicediscovery create-public-dns-namespace --name qicoo.tokyo
 
@@ -186,7 +186,7 @@
           --output text
   register: E_S_NAMESPACE
 
-- name: "Assing EKS DOMAIN_NAME & IP"
+- name: "Assign EKS DOMAIN_NAME & IP"
   shell: |
      aws servicediscovery create-service --name www --dns-config "NamespaceId={{ E_S_NAMESPACE }},RoutingPolicy=WEIGHTED,DnsRecords=[{Type=A,TTL=60}]"
 
