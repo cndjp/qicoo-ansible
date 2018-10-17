@@ -1,6 +1,6 @@
 - name: "Register Last Dir"
   shell: |
-    aws s3api list-objects --bucket qicoo-backupbucket-01 | jq -r .Contents[].Key | awk -F '[/]' '{print $1}' | uniq
+    aws s3api list-objects --bucket {{ S3.BACKUP.BUCKET }} | jq -r .Contents[].Key | awk -F '[/]' '{print $1}' | uniq
   register: RESTORE_DIR
 
 - name: "Create Ark Restore"
