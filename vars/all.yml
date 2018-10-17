@@ -62,7 +62,7 @@ ELASTIC_CACHE:
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
 
-## ARK seting
+## ARK setting
 ARK:
   BACKUP_NAME: qicoo-backup
   BACKUP_SYNC_PERIOD: 30m
