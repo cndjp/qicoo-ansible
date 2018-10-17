@@ -1,6 +1,6 @@
 - name: "Create Ark Restore"
   shell: |
-     ark restore create --from-backup {{ ARK_BACKUP_NAME }}
+     ark restore create --from-backup {{ ARK.BACKUP_NAME }} --include-namespace production,stagement
   register: result
 
 - debug: var=result.stdout_lines

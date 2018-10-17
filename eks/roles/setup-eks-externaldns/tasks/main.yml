@@ -1,0 +1,9 @@
+- name: "Register VPC ID"
+  shell: |
+     aws cloudformation describe-stacks \ 
+          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+          --query 'Stacks[0].Outputs[?OutputKey==`VpcId`].OutputValue' \ 
+          --output text
+  register: E_S_VPC_ID
+
+
