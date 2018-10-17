@@ -21,13 +21,13 @@ metadata:
 persistentVolumeProvider:
   name: aws
   config:
-    region: us-east-1
+    region: {{ REGION }}
 backupStorageProvider:
   name: aws
-  bucket: qicoo-bucket-01
+  bucket: {{ S3.BACKUP.BUCKET }}
   config:
-    region: us-east-1
-#backupSyncPeriod: 30m
-#gcSyncPeriod: 30m
-#scheduleSyncPeriod: 1m
-#restoreOnlyMode: false
+    region: {{ REGION }}
+backupSyncPeriod: {{ ARK.BACKUP_SYNC_PERIOD }}
+gcSyncPeriod: {{ ARK.GC_SYNC_PERIOD }}
+scheduleSyncPeriod: {{ ARK.SCHEDULE_SYNC_PERIOD }}
+restoreOnlyMode: {{ ARK.RESTORE_ONLY_MODE }}

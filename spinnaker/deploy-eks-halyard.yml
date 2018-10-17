@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - create-heptio-backup
+    - deploy-eks-halyard 
   vars_files:
     - ../vars/all.yml
