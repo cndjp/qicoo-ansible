@@ -1,6 +1,6 @@
 - name: "Create Ark Backup"
   shell: |
-     ark backup create {{ ARK.BACKUP_NAME }}-{{ lookup('pipe','date +%Y%m%d') }}
+     ark backup create {{ ARK.BACKUP_NAME }}-{{ lookup('pipe','date +%Y%m%d%H%M%S') }}
   register: result
 
 - debug: var=result.stdout_lines
