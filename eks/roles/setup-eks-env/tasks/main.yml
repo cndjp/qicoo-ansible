@@ -94,7 +94,7 @@
 
 - name: "Create .kube dir"
   file:
-    dest=~/.kube/
+    dest=/home/qicoo/.kube/
     state=directory
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
@@ -102,7 +102,7 @@
 - name: "Create K8S Config"
   template:
     src={{ ansible_env.PWD }}/template/config.j2
-    dest=~/.kube/config
+    dest=/home/qicoo/.kube/config
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
   tags:
@@ -110,7 +110,7 @@
 
 - name: "Create Namespace"
   shell: |
-     kubectl apply -f {{ ansible_env.PWD }}/files/eks-spinnaker-namespace.yaml
+     kubectl  apply -f {{ ansible_env.PWD }}/files/eks-spinnaker-namespace.yaml
 
 - name: "Create Spinakker Service Account"
   shell: |

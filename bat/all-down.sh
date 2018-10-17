@@ -1,5 +1,10 @@
 #!/bin/bash
 PATH=${PATH}:/home/qicoo/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/usr/local/bin:/usr/bin
+export KUBECONFIG=/home/qicoo/.kube/config
+alias a='ansible-playbook -i localhost, -c local'
+export AWS_CONFIG_FILE=/home/qicoo/.aws/config
+export AWS_SHARED_CREDENTIALS_FILE=/home/qicoo/.aws/credentials
+
 
 ANSIBLE_CTL="/home/qicoo/.local/bin/ansible-playbook -i localhost, -c local"
 TIMESTAMP=$(date "+%Y%m%d%H%M%S")
