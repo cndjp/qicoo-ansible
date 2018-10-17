@@ -36,6 +36,12 @@ $ vim vars/all.yml
 
 ## デプロイする
 
+### 全部デプロイする
+
+```
+$ bat/all-up.sh
+```
+
 ### EKS以外のAWSリソースをデプロイする
 
 
@@ -85,7 +91,13 @@ $ a ark/create-heptio-backup.yml
 $ a ark/create-heptio-restore.yml
 ```
 
-## 削除する。
+## 削除する
+
+### 全部削除する
+
+```
+$ bat/all-down.sh
+```
 
 ### EKS以外のAWSリソースを削除する
 
