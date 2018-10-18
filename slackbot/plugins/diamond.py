@@ -7,6 +7,20 @@ import subprocess
 import os
 import requests
 
+def file2slack(filename, path):
+    files = {'file': open(path, 'rb')}
+    param = {
+        'token': subprocess.check_output('cat /home/qicoo/diamond_slack_token',shell=True).split(),
+        'channels': "GDG0S7V9R",
+        'filename': filename,
+        'title': filename
+    }
+    requests.post(url="https://slack.com/api/files.upload",params=param, files=files) 
+
+def list2exec(cmdlist):
+    for cmd in cmdlist:
+        os.sytem(cmd)
+
 @respond_to('テスト')
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
@@ -26,23 +40,13 @@ def mention_func(message):
     title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
     cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 --output table >> ' + log_file_path
 
+    cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4]
+    list2exec(cmdlist)
+
     message.send('グレートだぜ！！！！！')
     message.send('出しな・・・てめーの・・・「全て」をよぉ・・・・！')
-    os.system(title1)
-    os.system(cmd1)
-    os.system(title2)
-    os.system(cmd2)
-    os.system(title3)
-    os.system(cmd3)
 
-    files = {'file': open(log_file_path, 'rb')}
-    param = {
-        'token': subprocess.check_output('cat /home/qicoo/diamond_slack_token',shell=True).split(),
-        'channels': "GDG0S7V9R",
-        'filename': log_file,
-        'title': log_file
-    }
-    requests.post(url="https://slack.com/api/files.upload",params=param, files=files)
+    file2slack(log_file, log_file_path)
 
 @respond_to('上げて')
 def mention_func(message):
@@ -57,15 +61,7 @@ def mention_func(message):
     os.system(cmd)
     message.reply('デプロイ終わったんじゃあないか。')
 
-    files = {'file': open(log_file_path, 'rb')}
-    param = {
-        'token': subprocess.check_output('cat /home/qicoo/diamond_slack_token',shell=True).split(),
-        'channels': "GDG0S7V9R",
-        'filename': log_file,
-        'title': log_file
-    }
-    requests.post(url="https://slack.com/api/files.upload",params=param, files=files)
-
+    file2slack(log_file, log_file_path)
 
 @respond_to('下げて')
 def mention_func(message):
@@ -80,11 +76,4 @@ def mention_func(message):
     os.system(cmd)
     message.reply('ほぅら、消し終わったぜ。')
 
-    files = {'file': open(log_file_path, 'rb')}
-    param = {
-    	'token': subprocess.check_output('cat /home/qicoo/diamond_slack_token',shell=True).split(),
-        'channels': "GDG0S7V9R",
-    	'filename': log_file,
-    	'title': log_file
-    }
-    requests.post(url="https://slack.com/api/files.upload",params=param, files=files)
+    file2slack(log_file, log_file_path)
