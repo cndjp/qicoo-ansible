@@ -19,11 +19,39 @@ def file2slack(filename, path):
 
 def list2exec(cmdlist):
     for cmd in cmdlist:
-        os.sytem(cmd)
+        os.system(cmd)
 
 @respond_to('テスト')
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
+
+@respond_to('戻して')
+def mention_func(message):
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-ark-restore_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-ark-restore/' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-restore.sh  ' + log_file
+
+    message.send('クレイジーダイアモンドォオオオオオオオ！！！')
+    os.system(cmd)
+    message.reply('よく分からねえが、治っちまったと思うぜ。')
+
+    file2slack(log_file, log_file_path)
+
+@respond_to('覚えて')
+def mention_func(message):
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-ark-backup_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-ark-backup/' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-backup.sh  ' + log_file
+
+    message.send('了解〜〜〜〜〜〜！')
+    os.system(cmd)
+    message.reply('一生その形で生きていくんだな・・・お似合いだぜ！！')
+
+    file2slack(log_file, log_file_path)
 
 @respond_to('見せて')
 def mention_func(message):
@@ -38,7 +66,7 @@ def mention_func(message):
     title3 = 'sudo -u qicoo echo [Amazon ElastiCache] >> ' + log_file_path
     cmd3 = 'sudo -u qicoo /home/qicoo/.local/bin/aws elasticache describe-cache-clusters --output table >> ' + log_file_path
     title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
-    cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 --output table >> ' + log_file_path
+    cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 >> ' + log_file_path
 
     cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4]
     list2exec(cmdlist)
