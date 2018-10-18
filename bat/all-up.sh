@@ -5,11 +5,10 @@ export AWS_CONFIG_FILE=/home/qicoo/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=/home/qicoo/.aws/credentials
 
 ANSIBLE_CTL="/home/qicoo/.local/bin/ansible-playbook -i localhost, -c local --vault-password-file /home/qicoo/.vault_password"
-TIMESTAMP=$(date "+%Y%m%d%H%M%S")
 ALLUP_LOG_DIR="/home/qicoo/qicoo-all-up/"
 
 ALLUP_LOG_FILE+=${ALLUP_LOG_DIR}
-ALLUP_LOG_FILE+=qicoo-all-up_${TIMESTAMP}.log
+ALLUP_LOG_FILE+=${1}
 
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/aws/create-rds-instance.yml >> ${ALLUP_LOG_FILE}
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/aws/create-elasticache-cluster.yml >> ${ALLUP_LOG_FILE}
