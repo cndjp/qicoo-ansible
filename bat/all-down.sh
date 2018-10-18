@@ -1,7 +1,7 @@
 #!/bin/bash
 PATH=${PATH}:/home/qicoo/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/usr/local/bin:/usr/bin
 export KUBECONFIG=/home/qicoo/.kube/config
-alias a='ansible-playbook -i localhost, -c local'
+alias a='ansible-playbook -i localhost, -c local --vault-password-file /homw/qicoo/.vault_password'
 export AWS_CONFIG_FILE=/home/qicoo/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=/home/qicoo/.aws/credentials
 
