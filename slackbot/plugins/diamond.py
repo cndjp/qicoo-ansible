@@ -23,6 +23,8 @@ def mention_func(message):
     cmd2 = 'sudo -u qicoo /home/qicoo/.local/bin/aws rds describe-db-instances --output table >> ' + log_file_path
     title3 = 'sudo -u qicoo echo [Amazon ElastiCache] >> ' + log_file_path
     cmd3 = 'sudo -u qicoo /home/qicoo/.local/bin/aws elasticache describe-cache-clusters --output table >> ' + log_file_path
+    title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
+    cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 --output table >> ' + log_file_path
 
     message.send('グレートだぜ！！！！！')
     message.send('出しな・・・てめーの・・・「全て」をよぉ・・・・！')
