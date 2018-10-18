@@ -47,7 +47,7 @@ def mention_func(message):
     log_file_path = '/home/qicoo/qicoo-ark-backup/' + log_file
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-backup.sh  ' + log_file
 
-    message.send('了解〜〜〜〜〜〜！')
+    message.send('てめえのその身体、固めちまってもいいんだな？')
     os.system(cmd)
     message.reply('一生その形で生きていくんだな・・・お似合いだぜ！！')
 
