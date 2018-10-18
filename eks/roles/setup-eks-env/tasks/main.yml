@@ -140,9 +140,9 @@
 
 - name: "Setup Halyard CloudProvider"
   shell: |
-     hal config provider kubernetes enable && \
-     hal config provider kubernetes account add cndjpintegrate --provider-version v2 --context $(kubectl config current-context) && \
-     hal config features edit --artifacts true
+     hal -q config provider kubernetes enable && \
+     hal -q config provider kubernetes account add cndjpintegrate --provider-version v2 --context $(kubectl config current-context) && \
+     hal -q config features edit --artifacts true
   ignore_errors: True
 
 - name: "Deploy EC2 NodeGroup"
