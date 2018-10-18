@@ -10,7 +10,7 @@ ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml >> ${A
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/aws/create-rds-instance.yml >> ${ALLUP_LOG_FILE}
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/aws/create-elasticache-cluster.yml >> ${ALLUP_LOG_FILE}
 echo "hal config restore" >> ${ALLUP_LOG_FILE}
-/home/qicoo/qicoo-ansible/bat/hal-restore.sh
+/home/qicoo/qicoo-ansible/bat/hal-restore.sh >> ${ALLUP_LOG_FILE}
 echo "hal deploy apply" >> ${ALLUP_LOG_FILE}
-hal deploy apply
+hal deploy apply >> ${ALLUP_LOG_FILE}
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml >> ${ALLUP_LOG_FILE}
