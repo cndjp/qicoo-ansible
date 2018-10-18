@@ -33,9 +33,9 @@ def mention_func(message):
     log_file_path = '/home/qicoo/qicoo-ark-restore/' + log_file
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-restore.sh  ' + log_file
 
-    message.send('クレイジーダイアモンドォオオオオオオオ！！！')
+    message.send('ダラララララララララララララララ！！！')
     os.system(cmd)
-    message.reply('よく分からねえが、治っちまったと思うぜ。')
+    message.reply('よく分からねえが、元に戻っちまったと思うぜ。')
 
     file2slack(log_file, log_file_path)
 
@@ -47,7 +47,7 @@ def mention_func(message):
     log_file_path = '/home/qicoo/qicoo-ark-backup/' + log_file
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-backup.sh  ' + log_file
 
-    message.send('てめえのその身体、固めちまってもいいんだな？')
+    message.send('オーラオラオラオラオラオラオラオラ！！！！！！！！！`')
     os.system(cmd)
     message.reply('一生その形で生きていくんだな・・・お似合いだぜ！！')
 
