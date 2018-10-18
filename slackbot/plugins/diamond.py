@@ -7,6 +7,22 @@ import subprocess
 import os
 import requests
 
+def checkflag():
+    flag = open('/home/qicoo/qicoo-slackbot-flag', 'r')
+    text = flag.read()
+    flag.close()
+    return text
+
+def flag2zero():
+    flag = open('/home/qicoo/qicoo-slackbot-flag','w')
+    flag.write('0')
+    flag.close()
+
+def flag2one():
+    flag = open('/home/qicoo/qicoo-slackbot-flag','w')
+    flag.write('1')
+    flag.close()
+
 def file2slack(filename, path):
     files = {'file': open(path, 'rb')}
     param = {
@@ -27,6 +43,11 @@ def mention_func(message):
 
 @respond_to('戻して')
 def mention_func(message):
+    if checkflag() == '1':
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-ark-restore_' + now_str + '.log'
@@ -38,9 +59,16 @@ def mention_func(message):
     message.reply('よく分からねえが、元に戻っちまったと思うぜ。')
 
     file2slack(log_file, log_file_path)
+    flag2zero()
 
 @respond_to('覚えて')
 def mention_func(message):
+    if checkflag() == '1':
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-ark-backup_' + now_str + '.log'
@@ -52,9 +80,16 @@ def mention_func(message):
     message.reply('一生その形で生きていくんだな・・・お似合いだぜ！！')
 
     file2slack(log_file, log_file_path)
+    flag2zero()
 
 @respond_to('見せて')
 def mention_func(message):
+    if checkflag() == '1':
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-kubectl-getall_' + now_str + '.log'
@@ -75,9 +110,16 @@ def mention_func(message):
     message.send('出しな・・・てめーの・・・「全て」をよぉ・・・・！')
 
     file2slack(log_file, log_file_path)
+    flag2zero()
 
 @respond_to('上げて')
 def mention_func(message):
+    if checkflag() == '1':
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-all-up_' + now_str + '.log'
@@ -90,9 +132,16 @@ def mention_func(message):
     message.reply('デプロイ終わったんじゃあないか。')
 
     file2slack(log_file, log_file_path)
+    flag2zero()
 
 @respond_to('下げて')
 def mention_func(message):
+    if checkflag() == '1':
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-all-down_' + now_str + '.log'
@@ -105,3 +154,4 @@ def mention_func(message):
     message.reply('ほぅら、消し終わったぜ。')
 
     file2slack(log_file, log_file_path)
+    flag2zero()
