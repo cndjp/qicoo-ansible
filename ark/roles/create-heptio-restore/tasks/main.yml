@@ -8,7 +8,7 @@
     ark restore create --from-backup {{ RESTORE_DIR.stdout }} --include-namespaces {{ ARK.RESTORE_NAMESPACES }}
   until: result.stdout.find('submitted successfully') != -1
   retries: 5
-  delay: 10
+  delay: 100
   register: result
 
 
