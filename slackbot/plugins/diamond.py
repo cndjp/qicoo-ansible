@@ -7,21 +7,15 @@ import subprocess
 import os
 import requests
 
-def checkflag():
-    flag = open('/home/qicoo/qicoo-slackbot-flag', 'r')
-    text = flag.read()
-    flag.close()
-    return text
+flag = 0
 
 def flag2zero():
-    flag = open('/home/qicoo/qicoo-slackbot-flag','w')
-    flag.write('0')
-    flag.close()
+    global flag
+    flag = 0
 
 def flag2one():
-    flag = open('/home/qicoo/qicoo-slackbot-flag','w')
-    flag.write('1')
-    flag.close()
+    global flag
+    flag = 1
 
 def file2slack(filename, path):
     files = {'file': open(path, 'rb')}
@@ -43,7 +37,7 @@ def mention_func(message):
 
 @respond_to('戻して')
 def mention_func(message):
-    if checkflag() == '1':
+    if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
         return
 
@@ -63,7 +57,7 @@ def mention_func(message):
 
 @respond_to('覚えて')
 def mention_func(message):
-    if checkflag() == '1':
+    if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
         return
 
@@ -84,7 +78,7 @@ def mention_func(message):
 
 @respond_to('見せて')
 def mention_func(message):
-    if checkflag() == '1':
+    if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
         return
 
@@ -114,7 +108,7 @@ def mention_func(message):
 
 @respond_to('上げて')
 def mention_func(message):
-    if checkflag() == '1':
+    if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
         return
 
@@ -136,7 +130,7 @@ def mention_func(message):
 
 @respond_to('下げて')
 def mention_func(message):
-    if checkflag() == '1':
+    if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
         return
 
