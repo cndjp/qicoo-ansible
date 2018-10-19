@@ -48,7 +48,7 @@ def mention_func(message):
         message.send('http://35.197.62.33:39000')
         message.reply('繋げておいたぜ。')
     else 
-        message.reply('ん？もう「繋げで」るぞ？')
+        message.reply('ん？もう「繋げて」るぞ？')
 
 @respond_to("切って")
 def mention_func(message):
@@ -59,7 +59,7 @@ def mention_func(message):
         hal_connect_pid = 0
         message.reply('切っておいたぜ。')
     else
-        message.reply('オイオイオイ、まだ「繋げで」ねーよな？')
+        message.reply('オイオイオイ、まだ「繋げて」ねーよな？')
 
 @respond_to('戻して')
 def mention_func(message):
