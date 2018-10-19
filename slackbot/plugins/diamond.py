@@ -40,25 +40,25 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
+    global hal_connect_pid
     if hal_connect_pid == 0:
         message.send('物好きもいたもんだな・・・ほらよっ。')
         proc = Popen( 'hal deploy connect', shell=True )
-        global hal_connect_pid
         hal_connect_pid = proc.pid
         message.send('http://35.197.62.33:39000')
         message.reply('繋げておいたぜ。')
-    else 
+    else: 
         message.reply('ん？もう「繋げて」るぞ？')
 
 @respond_to("切って")
 def mention_func(message):
+    global hal_connect_pid
     if hal_connect_pid != 0:
         message.send('もういいのか？よし・・・。')
         os.kill(hal_connect_pid, signal.SIGTERM)
-        global hal_connect_pid
         hal_connect_pid = 0
         message.reply('切っておいたぜ。')
-    else
+    else:
         message.reply('オイオイオイ、まだ「繋げて」ねーよな？')
 
 @respond_to('戻して')
