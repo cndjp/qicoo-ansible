@@ -4,10 +4,13 @@ from slackbot.bot import respond_to     # @botname: で反応するデコーダ
 #from slackbot.bot import default_reply  # 該当する応答がない場合に反応するデコーダ
 from datetime import datetime
 import subprocess
+from subprocess import Popen
 import os
 import requests
+import signal
 
 flag = 0
+hal_connect_pid = 0 #ダミー
 
 def flag2zero():
     global flag
@@ -34,6 +37,29 @@ def list2exec(cmdlist):
 @respond_to('テスト')
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
+
+@respond_to('繋げて')
+def mention_func(message):
+    if hal_connect_pid == 0:
+        message.send('物好きもいたもんだな・・・ほらよっ。')
+        proc = Popen( 'hal deploy connect', shell=True )
+        global hal_connect_pid
+        hal_connect_pid = proc.pid
+        message.send('http://35.197.62.33:39000')
+        message.reply('繋げておいたぜ。')
+    else 
+        message.reply('ん？もう「繋いで」るぞ？')
+
+@respond_to("切って")
+def mention_func(message):
+    if hal_connect_pid != 0:
+        message.send('もういいのか？よし・・・。')
+        os.kill(hal_connect_pid, signal.SIGTERM)
+        global hal_connect_pid
+        hal_connect_pid = 0
+        message.reply('切っておいたぜ。')
+    else
+        message.reply('オイオイオイ、まだ「繋いで」ねーよな？')
 
 @respond_to('戻して')
 def mention_func(message):
