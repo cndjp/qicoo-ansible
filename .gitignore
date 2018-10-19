@@ -1,1 +1,4 @@
 *.retry
+.kube
+__pycache__
+*.pyc
