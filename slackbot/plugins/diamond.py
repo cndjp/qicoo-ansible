@@ -50,17 +50,6 @@ def mention_func(message):
     else: 
         message.reply('ん？もう「繋げて」るぞ？')
 
-@respond_to("切って")
-def mention_func(message):
-    global hal_connect_pid
-    if hal_connect_pid != 0:
-        message.send('もういいのか？よし・・・。')
-        os.kill(hal_connect_pid, signal.SIGTERM)
-        hal_connect_pid = 0
-        message.reply('切っておいたぜ。')
-    else:
-        message.reply('オイオイオイ、まだ「繋げて」ねーよな？')
-
 @respond_to('戻して')
 def mention_func(message):
     if flag == 1:
