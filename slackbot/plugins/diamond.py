@@ -88,6 +88,8 @@ def mention_func(message):
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-kubectl-getall_' + now_str + '.log'
     log_file_path = '/home/qicoo/qicoo-kubectl-getall/' + log_file
+    kube_config = 'kubeconfig'
+    kube_config_path = '/home/qicoo/.kube/config'
     title1 = 'sudo -u qicoo echo [kubectl] >> ' + log_file_path
     cmd1 = 'sudo -u qicoo kubectl get all --all-namespaces >> ' + log_file_path
     title2 = 'sudo -u qicoo echo [Amazon RDS for MySQL] >> ' + log_file_path
@@ -103,6 +105,7 @@ def mention_func(message):
     message.send('グレートだぜ！！！！！')
     message.send('出しな・・・てめーの・・・「全て」をよぉ・・・・！')
 
+    file2slack(kube_config, kube_config_path)
     file2slack(log_file, log_file_path)
     flag2zero()
 
