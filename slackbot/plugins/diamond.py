@@ -7,10 +7,9 @@ import subprocess
 from subprocess import Popen
 import os
 import requests
-import signal
+import psutil
 
 flag = 0
-hal_connect_pid = 0 #ダミー
 
 def flag2zero():
     global flag
@@ -19,6 +18,12 @@ def flag2zero():
 def flag2one():
     global flag
     flag = 1
+
+def kill(proc_pid):
+    process = psutil.Process(proc_pid)
+    for proc in process.children(recursive=True):
+        proc.kill()
+    process.kill()
 
 def file2slack(filename, path):
     files = {'file': open(path, 'rb')}
@@ -40,15 +45,10 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
-    global hal_connect_pid
-    if hal_connect_pid == 0:
-        message.send('物好きもいたもんだな・・・ほらよっ。')
-        proc = Popen( 'hal deploy connect', shell=True )
-        hal_connect_pid = proc.pid
-        message.send('http://35.197.62.33:39000')
-        message.reply('繋げておいたぜ。')
-    else: 
-        message.reply('ん？もう「繋げて」るぞ？')
+    message.send('物好きもいたもんだな・・・ほらよっ。')
+    Popen( 'hal deploy connect', shell=True )
+    message.send('http://35.197.62.33:39000')
+    message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
 def mention_func(message):
