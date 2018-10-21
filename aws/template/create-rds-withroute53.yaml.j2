@@ -1,9 +1,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   MasterUsername:
+    NoEcho: 'true'
     Description: RDS for MySQL Username
     Type: String
   MasterUserPassword:
+    NoEcho: 'true'
     Description: RDS for MySQL Password
     Type: String
 Resources:
