@@ -18,7 +18,7 @@ Parameters:
     Type: String
   VPCSecurityGroups:
     Type: String
-  HostedZoneId:
+  Route53HostedZoneId:
     Type: String
   Route53RDBName:
     Type: String
@@ -45,7 +45,7 @@ Resources:
   DatabaseDNSRecord:
     Type: "AWS::Route53::RecordSet"
     Properties:
-      HostedZoneId: !Ref HostedZoneId
+      HostedZoneId: !Ref Route53HostedZoneId
       Comment: "CNAME record for the db."
       Name:
         "Fn::Join":
