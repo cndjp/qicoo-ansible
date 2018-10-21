@@ -30,6 +30,13 @@ HAL_CLI:
   SHELL: InstallHalyard.sh
 
 ## aws resource
+ROUTE53:
+  QICOO_TOKYO:
+    HOSTED_ZONE_NAME: qicoo.tokyo
+    HOSTED_ZONE_ID: Z36M600IDI6K7I
+    ELASTIC_CACHE_NAME: ecache-01
+
+
 S3:
   BACKUP:
     BUCKET: qicoo-backupbucket-01
