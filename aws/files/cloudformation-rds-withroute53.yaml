@@ -2,41 +2,57 @@ AWSTemplateFormatVersion: "2010-09-09"
 Parameters:
   MasterUsername:
     NoEcho: 'true'
-    Description: RDS for MySQL Username
     Type: String
   MasterUserPassword:
     NoEcho: 'true'
-    Description: RDS for MySQL Password
+    Type: String
+  Engine:
+    Type: String
+  DBInstanceClass:
+    Type: String
+  AllocatedStorage:
+    Type: Number
+  DBInstanceIdentifier:
+    Type: String
+  DBSubnetGroupName:
+    Type: String
+  VPCSecurityGroups:
+    Type: String
+  HostedZoneId:
+    Type: String
+  Route53RDBName:
+    Type: String
+  Route53HostedZoneName:
     Type: String
 Resources:
   DatabaseInstance:
     Type: "AWS::RDS::DBInstance"
     Properties:
-      Engine: "{{ RDS.DB_ENGINE }}"
-      DBInstanceClass: "{{ RDS.FLAVOR }}"
-      AllocatedStorage: {{ RDS.DISK }}
+      Engine: !Ref Engine
+      DBInstanceClass: !Ref DBInstanceClass
+      AllocatedStorage: !Ref AllocatedStorage
       StorageType: gp2
-      DBInstanceIdentifier: "{{ RDS.NODE_NAME }}"
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !Ref MasterUserPassword
-      DBSubnetGroupName: "{{ RDS.SUBNET_GROUPS }}"
+      DBSubnetGroupName: !Ref DBSubnetGroupName
       PubliclyAccessible: true
       VPCSecurityGroups:
-        - "{{ RDS.SECURITY_GROUPS }}"
+        - !Ref VPCSecurityGroups
       CopyTagsToSnapshot: true
       BackupRetentionPeriod: 7
     DeletionPolicy: Snapshot
   DatabaseDNSRecord:
     Type: "AWS::Route53::RecordSet"
     Properties:
-      HostedZoneId: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_ID }}"
+      HostedZoneId: !Ref HostedZoneId
       Comment: "CNAME record for the db."
       Name:
         "Fn::Join":
           - ""
-          - - "{{ ROUTE53.QICOO_TOKYO.RDB_NAME }}"
+          - - !Ref Route53RDBName
             - "."
-            - "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"
+            - !Ref Route53HostedZoneName
             - "."
       Type: "CNAME"
       TTL: 300
