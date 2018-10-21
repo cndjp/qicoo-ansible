@@ -1,4 +1,4 @@
-- name: "Create RDS Instance"
+- name: "Create ElastiCache Cluster"
   cloudformation:
      stack_name: "{{ ELASTIC_CACHE.STACK_NAME }}"
      template: "{{ ansible_env.PWD }}/files/cloudformaiton-elasticache-withroute53.yaml"
