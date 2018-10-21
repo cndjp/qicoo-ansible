@@ -5,9 +5,9 @@ Parameters:
   Engine:
     Type: String
   EngineVersion:
-    Type: Number
-  NumCacheNodes:
     Type: String
+  NumCacheNodes:
+    Type: Number
   CacheNodeType:
     Type: String
   CacheParameterGroupName:
