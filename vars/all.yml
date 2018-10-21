@@ -36,7 +36,6 @@ ROUTE53:
     HOSTED_ZONE_ID: Z36M600IDI6K7I
     ELASTIC_CACHE_NAME: ecache-01
 
-
 S3:
   BACKUP:
     BUCKET: qicoo-backupbucket-01
@@ -71,10 +70,9 @@ ELASTIC_CACHE:
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
-  SUBNET_GROUP: "default"
-  SECURITY_GROUP: "sg-237c7351"
+  SUBNET_GROUP: default
+  SECURITY_GROUP: sg-237c7351
   
-
 ## ARK seting
 ARK:
   BACKUP_NAME: qicoo-backup
