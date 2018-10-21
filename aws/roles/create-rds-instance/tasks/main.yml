@@ -1,12 +1,20 @@
 - name: "Create RDS Instance"
-  rds:
-     command: create
-     instance_name: "{{ RDS.NODE_NAME }}"
-     db_engine: MySQL
-     instance_type: "{{ RDS.FLAVOR }}"
-     size: "{{ RDS.DISK }}"
-     username: "{{ SECRET.AWS.RDS_MYSQL_USER }}"
-     password: "{{ SECRET.AWS.RDS_MYSQL_PASSWORD }}"
+  cloudformation:
+     stack_name: "{{ RDS.STACK_NAME }}"
+     template: "{{ ansible_env.PWD }}/files/cloudformation-rds-withroute53.yaml"
+     disable_rollback: true
+     template_parameters:
+        MasterUsername: "{{ SECRET.AWS.RDS_MYSQL_USER }}"
+        MasterUserPassword: "{{ SECRET.AWS.RDS_MYSQL_PASSWORD}}"
+        Engine: "{{ RDS.DB_ENGINE }}"
+        DBInstanceClass: "{{ RDS.FLAVOR }}"
+        AllocatedStorage: {{ RDS.DISK }}
+        DBInstanceIdentifier: "{{ RDS.NODE_NAME }}"
+        DBSubnetGroupName: "{{ RDS.SUBNET_GROUPS }}"
+        VPCSecurityGroups: "{{ RDS.SECURITY_GROUPS }}"
+        Route53HostedZoneId: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_ID }}"
+        Route53RDBName: "{{ ROUTE53.QICOO_TOKYO.RDB_NAME }}"
+        Route53HostedZoneName: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"
      region: "{{ REGION }}"
   register: result
 
