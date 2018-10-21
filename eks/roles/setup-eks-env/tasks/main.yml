@@ -94,7 +94,7 @@
 
 - name: "Create .kube dir"
   file:
-    dest=~/.kube/
+    dest=/home/qicoo/.kube/
     state=directory
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
@@ -102,7 +102,7 @@
 - name: "Create K8S Config"
   template:
     src={{ ansible_env.PWD }}/template/config.j2
-    dest=~/.kube/config
+    dest=/home/qicoo/.kube/config
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
   tags:
@@ -110,7 +110,7 @@
 
 - name: "Create Namespace"
   shell: |
-     kubectl apply -f {{ ansible_env.PWD }}/files/eks-spinnaker-namespace.yaml
+     kubectl  apply -f {{ ansible_env.PWD }}/files/eks-spinnaker-namespace.yaml
 
 - name: "Create Spinakker Service Account"
   shell: |
@@ -141,9 +141,10 @@
 - name: "Setup Halyard CloudProvider"
   shell: |
      hal config provider kubernetes enable && \
-     hal config provider kubernetes account add kubernetes-master --provider-version v2 --context $(kubectl config current-context) && \
+     hal config provider kubernetes account add cndjpintegrate --provider-version v2 --context $(kubectl config current-context) && \
      hal config features edit --artifacts true
   ignore_errors: True
+  tags: no-routine
 
 - name: "Deploy EC2 NodeGroup"
   cloudformation:
@@ -175,26 +176,15 @@
   shell: |
      kubectl apply -f {{ ansible_env.PWD }}/files/eks-awsauth-configmap.yaml
 
-- name: "Assign EKS DOMAIN_NAME & VPC"
-  shell: |
-     aws servicediscovery create-public-dns-namespace --name qicoo.tokyo
-
-- name: "Register Spinnaker Private NamespaceN"
-  shell: |
-     aws servicediscovery list-namespaces \
-          --query  'Namespaces[?Name==`qicoo.tokyo`].Id' \
-          --output text
-  register: E_S_NAMESPACE
-
-- name: "Assign EKS DOMAIN_NAME & IP"
-  shell: |
-     aws servicediscovery create-service --name www --dns-config "NamespaceId={{ E_S_NAMESPACE }},RoutingPolicy=WEIGHTED,DnsRecords=[{Type=A,TTL=60}]"
-
-- name: "Deploy external-dns serviceacount"
+- name: "Deploy External-dns Namespace"
   shell:
-     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-serviceaccount.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-namespace.yaml
 
-- name: "Deploy external-dns Deployment"
+- name: "Deploy External-dns Serviceacount"
   shell:
-     kubectl apply -f {{ ansible_env.PWD }}/eks/files/eks-externaldns-deployment.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-serviceaccount.yaml
+
+- name: "Deploy External-dns Deployment"
+  shell:
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-deployment.yaml
 
