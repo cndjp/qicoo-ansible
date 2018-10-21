@@ -5,6 +5,8 @@ GET_URL_TEMP_DIRECTORY: /tmp
 WORK_USER:
   NAME: qicoo
   GROUP: qicoo
+AWSCTL_CONFIG: /home/qicoo/.aws/config
+KUBECTL_CONFIG: /home/qicoo/.kube/config
 
 ## cli installer
 KUBECTL_CLI:
@@ -69,6 +71,7 @@ ARK:
   GC_SYNC_PERIOD: 30m
   SCHEDULE_SYNC_PERIOD: 1m
   RESTORE_ONLY_MODE: false
+  RESTORE_NAMESPACES: production,staging
 
 ## Slack Informing
 SLACK:
