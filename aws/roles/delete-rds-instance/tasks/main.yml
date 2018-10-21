@@ -1,7 +1,7 @@
 - name: "Delete RDS Instance"
-     cloudformation:
-        stack_name:  "{{ RDS.STACK_NAME }}" 
-        state: "absent"
+  cloudformation:
+     stack_name:  "{{ RDS.STACK_NAME }}" 
+     state: "absent"
   register: result
 
 - debug: var=result.stdout_lines
