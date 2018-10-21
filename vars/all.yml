@@ -57,12 +57,16 @@ RDS:
   DISK: 20
 
 ELASTIC_CACHE:
+  STACK_NAME: elasticache-withroute53
   CLUSTER_NAME: qicoo-elasticache-01
   CLUSTER_NODE_TYPE: cache.t2.micro
   CACHE_ENGINE: redis
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
+  SUBNET_GROUP: "default"
+  SECURITY_GROUP: "sg-237c7351"
+  
 
 ## ARK seting
 ARK:
