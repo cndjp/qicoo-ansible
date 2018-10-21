@@ -58,7 +58,7 @@ EKS:
     FLAVOR: t2.medium  
 
 RDS:
-　STACK_NAME: rds-withroute53
+  STACK_NAME: rds-withroute53
   NODE_NAME: qicoo-rds-01
   DB_ENGINE: MySQL
   FLAVOR: db.t2.micro

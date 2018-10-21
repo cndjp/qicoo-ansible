@@ -8,7 +8,7 @@
         MasterUserPassword: "{{ SECRET.AWS.RDS_MYSQL_PASSWORD}}"
         Engine: "{{ RDS.DB_ENGINE }}"
         DBInstanceClass: "{{ RDS.FLAVOR }}"
-        AllocatedStorage: {{ RDS.DISK }}
+        AllocatedStorage: "{{ RDS.DISK }}"
         DBInstanceIdentifier: "{{ RDS.NODE_NAME }}"
         DBSubnetGroupName: "{{ RDS.SUBNET_GROUPS }}"
         VPCSecurityGroups: "{{ RDS.SECURITY_GROUPS }}"

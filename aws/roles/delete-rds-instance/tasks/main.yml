@@ -1,8 +1,7 @@
 - name: "Delete RDS Instance"
-  rds:
-     command: delete
-     instance_name: "{{ RDS.NODE_NAME }}"
-     region: "{{ REGION }}"
+     cloudformation:
+        stack_name:  "{{ RDS.STACK_NAME }}" 
+        state: "absent"
   register: result
 
 - debug: var=result.stdout_lines
