@@ -64,6 +64,26 @@ ELASTIC_CACHE:
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
 
+EC2_GROUP:
+  ECACHE_EC2_GROUP:
+    NAME: redis-securitygroup-01
+    DESCRIPTION: "Allow Redis Inbound"
+    SECURITY_GROUP_ID: sg-0976b554adbc9ae8a
+    VPC_ID: vpc-d7935daf
+    RULE_01:
+      PROTO: tcp
+      PORTS: 6379
+      CIDR_IP: 0.0.0.0/0
+  RDS_EC2_GROUP:
+    NAME: rds-securitygroup-01
+    DESCRIPTION: "Allow RDS Inbound"
+    SECURITY_GROUP_ID: sg-06632af243036e2d7
+    VPC_ID: vpc-d7935daf
+    RULE_01:
+      PROTO: tcp
+      PORTS: 3306
+      CIDR_IP: 0.0.0.0/0
+
 ## ARK seting
 ARK:
   BACKUP_NAME: qicoo-backup
