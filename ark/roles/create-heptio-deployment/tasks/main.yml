@@ -4,17 +4,16 @@
 
 - name: "Create Ark Secret"
   shell: |
-     kubectl create secret generic cloud-credentials --namespace heptio-ark --from-file cloud=/home/qicoo/.aws/credentials
-  ignore_errors: True
+     kubesec decrypt {{ ansible_env.PWD }}/manifests/main/05-secret.enc.yml | kubectl apply -f -
 
 - name: "Create Ark Config Manifest"
   template:
-    src={{ ansible_env.PWD }}/template/10-ark-config.yaml.j2
-    dest={{ ansible_env.PWD }}/manifests/main/10-ark-config.yaml
-    owner={{ WORK_USER.NAME }}
-    group={{ WORK_USER.GROUP }}
+     src={{ ansible_env.PWD }}/template/10-ark-config.yaml.j2
+     dest={{ ansible_env.PWD }}/manifests/main/10-ark-config.yaml
+     owner={{ WORK_USER.NAME }}
+     group={{ WORK_USER.GROUP }}
   tags:
-    - always
+     - always
 
 - name: "Create Ark Config"
   shell: |
