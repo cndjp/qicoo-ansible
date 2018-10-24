@@ -49,7 +49,7 @@ EKS:
     NODE: 3
     MIN_NODE: 3
     MAX_NODE: 3 
-    FLAVOR: t2.medium  
+    FLAVOR: t2.large 
 
 RDS:
   NODE_NAME: qicoo-rds-01
