@@ -45,8 +45,23 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
+    i=0
+    INCONNECTED=True
+
     message.send('物好きもいたもんだな・・・ほらよっ。')
     Popen( 'hal deploy connect', shell=True )
+    while INCONNECTED:
+       try:
+           r = requests.get(url="http://localhost:39000")
+           if r.status_code == 200:
+               INCONNECTED=False
+           except Exception:
+               if i < 10:
+                   i+=1
+                   time.sleep(2)
+               else:
+                   message.send('悪りぃ、上手く動いてねーみてぇだ')
+                   return
     message.send('http://35.197.62.33:39000')
     message.reply('繋げておいたぜ。')
 
