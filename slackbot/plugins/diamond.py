@@ -55,6 +55,9 @@ def mention_func(message):
            r = requests.get(url="http://localhost:39000")
            if r.status_code == 200:
                INCONNECTED=False
+           else:
+               message.send('悪りぃ、上手く動いてねーみてぇだ')
+               return
            except Exception:
                if i < 10:
                    i+=1
