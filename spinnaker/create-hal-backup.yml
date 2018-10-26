@@ -1,6 +1,0 @@
-- hosts: localhost
-  roles:
-    - install-eks-halyard 
-  vars_files:
-    - ../vars/all.yml
-    - ../vars/secret.yml

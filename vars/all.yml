@@ -71,7 +71,7 @@ ARK:
   GC_SYNC_PERIOD: 30m
   SCHEDULE_SYNC_PERIOD: 1m
   RESTORE_ONLY_MODE: false
-  RESTORE_NAMESPACES: production,staging
+  RESTORE_NAMESPACES: production,staging,kayenta-prometheus
 
 ## Slack Informing
 SLACK:
