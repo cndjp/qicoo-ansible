@@ -1,12 +1,20 @@
 - name: "Create ElastiCache Cluster"
-  elasticache:
-     name: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
-     state: present
-     engine: "{{ ELASTIC_CACHE.CACHE_ENGINE }}"
-     cache_engine_version: "{{ ELASTIC_CACHE.CACHE_ENGINE_VERSION }}"
-     node_type: "{{ ELASTIC_CACHE.CLUSTER_NODE_TYPE }}"
-     num_nodes: "{{ ELASTIC_CACHE.REPLICA_NODES }}"
-     region: "{{ REGION }}"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME }}"
+     template: "{{ ansible_env.PWD }}/files/cloudformaiton-elasticache-withroute53.yaml"
+     disable_rollback: true
+     template_parameters:
+        ClusterName: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
+        Engine: "{{ ELASTIC_CACHE.CACHE_ENGINE }}"
+        EngineVersion: "{{ ELASTIC_CACHE.CACHE_ENGINE_VERSION }}"
+        NumCacheNodes: "{{ ELASTIC_CACHE.REPLICA_NODES }}"
+        CacheNodeType: "{{ ELASTIC_CACHE.CLUSTER_NODE_TYPE }}"
+        CacheParameterGroupName: "{{ ELASTIC_CACHE.PARAMETER_GROUP }}"
+        CacheSubnetGroupName: "{{ ELASTIC_CACHE.SUBNET_GROUP }}"
+        VpcSecurityGroupIds: "{{ ELASTIC_CACHE.SECURITY_GROUP }}"
+        Route53HostedZoneId: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_ID }}"
+        Route53ECacheName: "{{ ROUTE53.QICOO_TOKYO.ELASTIC_CACHE_NAME }}"
+        Route53HostedZoneName: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"
   register: result
 
 - debug: var=result.stdout_lines
