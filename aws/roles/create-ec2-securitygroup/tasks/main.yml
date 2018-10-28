@@ -1,0 +1,21 @@
+- name: "Create ElastiCache Security Group"
+  ec2_group:
+     name: "{{ EC2_GROUP.ECACHE_EC2_GROUP.NAME }}"
+     description: "{{ EC2_GROUP.ECACHE_EC2_GROUP.DESCRIPTION }}"
+     region: "{{ REGION }}"
+     vpc_id: "{{ EC2_GROUP.ECACHE_EC2_GROUP.VPC_ID }}"
+     rules:
+        - proto: "{{ EC2_GROUP.ECACHE_EC2_GROUP.RULE_01.PROTO }}"
+          ports: "{{ EC2_GROUP.ECACHE_EC2_GROUP.RULE_01.PORTS }}"
+          cidr_ip: "{{ EC2_GROUP.ECACHE_EC2_GROUP.RULE_01.CIDR_IP }}"
+
+- name: "Create RDS Security Group"
+  ec2_group:
+     name: "{{ EC2_GROUP.RDS_EC2_GROUP.NAME }}"
+     description: "{{ EC2_GROUP.RDS_EC2_GROUP.DESCRIPTION }}"
+     region: "{{ REGION }}"
+     vpc_id: "{{ EC2_GROUP.RDS_EC2_GROUP.VPC_ID }}"
+     rules:
+        - proto: "{{ EC2_GROUP.RDS_EC2_GROUP.RULE_01.PROTO }}"
+          ports: "{{ EC2_GROUP.RDS_EC2_GROUP.RULE_01.PORTS }}"
+          cidr_ip: "{{ EC2_GROUP.RDS_EC2_GROUP.RULE_01.CIDR_IP }}"
