@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  ClusterName:
+    Type: String
+  Engine:
+    Type: String
+  EngineVersion:
+    Type: String
+  NumCacheNodes:
+    Type: Number
+  CacheNodeType:
+    Type: String
+  CacheParameterGroupName:
+    Type: String
+  CacheSubnetGroupName:
+    Type: String
+  VpcSecurityGroupIds:
+    Type: String
+  Route53HostedZoneId:
+    Type: String
+  Route53ECacheName:
+    Type: String
+  Route53HostedZoneName:
+    Type: String
+Resources:
+  ECacheRedis:
+    Type: 'AWS::ElastiCache::CacheCluster'
+    Properties:
+      ClusterName: !Ref ClusterName
+      Engine: !Ref Engine
+      EngineVersion: !Ref EngineVersion
+      NumCacheNodes: !Ref NumCacheNodes
+      AutoMinorVersionUpgrade: false
+      CacheNodeType: !Ref CacheNodeType
+      CacheParameterGroupName: !Ref CacheParameterGroupName
+      CacheSubnetGroupName: !Ref CacheSubnetGroupName
+      VpcSecurityGroupIds:
+        - !Ref VpcSecurityGroupIds
+  ECacheRedisDNSRecord:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      HostedZoneId: !Ref Route53HostedZoneId
+      Comment: "CNAME record for the db."
+      Name:
+        "Fn::Join":
+          - ""
+          - - !Ref Route53ECacheName
+            - "."
+            - !Ref Route53HostedZoneName
+            - "."
+      Type: "CNAME"
+      TTL: 300
+      ResourceRecords:
+        - "Fn::GetAtt": ["ECacheRedis", "RedisEndpoint.Address"]

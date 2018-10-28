@@ -1,6 +1,6 @@
 - name: "Delete ElastiCache Cluster"
-  elasticache:
-     name: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME }}"
      state: absent
   register: result
 
