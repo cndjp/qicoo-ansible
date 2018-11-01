@@ -161,6 +161,7 @@ Resources:
 # Creates a single subnet VPC
   SpinnakerVPC:
     Type: AWS::EC2::VPC
+    DeletionPolicy : Retain
     Properties:
       CidrBlock: !Ref 'SpinnakerVPCCIDR'
       EnableDnsSupport: 'true'
@@ -172,13 +173,16 @@ Resources:
           Value: SpinnakerVPC
   SpinnakerInternetGateway:
     Type: AWS::EC2::InternetGateway
+    DeletionPolicy : Retain
   SpinnakerAttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
+    DeletionPolicy : Retain
     Properties:
       VpcId: !Ref 'SpinnakerVPC'
       InternetGatewayId: !Ref 'SpinnakerInternetGateway'
   SpinnakerPublicSubnet1:
     Type: AWS::EC2::Subnet
+    DeletionPolicy : Retain
     Properties:
       VpcId: !Ref 'SpinnakerVPC'
       CidrBlock: !Ref SpinnakerPublicSubnet1CIDR
@@ -193,6 +197,7 @@ Resources:
             {"purpose": "public-subnet"}
   SpinnakerPublicSubnet2:
     Type: AWS::EC2::Subnet
+    DeletionPolicy : Retain
     Properties:
       VpcId: !Ref 'SpinnakerVPC'
       CidrBlock: !Ref SpinnakerPublicSubnet2CIDR
@@ -207,6 +212,7 @@ Resources:
             {"purpose": "public-subnet"}
   SpinnakerPublicRouteTable:
     Type: AWS::EC2::RouteTable
+    DeletionPolicy : Retain
     DependsOn:
       - SpinnakerVPC
       - SpinnakerAttachGateway
@@ -217,23 +223,27 @@ Resources:
           Value: Spinnaker Public Route Table
   SpinnakerPublicRoute:
     Type: AWS::EC2::Route
+    DeletionPolicy : Retain
     Properties:
       RouteTableId: !Ref 'SpinnakerPublicRouteTable'
       DestinationCidrBlock: '0.0.0.0/0'
       GatewayId: !Ref 'SpinnakerInternetGateway'
   SpinnakerPublicSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
+    DeletionPolicy : Retain
     Properties:
       SubnetId: !Ref SpinnakerPublicSubnet1
       RouteTableId: !Ref 'SpinnakerPublicRouteTable'
   SpinnakerPublicSubnet2RouteTableAssociation:
       Type: AWS::EC2::SubnetRouteTableAssociation
+      DeletionPolicy : Retain
       Properties:
         SubnetId: !Ref SpinnakerPublicSubnet2
         RouteTableId: !Ref 'SpinnakerPublicRouteTable'
 
   ControlPlaneSecurityGroup:
       Type: AWS::EC2::SecurityGroup
+      DeletionPolicy : Retain
       Condition: SupportEKS
       Properties:
         GroupDescription: Cluster communication with worker nodes
