@@ -7,7 +7,10 @@ import subprocess
 from subprocess import Popen
 import os
 import requests
+from psutil import process_iter
+from signal import SIGTERM # or SIGKILL
 import psutil
+import time
 
 flag = 0
 
@@ -45,8 +48,47 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
+    i=0
+    INCONNECTED=True
+
+    for proc in process_iter():
+        if proc.name() == 'kubectl':
+            for conns in proc.connections(kind='inet'):
+                if conns.laddr.port in [8084, 9000] :
+                    message.send('さっき繋いだ分が残ってたみてーだ、消しておくぜ。')
+                    try:
+                        proc.send_signal(SIGTERM)
+                    except Exception:
+                        continue
+                    if i < 10:
+                        i+=1
+                        time.sleep(1)
+                        continue 
+                    else:
+                        message.send('悪りぃ、上手く切れねーみてぇだ')
+                        return
+
     message.send('物好きもいたもんだな・・・ほらよっ。')
     Popen( 'hal deploy connect', shell=True )
+    while INCONNECTED:
+        try:
+            r = requests.get(url="http://127.0.0.1:39000")
+            if r.status_code == 200:
+                INCONNECTED=False
+            else:
+                if i < 10:
+                    i+=1
+                    time.sleep(2)
+                else:
+                    message.send('悪りぃ、上手く動いてねーみてぇだ')
+                    return
+        except Exception:
+            if i < 10:
+                i+=1
+                time.sleep(2)
+            else:
+                message.send('悪りぃ、上手く動いてねーみてぇだ')
+                return
     message.send('http://35.197.62.33:39000')
     message.reply('繋げておいたぜ。')
 
