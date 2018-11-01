@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Setup AWS CloudProvider for Spinnaker
 Parameters:
+  ControlPlaneSecurityGroup:
+    Type: String
+  SpinnakerPublicSubnet1:
+    Type: String
+  SpinnakerPublicSubnet2:
+    Type: String
   SpinnakerVPCCIDR:
     Description: CIDR Block for Developer VPC
     Type: String
@@ -158,97 +164,6 @@ Resources:
               #- arn:aws:iam::YOUR_MANAGED_ACCOUNT1:role/spinnakerManaged # Keep Adding Managed Accounts like this
       PolicyName: SpinnakerAssumeRolePolicy
 
-# Creates a single subnet VPC
-  SpinnakerVPC:
-    Type: AWS::EC2::VPC
-    DeletionPolicy : Retain
-    Properties:
-      CidrBlock: !Ref 'SpinnakerVPCCIDR'
-      EnableDnsSupport: 'true'
-      EnableDnsHostnames: 'true'
-      Tags:
-        - Key: VPC
-          Value: Spinnaker VPC
-        - Key: Name
-          Value: SpinnakerVPC
-  SpinnakerInternetGateway:
-    Type: AWS::EC2::InternetGateway
-    DeletionPolicy : Retain
-  SpinnakerAttachGateway:
-    Type: AWS::EC2::VPCGatewayAttachment
-    DeletionPolicy : Retain
-    Properties:
-      VpcId: !Ref 'SpinnakerVPC'
-      InternetGatewayId: !Ref 'SpinnakerInternetGateway'
-  SpinnakerPublicSubnet1:
-    Type: AWS::EC2::Subnet
-    DeletionPolicy : Retain
-    Properties:
-      VpcId: !Ref 'SpinnakerVPC'
-      CidrBlock: !Ref SpinnakerPublicSubnet1CIDR
-      AvailabilityZone: !Select
-        - '0'
-        - !GetAZs ''
-      Tags:
-        - Key: Name
-          Value: !Sub SpinnakerVPC.external.${AWS::Region}a
-        - Key: immutable_metadata # If you cannot name the VPC as done above, use this tag
-          Value: !Sub |
-            {"purpose": "public-subnet"}
-  SpinnakerPublicSubnet2:
-    Type: AWS::EC2::Subnet
-    DeletionPolicy : Retain
-    Properties:
-      VpcId: !Ref 'SpinnakerVPC'
-      CidrBlock: !Ref SpinnakerPublicSubnet2CIDR
-      AvailabilityZone: !Select
-        - '1'
-        - !GetAZs ''
-      Tags:
-        - Key: Name
-          Value: !Sub SpinnakerVPC.external.${AWS::Region}b
-        - Key: immutable_metadata
-          Value: !Sub |
-            {"purpose": "public-subnet"}
-  SpinnakerPublicRouteTable:
-    Type: AWS::EC2::RouteTable
-    DeletionPolicy : Retain
-    DependsOn:
-      - SpinnakerVPC
-      - SpinnakerAttachGateway
-    Properties:
-      VpcId: !Ref 'SpinnakerVPC'
-      Tags:
-        - Key: Name
-          Value: Spinnaker Public Route Table
-  SpinnakerPublicRoute:
-    Type: AWS::EC2::Route
-    DeletionPolicy : Retain
-    Properties:
-      RouteTableId: !Ref 'SpinnakerPublicRouteTable'
-      DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId: !Ref 'SpinnakerInternetGateway'
-  SpinnakerPublicSubnet1RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    DeletionPolicy : Retain
-    Properties:
-      SubnetId: !Ref SpinnakerPublicSubnet1
-      RouteTableId: !Ref 'SpinnakerPublicRouteTable'
-  SpinnakerPublicSubnet2RouteTableAssociation:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      DeletionPolicy : Retain
-      Properties:
-        SubnetId: !Ref SpinnakerPublicSubnet2
-        RouteTableId: !Ref 'SpinnakerPublicRouteTable'
-
-  ControlPlaneSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      DeletionPolicy : Retain
-      Condition: SupportEKS
-      Properties:
-        GroupDescription: Cluster communication with worker nodes
-        VpcId: !Ref SpinnakerVPC
-
 Outputs:
   AccessKeyId:
     Condition: CreateAccessKeys
@@ -266,9 +181,6 @@ Outputs:
   EksClusterCA:
         Condition: SupportEKS
         Value: !GetAtt EksCluster.CertificateAuthorityData
-  SubnetIds:
-      Description: All subnets in the VPC
-      Value: !Join [ ",", [ !Ref SpinnakerPublicSubnet1,!Ref SpinnakerPublicSubnet2 ] ]
   EksClusterName:
     Condition: SupportEKS
     Value: !Ref EksClusterName
@@ -276,10 +188,7 @@ Outputs:
   SpinnakerInstanceProfileArn:
     Value: !GetAtt SpinnakerInstanceProfile.Arn
 
-  VpcId:
-    Value: !Ref SpinnakerVPC
-
   SecurityGroups:
       Condition: SupportEKS
       Description: Security group for the cluster control plane communication with worker nodes
-      Value: !Join [ ",", [ !Ref ControlPlaneSecurityGroup ] ]
+      Value: !Ref ControlPlaneSecurityGroup
