@@ -1,0 +1,10 @@
+- name: "Create Test Environment"
+  shell: |
+    kustomize build {{ ansible_env.PWD }}/files/test | kubectl apply -f -
+  register: result
+
+
+- debug: var=result.stdout_lines
+  when: result | success
+  tags:
+    - always

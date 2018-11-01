@@ -101,8 +101,8 @@ def mention_func(message):
 
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-kubectl-getall_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-kubectl-getall/' + log_file
+    log_file = 'qicoo-infra-all_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-infra-all/' + log_file
     kube_config = 'kubeconfig'
     kube_config_path = '/home/qicoo/.kube/config'
     title1 = 'sudo -u qicoo echo [kubectl] >> ' + log_file_path
