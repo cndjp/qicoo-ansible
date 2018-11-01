@@ -44,6 +44,8 @@ S3:
     BUCKET: qicoo-spinnakerbucket-01
 
 EKS:
+  VPC:
+    VPC_STACK_NAME: spinnaker-managing-vpc
   SPINNAKER:
     MANAGED_ACOUNT_STACK: spinnaker-managed-infrastructure-setup
     MANAGING_ACOUNT_STACK: spinnaker-managing-infrastructure-setup
@@ -52,6 +54,9 @@ EKS:
     CONTEXT: aws
     VERSION: 1.9.5
   CLUSTER:
+    SUBNET1: subnet-0da46c343aaa5c623
+    SUBNET2: subnet-0a5780fbae0795a51
+    SECURITY_GROUP: sg-0e7a697d77858ebc3
     CLUSTER_NAME: qicoo-eks-01
     NODE: 3
     MIN_NODE: 3
