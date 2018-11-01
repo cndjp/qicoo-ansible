@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - view-aws-ec2-instance
+    - create-test-env
   vars_files:
     - ../vars/all.yml
