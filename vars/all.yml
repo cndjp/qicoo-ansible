@@ -54,6 +54,7 @@ EKS:
     CONTEXT: aws
     VERSION: 1.9.5
   CLUSTER:
+    VPC: vpc-0b90da9b9627e2c1a
     SUBNET1: subnet-0da46c343aaa5c623
     SUBNET2: subnet-0a5780fbae0795a51
     SECURITY_GROUP: sg-0e7a697d77858ebc3

@@ -1,6 +1,6 @@
 - hosts: localhost
   roles:
-    - install-eks-halyard 
+    - create-prometheus-env 
   vars_files:
     - ../vars/all.yml
     - ../vars/secret.yml
