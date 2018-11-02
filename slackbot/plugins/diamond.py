@@ -7,7 +7,10 @@ import subprocess
 from subprocess import Popen
 import os
 import requests
+from psutil import process_iter
+from signal import SIGTERM # or SIGKILL
 import psutil
+import time
 
 flag = 0
 
@@ -45,9 +48,59 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
+    i=0
+    INCONNECTED=True
+    USERNAME = ""
+    PASSWORD = ""
+    URL = 'https://spinnaker.qicoo.tokyo'
+    with open("/home/qicoo/diamond_spinnaker_username", "r") as USERNAME_FILE: 
+            USERNAME = USERNAME_FILE.read().strip()
+    
+    with open("/home/qicoo/diamond_spinnaker_password", "r") as PASSWORD_FILE: 
+            PASSWORD = PASSWORD_FILE.read().strip()
+
+    for proc in process_iter():
+        if proc.name() == 'kubectl':
+            for conns in proc.connections(kind='inet'):
+                if conns.laddr.port in [8084, 9000] :
+                    message.send('さっき繋いだ分が残ってたみてーだ、消しておくぜ。')
+                    try:
+                        proc.send_signal(SIGTERM)
+                    except Exception:
+                        continue
+                    if i < 10:
+                        i+=1
+                        time.sleep(1)
+                        continue 
+                    else:
+                        message.send('悪りぃ、上手く切れねーみてぇだ')
+                        return
+
     message.send('物好きもいたもんだな・・・ほらよっ。')
     Popen( 'hal deploy connect', shell=True )
-    message.send('https://spinnaker.qicoo.tokyo')
+    while INCONNECTED:
+        try:
+            r = requests.get(url=URL, auth=(USERNAME, PASSWORD))
+            if r.status_code == 200:
+                INCONNECTED=False
+            else:
+                if i < 10:
+                    i+=1
+                    time.sleep(2)
+                else:
+                    message.send('悪りぃ、上手く動いてねーみてぇだ')
+                    return
+        except Exception:
+            if i < 10:
+                i+=1
+                time.sleep(2)
+            else:
+                message.send('悪りぃ、上手く動いてねーみてぇだ')
+                return
+    msg = '```URL: ' + URL + '\n'
+    msg += 'USERNAME: ' + USERNAME + '\n'
+    msg += 'PASSWORD: ' + PASSWORD + '```'
+    message.send(msg)
     message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
@@ -101,8 +154,8 @@ def mention_func(message):
 
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-kubectl-getall_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-kubectl-getall/' + log_file
+    log_file = 'qicoo-infra-all_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-infra-all/' + log_file
     kube_config = 'kubeconfig'
     kube_config_path = '/home/qicoo/.kube/config'
     title1 = 'sudo -u qicoo echo [kubectl] >> ' + log_file_path
@@ -113,8 +166,10 @@ def mention_func(message):
     cmd3 = 'sudo -u qicoo /home/qicoo/.local/bin/aws elasticache describe-cache-clusters --output table >> ' + log_file_path
     title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
     cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 >> ' + log_file_path
+    title5 = 'sudo -u qicoo echo [Amazon Route53] >> ' + log_file_path
+    cmd5 = 'sudo -u qicoo /home/qicoo/.local/bin/aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table' + log_file_path
 
-    cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4]
+    cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4, title5, cmd5]
     list2exec(cmdlist)
 
     message.send('グレートだぜ！！！！！')
