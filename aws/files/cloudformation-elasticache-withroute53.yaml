@@ -30,9 +30,9 @@ Resources:
     Properties:
       CacheSubnetGroupName: elasticache-subnet-group
       Description: elasticache-subnet-group
-        SubnetIds:
-          - !Ref CacheSubnet1
-          - !Ref CacheSubnet2
+      SubnetIds:
+        - !Ref CacheSubnet1
+        - !Ref CacheSubnet2
   ECacheRedis:
     Type: 'AWS::ElastiCache::CacheCluster'
     Properties:
