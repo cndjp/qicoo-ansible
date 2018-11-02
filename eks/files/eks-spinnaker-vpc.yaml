@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Setup AWS CloudProvider for Spinnaker
+Description: Setup AWS CloudProvider for Spinnaker VPC
 Parameters:
   SpinnakerVPCCIDR:
     Description: CIDR Block for Developer VPC
