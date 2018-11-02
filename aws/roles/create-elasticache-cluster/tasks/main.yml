@@ -1,7 +1,7 @@
 - name: "Create ElastiCache Cluster"
   cloudformation:
      stack_name: "{{ ELASTIC_CACHE.STACK_NAME }}"
-     template: "{{ ansible_env.PWD }}/files/cloudformaiton-elasticache-withroute53.yaml"
+     template: "{{ ansible_env.PWD }}/files/cloudformation-elasticache-withroute53.yaml"
      disable_rollback: true
      template_parameters:
         ClusterName: "{{ ELASTIC_CACHE.CLUSTER_NAME }}"
