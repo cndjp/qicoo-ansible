@@ -30,8 +30,8 @@ Resources:
   DatabaseSubnet:
     Type: "AWS::RDS::DBSubnetGroup"
     Properties:
+      DBSubnetGroupName : rds-subnet-group
       DBSubnetGroupDescription: rds-subnet-group
-      Description: rds-subnet-group
       SubnetIds:
         - !Ref DBSubnet1
         - !Ref DBSubnet2
