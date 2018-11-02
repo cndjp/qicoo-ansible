@@ -47,7 +47,7 @@ def mention_func(message):
 def mention_func(message):
     message.send('物好きもいたもんだな・・・ほらよっ。')
     Popen( 'hal deploy connect', shell=True )
-    message.send('http://35.197.62.33:39000')
+    message.send('https://spinnaker.qicoo.tokyo')
     message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
