@@ -161,6 +161,7 @@
         VpcId: "{{ E_S_VPC_ID.stdout }}"
         NodeAutoScalingGroupMinSize: "{{ EKS.CLUSTER.MIN_NODE }}"
         NodeAutoScalingGroupMaxSize: "{{ EKS.CLUSTER.MAX_NODE }}"
+        KeyName: "{{ EKS.CLUSTER.KEYNAME }}"
      region: "{{ REGION }}"
 
 - name: "Create AWS Auth Configmap Template"
