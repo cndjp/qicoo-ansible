@@ -167,7 +167,7 @@ def mention_func(message):
     title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
     cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 >> ' + log_file_path
     title5 = 'sudo -u qicoo echo [Amazon Route53] >> ' + log_file_path
-    cmd5 = 'sudo -u qicoo /home/qicoo/.local/bin/aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table' + log_file_path
+    cmd5 = 'sudo -u qicoo /home/qicoo/.local/bin/aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table >> ' + log_file_path
 
     cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4, title5, cmd5]
     list2exec(cmdlist)
