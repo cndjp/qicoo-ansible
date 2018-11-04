@@ -103,6 +103,10 @@ Parameters:
     Description: The subnets where workers can be created.
     Type: List<AWS::EC2::Subnet::Id>
 
+  KeyName:
+    Description: KeyPair Namet for EC2 Instances.
+    Type: String
+
 Mappings:
   AmiMap:
     us-east-1:
@@ -329,7 +333,7 @@ Resources:
       IamInstanceProfile: !Ref NodeInstanceProfile
       ImageId: !FindInMap [AmiMap,!Ref 'AWS::Region',Id]
       InstanceType: !Ref NodeInstanceType
-      #KeyName: !Ref KeyName
+      KeyName: !Ref KeyName
       SecurityGroups:
       - !Ref NodeSecurityGroup
       UserData:
