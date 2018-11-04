@@ -39,6 +39,7 @@
         Route53RDBName: "{{ ROUTE53.QICOO_TOKYO.RDB_NAME.STAGING }}"
         Route53HostedZoneName: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"
      region: "{{ REGION }}"
+  tags: "zenbu"
 
 - name: "Create Development RDS Instance"
   cloudformation:
@@ -60,3 +61,4 @@
         Route53RDBName: "{{ ROUTE53.QICOO_TOKYO.RDB_NAME.DEVELOPMENT }}"
         Route53HostedZoneName: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"
      region: "{{ REGION }}"
+  tags: "zenbu"
