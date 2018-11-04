@@ -50,6 +50,17 @@ def mention_func(message):
 def mention_func(message):
     i=0
     INCONNECTED=True
+<<<<<<< HEAD
+=======
+    USERNAME = ""
+    PASSWORD = ""
+    URL = 'https://spinnaker.qicoo.tokyo'
+    with open("/home/qicoo/diamond_spinnaker_username", "r") as USERNAME_FILE: 
+            USERNAME = USERNAME_FILE.read().strip()
+    
+    with open("/home/qicoo/diamond_spinnaker_password", "r") as PASSWORD_FILE: 
+            PASSWORD = PASSWORD_FILE.read().strip()
+>>>>>>> nnao45/eks-created-vpc-assign
 
     for proc in process_iter():
         if proc.name() == 'kubectl':
@@ -72,7 +83,11 @@ def mention_func(message):
     Popen( 'hal deploy connect', shell=True )
     while INCONNECTED:
         try:
+<<<<<<< HEAD
             r = requests.get(url="http://127.0.0.1:39000")
+=======
+            r = requests.get(url=URL, auth=(USERNAME, PASSWORD))
+>>>>>>> nnao45/eks-created-vpc-assign
             if r.status_code == 200:
                 INCONNECTED=False
             else:
@@ -89,7 +104,14 @@ def mention_func(message):
             else:
                 message.send('悪りぃ、上手く動いてねーみてぇだ')
                 return
+<<<<<<< HEAD
     message.send('http://35.197.62.33:39000')
+=======
+    msg = '```URL: ' + URL + '\n'
+    msg += 'USERNAME: ' + USERNAME + '\n'
+    msg += 'PASSWORD: ' + PASSWORD + '```'
+    message.send(msg)
+>>>>>>> nnao45/eks-created-vpc-assign
     message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
@@ -156,7 +178,11 @@ def mention_func(message):
     title4 = 'sudo -u qicoo echo [Amazon EKS Cluster] >> ' + log_file_path
     cmd4 = 'sudo -u qicoo /home/qicoo/.local/bin/aws eks describe-cluster --name qicoo-eks-01 >> ' + log_file_path
     title5 = 'sudo -u qicoo echo [Amazon Route53] >> ' + log_file_path
+<<<<<<< HEAD
     cmd5 = 'sudo -u qicoo /home/qicoo/.local/bin/aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table' + log_file_path
+=======
+    cmd5 = 'sudo -u qicoo /home/qicoo/.local/bin/aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table >> ' + log_file_path
+>>>>>>> nnao45/eks-created-vpc-assign
 
     cmdlist = [title1, cmd1, title2, cmd2, title3, cmd3, title4, cmd4, title5, cmd5]
     list2exec(cmdlist)

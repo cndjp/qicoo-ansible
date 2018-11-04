@@ -12,7 +12,9 @@ Parameters:
     Type: String
   CacheParameterGroupName:
     Type: String
-  CacheSubnetGroupName:
+  CacheSubnet1:
+    Type: String
+  CacheSubnet2:
     Type: String
   VpcSecurityGroupIds:
     Type: String
@@ -23,6 +25,14 @@ Parameters:
   Route53HostedZoneName:
     Type: String
 Resources:
+  ECacheSubnet:
+    Type: 'AWS::ElastiCache::SubnetGroup'
+    Properties:
+      CacheSubnetGroupName: elasticache-subnet-group
+      Description: elasticache-subnet-group
+      SubnetIds:
+        - !Ref CacheSubnet1
+        - !Ref CacheSubnet2
   ECacheRedis:
     Type: 'AWS::ElastiCache::CacheCluster'
     Properties:
@@ -33,7 +43,7 @@ Resources:
       AutoMinorVersionUpgrade: false
       CacheNodeType: !Ref CacheNodeType
       CacheParameterGroupName: !Ref CacheParameterGroupName
-      CacheSubnetGroupName: !Ref CacheSubnetGroupName
+      CacheSubnetGroupName: !Ref ECacheSubnet
       VpcSecurityGroupIds:
         - !Ref VpcSecurityGroupIds
   ECacheRedisDNSRecord:
