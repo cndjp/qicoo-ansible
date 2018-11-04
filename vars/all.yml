@@ -97,9 +97,9 @@ ELASTIC_CACHE:
     STAGING: elasticache-withroute53-staging
     DEVELOPMENT: rds-withroute53-development
   CLUSTER_NAME:
-    PRODUCTION: qicoo-elasticache-01
-    STAGING: qicoo-elasticache-s01
-    DEVELOPMENT: qicoo-elasticache-d01
+    PRODUCTION: qicoo-ecache-01
+    STAGING: qicoo-ecache-s01
+    DEVELOPMENT: qicoo-ecache-d01
   SUBNET_GROUP:
     PRODUCTION: elasticache-subnet-group
     STAGING: elasticache-subnet-group-staging
