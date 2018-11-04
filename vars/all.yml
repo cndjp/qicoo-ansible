@@ -57,6 +57,7 @@ EKS:
     MIN_NODE: 3
     MAX_NODE: 3 
     FLAVOR: t2.large 
+    KEYNAME: qicoo-eks-nodekey
 
 RDS:
   STACK_NAME: rds-withroute53
