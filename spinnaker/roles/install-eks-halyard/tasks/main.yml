@@ -1,4 +1,4 @@
-- name: "Deploy Keyenta Prometheys"
+- name: "Deploy Keyenta Prometheus"
   shell: |
      kubectl apply -f {{ ansible_env.PWD }}/files/
   ignore_errors: True
