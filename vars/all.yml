@@ -44,6 +44,8 @@ S3:
     BUCKET: qicoo-spinnakerbucket-01
 
 EKS:
+  VPC:
+    VPC_STACK_NAME: spinnaker-managing-vpc
   SPINNAKER:
     MANAGED_ACOUNT_STACK: spinnaker-managed-infrastructure-setup
     MANAGING_ACOUNT_STACK: spinnaker-managing-infrastructure-setup
@@ -52,6 +54,10 @@ EKS:
     CONTEXT: aws
     VERSION: 1.9.5
   CLUSTER:
+    VPC: vpc-0b90da9b9627e2c1a
+    SUBNET1: subnet-0da46c343aaa5c623
+    SUBNET2: subnet-0a5780fbae0795a51
+    SECURITY_GROUP: sg-0e7a697d77858ebc3
     CLUSTER_NAME: qicoo-eks-01
     NODE: 3
     MIN_NODE: 3
@@ -65,7 +71,8 @@ RDS:
   DB_ENGINE: MySQL
   FLAVOR: db.t2.micro
   DISK: 20
-  SUBNET_GROUPS: default
+  SUBNET1: "{{ EKS.CLUSTER.SUBNET1 }}"
+  SUBNET2: "{{ EKS.CLUSTER.SUBNET2 }}"
   SECURITY_GROUPS: "{{ EC2_GROUP.RDS_EC2_GROUP.SECURITY_GROUP_ID }}"
 
 ELASTIC_CACHE:
@@ -76,15 +83,16 @@ ELASTIC_CACHE:
   CACHE_ENGINE_VERSION: 4.0.10
   PARAMETER_GROUP: default.redis4.0
   REPLICA_NODES: 1
-  SUBNET_GROUP: default
+  SUBNET1: "{{ EKS.CLUSTER.SUBNET1 }}"
+  SUBNET2: "{{ EKS.CLUSTER.SUBNET2 }}"
   SECURITY_GROUP: "{{ EC2_GROUP.ECACHE_EC2_GROUP.SECURITY_GROUP_ID }}"
 
 EC2_GROUP:
   ECACHE_EC2_GROUP:
     NAME: redis-securitygroup-01
     DESCRIPTION: "Allow Redis Inbound"
-    SECURITY_GROUP_ID: sg-0976b554adbc9ae8a
-    VPC_ID: vpc-d7935daf
+    SECURITY_GROUP_ID: sg-02ccb6a85a9f1453e
+    VPC_ID: "{{ EKS.CLUSTER.VPC }}"
     RULE_01:
       PROTO: tcp
       PORTS: 6379
@@ -92,8 +100,8 @@ EC2_GROUP:
   RDS_EC2_GROUP:
     NAME: rds-securitygroup-01
     DESCRIPTION: "Allow RDS Inbound"
-    SECURITY_GROUP_ID: sg-06632af243036e2d7
-    VPC_ID: vpc-d7935daf
+    SECURITY_GROUP_ID: sg-0edf050deeefc9748
+    VPC_ID: "{{ EKS.CLUSTER.VPC }}"
     RULE_01:
       PROTO: tcp
       PORTS: 3306

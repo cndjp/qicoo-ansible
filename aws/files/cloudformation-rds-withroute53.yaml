@@ -14,7 +14,9 @@ Parameters:
     Type: Number
   DBInstanceIdentifier:
     Type: String
-  DBSubnetGroupName:
+  DBSubnet1:
+    Type: String
+  DBSubnet2:
     Type: String
   VPCSecurityGroups:
     Type: String
@@ -25,6 +27,14 @@ Parameters:
   Route53HostedZoneName:
     Type: String
 Resources:
+  DatabaseSubnet:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupName : rds-subnet-group
+      DBSubnetGroupDescription: rds-subnet-group
+      SubnetIds:
+        - !Ref DBSubnet1
+        - !Ref DBSubnet2
   DatabaseInstance:
     Type: "AWS::RDS::DBInstance"
     Properties:
@@ -35,7 +45,7 @@ Resources:
       DBInstanceIdentifier: !Ref DBInstanceIdentifier
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !Ref MasterUserPassword
-      DBSubnetGroupName: !Ref DBSubnetGroupName
+      DBSubnetGroupName: !Ref DatabaseSubnet
       PubliclyAccessible: true
       VPCSecurityGroups:
         - !Ref VPCSecurityGroups
