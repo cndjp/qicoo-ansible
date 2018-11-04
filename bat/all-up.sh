@@ -6,7 +6,7 @@ ALLUP_LOG_FILE+=${ALLUP_LOG_DIR}
 ALLUP_LOG_FILE+=${1}
 
 if [ -z ${2} ]; then
-  ALLUP_ZENBU_FLAG+='--skip-tags \"zenbu\"'
+  ALLUP_ZENBU_FLAG+='--skip-tags "zenbu"'
 fi
 
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/eks/setup-eks-env.yml --skip-tags "no-routine" >> ${ALLUP_LOG_FILE}
