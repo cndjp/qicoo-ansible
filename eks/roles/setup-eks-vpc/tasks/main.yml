@@ -1,0 +1,9 @@
+- name: "Setup EKS Cluster VPC"
+  cloudformation:
+     stack_name: "{{ EKS.VPC.VPC_STACK_NAME }}"
+     template: "{{ ansible_env.PWD }}/files/eks-spinnaker-vpc.yaml"
+     disable_rollback: true
+     region: "{{ REGION }}"
+     template_parameters:
+        EksClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+        UseAccessKeyForAuthentication: "false"

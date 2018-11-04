@@ -1,0 +1,6 @@
+- hosts: localhost
+  roles:
+    - create-prometheus-env 
+  vars_files:
+    - ../vars/all.yml
+    - ../vars/secret.yml

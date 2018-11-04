@@ -6,16 +6,11 @@
      template_parameters:
         UseAccessKeyForAuthentication: "false"
         EksClusterName: "{{ EKS.CLUSTER.CLUSTER_NAME }}"
+        SpinnakerPublicSubnet1: "{{ EKS.CLUSTER.SUBNET1 }}"
+        SpinnakerPublicSubnet2: "{{ EKS.CLUSTER.SUBNET2 }}"
+        ControlPlaneSecurityGroup: "{{ EKS.CLUSTER.SECURITY_GROUP }}"
      region: "{{ REGION }}"
 
-
-- name: "Register VPC ID"
-  shell: |
-     aws cloudformation describe-stacks \ 
-          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
-          --query 'Stacks[0].Outputs[?OutputKey==`VpcId`].OutputValue' \ 
-          --output text
-  register: E_S_VPC_ID
 
 - name: "Register Secrity Group"
   shell: |
@@ -32,14 +27,6 @@
           --query  'Stacks[0].Outputs[?OutputKey==`AuthArn`].OutputValue' \
           --output text
   register: E_S_AUTH_ARN
-
-- name: "Register Subnets"
-  shell: |
-     aws cloudformation describe-stacks \
-          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
-          --query  'Stacks[0].Outputs[?OutputKey==`SubnetIds`].OutputValue' \
-          --output text
-  register: E_S_SUBNETS
 
 - name: "Register Managing id"
   shell: |
@@ -157,8 +144,8 @@
         ClusterName: "{{ E_S_EKS_CLUSTER_NAME.stdout }}"
         NodeGroupName: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
         ClusterControlPlaneSecurityGroup: "{{ E_S_CONTROL_PLANE_SG.stdout }}"
-        Subnets: "{{ E_S_SUBNETS.stdout }}"
-        VpcId: "{{ E_S_VPC_ID.stdout }}"
+        Subnets: "{{ EKS.CLUSTER.SUBNET1 }},{{ EKS.CLUSTER.SUBNET2 }}"
+        VpcId: " {{ EKS.CLUSTER.VPC }} "
         NodeAutoScalingGroupMinSize: "{{ EKS.CLUSTER.MIN_NODE }}"
         NodeAutoScalingGroupMaxSize: "{{ EKS.CLUSTER.MAX_NODE }}"
         KeyName: "{{ EKS.CLUSTER.KEYNAME }}"
