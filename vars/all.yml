@@ -95,7 +95,7 @@ ELASTIC_CACHE:
   STACK_NAME:
     PRODUCTION: elasticache-withroute53
     STAGING: elasticache-withroute53-staging
-    DEVELOPMENT: rds-withroute53-development
+    DEVELOPMENT: elasticache-withroute53-development
   CLUSTER_NAME:
     PRODUCTION: qicoo-ecache-01
     STAGING: qicoo-ecache-s01
