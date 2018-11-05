@@ -179,6 +179,29 @@ def mention_func(message):
     file2slack(log_file, log_file_path)
     flag2zero()
 
+@respond_to('全部上げぽよ')
+def mention_func(message):
+    if flag == 1:
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-all-up_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/all-up.sh ' + log_file + ' zenbu'
+
+    message.send('クレイジーダイアモンドォオオオオオオオ！！！')
+    message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
+    message.send('・・・って全部！？うおおお・・・いいけどお・・・ちゃんと待っとけよ。')
+    os.system(cmd)
+    message.reply('はぁはぁ・・・デプロイ終わった・・・ぜ・・・。')
+
+    file2slack(log_file, log_file_path)
+    flag2zero()
+
 @respond_to('上げて')
 def mention_func(message):
     if flag == 1:

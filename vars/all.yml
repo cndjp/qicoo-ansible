@@ -34,8 +34,14 @@ ROUTE53:
   QICOO_TOKYO:
     HOSTED_ZONE_NAME: qicoo.tokyo
     HOSTED_ZONE_ID: Z36M600IDI6K7I
-    RDB_NAME: db
-    ELASTIC_CACHE_NAME: cache
+    RDB_NAME: 
+      PRODUCTION: db
+      STAGING: db-s
+      DEVELOPMENT: db-d
+    ELASTIC_CACHE_NAME:
+      PRODUCTION: cache
+      STAGING: cache-s
+      DEVELOPMENT: cache-d
 
 S3:
   BACKUP:
@@ -66,8 +72,18 @@ EKS:
     KEYNAME: qicoo-eks-nodekey
 
 RDS:
-  STACK_NAME: rds-withroute53
-  NODE_NAME: qicoo-rds-01
+  STACK_NAME: 
+    PRODUCTION: rds-withroute53
+    STAGING: rds-withroute53-staging
+    DEVELOPMENT: rds-withroute53-development
+  NODE_NAME:
+    PRODUCTION: qicoo-rds-01
+    STAGING: qicoo-rds-s01
+    DEVELOPMENT: qicoo-rds-d01
+  SUBNET_GROUP:
+    PRODUCTION: rds-subnet-group
+    STAGING: rds-subnet-group-staging
+    DEVELOPMENT: rds-subnet-group-development
   DB_ENGINE: MySQL
   FLAVOR: db.t2.micro
   DISK: 20
@@ -76,8 +92,18 @@ RDS:
   SECURITY_GROUPS: "{{ EC2_GROUP.RDS_EC2_GROUP.SECURITY_GROUP_ID }}"
 
 ELASTIC_CACHE:
-  STACK_NAME: elasticache-withroute53
-  CLUSTER_NAME: qicoo-elasticache-01
+  STACK_NAME:
+    PRODUCTION: elasticache-withroute53
+    STAGING: elasticache-withroute53-staging
+    DEVELOPMENT: elasticache-withroute53-development
+  CLUSTER_NAME:
+    PRODUCTION: qicoo-ecache-01
+    STAGING: qicoo-ecache-s01
+    DEVELOPMENT: qicoo-ecache-d01
+  SUBNET_GROUP:
+    PRODUCTION: elasticache-subnet-group
+    STAGING: elasticache-subnet-group-staging
+    DEVELOPMENT: elasticache-subnet-group-development
   CLUSTER_NODE_TYPE: cache.t2.micro
   CACHE_ENGINE: redis
   CACHE_ENGINE_VERSION: 4.0.10
