@@ -179,7 +179,7 @@ def mention_func(message):
     file2slack(log_file, log_file_path)
     flag2zero()
 
-@respond_to('全部上げて')
+@respond_to('全部上げぽよ')
 def mention_func(message):
     if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
