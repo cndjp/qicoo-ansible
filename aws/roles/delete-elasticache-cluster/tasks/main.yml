@@ -1,10 +1,14 @@
-- name: "Delete ElastiCache Cluster"
+- name: "Delete Production ElastiCache Cluster"
   cloudformation:
-     stack_name: "{{ ELASTIC_CACHE.STACK_NAME }}"
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME.PRODUCTION }}"
      state: absent
-  register: result
 
-- debug: var=result.stdout_lines
-  when: result | success
-  tags:
-    - always
+- name: "Delete Staging ElastiCache Cluster"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME.STAGING }}"
+     state: absent
+
+- name: "Delete Development ElastiCache Cluster"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME.DEVELOPMENT }}"
+     state: absent

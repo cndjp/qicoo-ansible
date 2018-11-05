@@ -12,6 +12,8 @@ Parameters:
     Type: String
   CacheParameterGroupName:
     Type: String
+  CacheSubnetGroupName:
+    Type: String
   CacheSubnet1:
     Type: String
   CacheSubnet2:
@@ -28,8 +30,8 @@ Resources:
   ECacheSubnet:
     Type: 'AWS::ElastiCache::SubnetGroup'
     Properties:
-      CacheSubnetGroupName: elasticache-subnet-group
-      Description: elasticache-subnet-group
+      CacheSubnetGroupName: !Ref CacheSubnetGroupName
+      Description: !Ref CacheSubnetGroupName
       SubnetIds:
         - !Ref CacheSubnet1
         - !Ref CacheSubnet2
@@ -50,7 +52,7 @@ Resources:
     Type: "AWS::Route53::RecordSet"
     Properties:
       HostedZoneId: !Ref Route53HostedZoneId
-      Comment: "CNAME record for the db."
+      Comment: "CNAME record for the elasticache."
       Name:
         "Fn::Join":
           - ""

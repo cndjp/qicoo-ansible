@@ -14,6 +14,8 @@ Parameters:
     Type: Number
   DBInstanceIdentifier:
     Type: String
+  DBSubnetGroupName:
+    Type: String
   DBSubnet1:
     Type: String
   DBSubnet2:
@@ -30,8 +32,8 @@ Resources:
   DatabaseSubnet:
     Type: "AWS::RDS::DBSubnetGroup"
     Properties:
-      DBSubnetGroupName : rds-subnet-group
-      DBSubnetGroupDescription: rds-subnet-group
+      DBSubnetGroupName : !Ref DBSubnetGroupName
+      DBSubnetGroupDescription: !Ref DBSubnetGroupName
       SubnetIds:
         - !Ref DBSubnet1
         - !Ref DBSubnet2
