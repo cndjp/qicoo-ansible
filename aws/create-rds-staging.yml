@@ -1,0 +1,6 @@
+- hosts: localhost
+  roles:
+    - create-rds-staging
+  vars_files:
+    - ../vars/all.yml
+    - ../vars/secret.yml

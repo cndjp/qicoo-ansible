@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - create-elasticache-staging
+  vars_files:
+    - ../vars/all.yml
