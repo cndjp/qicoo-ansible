@@ -1,0 +1,4 @@
+- name: "Delete Production ElastiCache Cluster"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME.PRODUCTION }}"
+     state: absent

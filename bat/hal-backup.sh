@@ -1,4 +1,4 @@
 #!/bin/bash
 
-hal backup create -q
+hal backup create
 mv /home/qicoo/halbackup-*.tar /home/qicoo/hal-back/

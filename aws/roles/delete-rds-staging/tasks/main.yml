@@ -1,0 +1,4 @@
+- name: "Delete Staging RDS Instance"
+  cloudformation:
+     stack_name: "{{ RDS.STACK_NAME.STAGING }}"
+     state: "absent"
