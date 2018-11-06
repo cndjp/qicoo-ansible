@@ -8,7 +8,11 @@ Parameters:
     Type: String
   Engine:
     Type: String
+  EngineVersion:
+    Type: String
   DBInstanceClass:
+    Type: String
+  DBParameterGroupName:
     Type: String
   AllocatedStorage:
     Type: Number
@@ -41,7 +45,9 @@ Resources:
     Type: "AWS::RDS::DBInstance"
     Properties:
       Engine: !Ref Engine
+      EngineVersion: !Ref EngineVersion
       DBInstanceClass: !Ref DBInstanceClass
+      DBParameterGroupName: !Ref DBParameterGroupName
       AllocatedStorage: !Ref AllocatedStorage
       StorageType: gp2
       DBInstanceIdentifier: !Ref DBInstanceIdentifier
