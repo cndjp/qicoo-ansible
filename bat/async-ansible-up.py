@@ -57,7 +57,7 @@ def async_ansible_up(loop):
 
     command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
     command09 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
-    command10 = 'hal deploy apply'
+    command10 = 'hal deploy apply -q'
     command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
     eight = sh_exec(command08)
     nine = sh_exec(command09)
