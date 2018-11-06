@@ -19,6 +19,7 @@ os.environ['AWS_SHARED_CREDENTIALS_FILE'] = '/home/qicoo/.aws/credentials'
 
 ansible_ctl = '/home/qicoo/.local/bin/ansible-playbook -i localhost, -c local --vault-password-file /home/qicoo/.vault_password '
 flag = 0
+loop = asyncio.new_event_loop()
 
 def flag2zero():
     global flag
@@ -57,7 +58,7 @@ def sh_exec(cmd):
 
 async def sh_coroutine(*args):
     # Create subprocess
-    process = await asyncio.create_subprocess_exec(
+    process = await asyncio.create_subprocess_shell(
         *args,
         # stdout must a pipe to be accessible as process.stdout
         stdout=asyncio.subprocess.PIPE)
@@ -240,7 +241,9 @@ def mention_func(message):
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-all-up_' + now_str + '.log'
     log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
-    loop = asyncio.get_event_loop()
+
+    global loop
+    asyncio.set_event_loop(loop)
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/setup-eks-env.yml --skip-tags "no-routine"'
     command02 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
@@ -260,6 +263,7 @@ def mention_func(message):
                               sh_coroutine(command08))
 
     one, two, three, four, five, six, eight = loop.run_until_complete(commands)
+    loop.close()
 
     command09 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
     command10 = 'hal deploy apply -q'
@@ -270,10 +274,8 @@ def mention_func(message):
     
     stdoutlist = [one, two, three, four, five, six, eight, nine, ten, eleven]
     with open(log_file_path,'rw') as f:
-    	for stdout in stdoutlist:
-	    f.write(stdout)    
-	
-    loop.close()
+        for stdout in stdoutlist:
+            f.write(stdout)
 
     #cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/all-up.sh ' + log_file
 
