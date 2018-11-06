@@ -188,10 +188,17 @@ def mention_func(message):
 
     flag2one()
 
-    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-up.py'
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-all-up_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-up.py ' + log_file_path
+    filter_cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/ansifilter.sh' + log_file_path
+
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
     os.system(cmd)
+    os.system(filter_cmd)
     message.reply('デプロイ終わったんじゃあないか。')
 
     file2slack(log_file, log_file_path)
@@ -205,12 +212,19 @@ def mention_func(message):
 
     flag2one()
 
-    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-down.py'
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-all-down_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-all-down/' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-down.py ' + log_file_path
+    filter_cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/ansifilter.sh ' + log_file_path
 
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('全部消す？そいつはグレートだぜ！！ちょっと待ってな・・・。')
     os.system(cmd)
+    os.system(filter_cmd)
     message.reply('ほぅら、消し終わったぜ。')
 
     file2slack(log_file, log_file_path)
     flag2zero()
+
