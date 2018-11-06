@@ -5,6 +5,7 @@ import asyncio
 import os
 import subprocess
 from subprocess import Popen
+import sys
 
 os.environ['PATH'] = '/usr/local/bin:/usr/bin:/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/usr/local/bin:/usr/bin:/home/qicoo/go/bin:/home/qicoo/go-third-party/bin'
 os.environ['KUBECONFIG'] = '/home/qicoo/.kube/config'
@@ -34,10 +35,7 @@ async def sh_coroutine(*args):
 
 def async_ansible_down(loop):
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-down_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-down/' + log_file
+    log_file_path = sys.argv[1]
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-backup.yml'
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
