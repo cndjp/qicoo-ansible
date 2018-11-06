@@ -12,14 +12,7 @@ import psutil
 import time
 import asyncio
 
-os.environ['PATH'] = '/home/qicoo/.local/bin:/home/qicoo/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/usr/local/bin:/usr/bin:/home/qicoo/go/bin:/home/qicoo/go-third-party/bin'
-os.environ['KUBECONFIG'] = '/home/qicoo/.kube/config'
-os.environ['AWS_CONFIG_FILE'] = '/home/qicoo/.aws/config'
-os.environ['AWS_SHARED_CREDENTIALS_FILE'] = '/home/qicoo/.aws/credentials'
-
-ansible_ctl = '/home/qicoo/.local/bin/ansible-playbook -i localhost, -c local --vault-password-file /home/qicoo/.vault_password '
 flag = 0
-loop = asyncio.new_event_loop()
 
 def flag2zero():
     global flag
@@ -48,25 +41,6 @@ def file2slack(filename, path):
 def list2exec(cmdlist):
     for cmd in cmdlist:
         os.system(cmd)
-
-def sh_exec(cmd):
-    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    p.wait()
-    p_stdout, p_stderr = p.communicate()
-    p_out = p_stdout + p_stderr
-    return p_out
-
-async def sh_coroutine(*args):
-    # Create subprocess
-    process = await asyncio.create_subprocess_shell(
-        *args,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE)
-    # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
-    # Return stdout
-    #return stdout.decode().strip()
-    return stdout.decode()
 
 @respond_to('テスト')
 def mention_func(message):
@@ -206,29 +180,6 @@ def mention_func(message):
     file2slack(log_file, log_file_path)
     flag2zero()
 
-@respond_to('全部上げぽよ')
-def mention_func(message):
-    if flag == 1:
-        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
-        return
-
-    flag2one()
-
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-up_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
-    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/all-up.sh ' + log_file + ' zenbu'
-
-    message.send('クレイジーダイアモンドォオオオオオオオ！！！')
-    message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
-    message.send('・・・って全部！？うおおお・・・いいけどお・・・ちゃんと待っとけよ。')
-    os.system(cmd)
-    message.reply('はぁはぁ・・・デプロイ終わった・・・ぜ・・・。')
-
-    file2slack(log_file, log_file_path)
-    flag2zero()
-
 @respond_to('上げて')
 def mention_func(message):
     if flag == 1:
@@ -237,52 +188,10 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-up_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
-
-    global loop
-    asyncio.set_event_loop(loop)
-
-    command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/setup-eks-env.yml --skip-tags "no-routine"'
-    command02 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
-    command03 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-production.yml'
-    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-staging.yml'
-    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-development.yml'
-    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-production.yml'
-    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-staging.yml'
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-development.yml'    
-    commands = asyncio.gather(sh_coroutine(command01), \
-                              sh_coroutine(command02), \
-                              sh_coroutine(command03), \
-                              sh_coroutine(command04), \
-                              sh_coroutine(command05), \
-                              sh_coroutine(command06), \
-                              sh_coroutine(command07), \
-                              sh_coroutine(command08))
-
-    one, two, three, four, five, six, eight = loop.run_until_complete(commands)
-    loop.close()
-
-    command09 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
-    command10 = 'hal deploy apply -q'
-    command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
-    nine = sh_exec(command09)
-    ten = sh_exec(command10)
-    eleven = sh_exec(command11)
-    
-    stdoutlist = [one, two, three, four, five, six, eight, nine, ten, eleven]
-    with open(log_file_path,'rw') as f:
-        for stdout in stdoutlist:
-            f.write(stdout)
-
-    #cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/all-up.sh ' + log_file
-
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-up.py'
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
-    #os.system(cmd)
-    
+    os.system(cmd)
     message.reply('デプロイ終わったんじゃあないか。')
 
     file2slack(log_file, log_file_path)
@@ -296,11 +205,7 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-down_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-down/' + log_file
-    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/all-down.sh ' + log_file
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-down.py'
 
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('全部消す？そいつはグレートだぜ！！ちょっと待ってな・・・。')
