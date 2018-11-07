@@ -46,6 +46,24 @@ def list2exec(cmdlist):
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
 
+@respond_to('試して')
+def mention_func(message):
+    message.send('ちと見てるか・・・。')
+
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-ark-try_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-ark-try/' + log_file
+    cmd1 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-route53-record.sh ' + log_file_path
+    cmd2 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-rds-status.sh ' + log_file_path
+    cmd3 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-ecache-status.sh ' + log_file_path
+    cmd4 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-eks-status.sh ' + log_file_path 
+
+    cmdlist = [cmd1, cmd2, cmd3, cmd4]
+    list2exec(cmdlist)
+
+    file2slack(log_file, log_file_path)
+
 @respond_to('繋げて')
 def mention_func(message):
     i=0
