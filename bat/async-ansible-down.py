@@ -31,7 +31,8 @@ async def sh_coroutine(*args):
     stdout, stderr = await process.communicate()
     # Return stdout
     #return stdout.decode().strip()
-    return stdout.decode()
+    out = stdout + stderr
+    return out.decode()
 
 def async_ansible_down(loop):
 
