@@ -48,7 +48,7 @@ def mention_func(message):
 
 @respond_to('試して')
 def mention_func(message):
-    message.send('ちと見てるか・・・。')
+    message.send('ちぃとばかし見てみるか・・・。')
 
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
