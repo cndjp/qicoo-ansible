@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - delete-rds-instance
+    - delete-elasticache-development
   vars_files:
     - ../vars/all.yml
