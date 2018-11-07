@@ -5,7 +5,7 @@ CHECK_LOG_FILE=${1}
 
 function check_route53_record() {
   echo "Route53 Record ${1} type ${2}" >> ${CHECK_LOG_FILE}
-  aws route53 test-dns-answer --hosted-zone-id ${HOSTED_ZONE_ID} --record-name ${1} --record-type ${2} | jq ."RecordData" >> ${CHECK_LOG_FILE}
+  /home/qicoo/.local/bin/aws route53 test-dns-answer --hosted-zone-id ${HOSTED_ZONE_ID} --record-name ${1} --record-type ${2} | jq ."RecordData" >> ${CHECK_LOG_FILE}
   echo "" >> ${CHECK_LOG_FILE}
 }
 
