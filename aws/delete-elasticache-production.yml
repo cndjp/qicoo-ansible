@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - delete-elasticache-production
+  vars_files:
+    - ../vars/all.yml

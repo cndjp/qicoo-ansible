@@ -85,6 +85,8 @@ RDS:
     STAGING: rds-subnet-group-staging
     DEVELOPMENT: rds-subnet-group-development
   DB_ENGINE: MySQL
+  DB_ENGINE_VERSION: 5.7.23
+  PARAMETER_GROUP_NAME: mysql57-utf8mb4
   FLAVOR: db.t2.micro
   DISK: 20
   SUBNET1: "{{ EKS.CLUSTER.SUBNET1 }}"
@@ -140,7 +142,7 @@ ARK:
   GC_SYNC_PERIOD: 30m
   SCHEDULE_SYNC_PERIOD: 1m
   RESTORE_ONLY_MODE: false
-  RESTORE_NAMESPACES: production,staging,kayenta-prometheus
+  RESTORE_NAMESPACES: production,staging,monitoring
 
 ## Slack Informing
 SLACK:
