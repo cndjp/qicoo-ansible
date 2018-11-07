@@ -48,6 +48,8 @@ def mention_func(message):
 
 @respond_to('試して')
 def mention_func(message):
+    message.send('ちと見てるか・・・。')
+
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
     log_file = 'qicoo-ark-try_' + now_str + '.log'
@@ -55,6 +57,9 @@ def mention_func(message):
     cmd1 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-route53-record.sh ' + log_file_path
     cmd2 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-rds-status.sh ' + log_file_path
     cmd3 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-ecache-status.sh ' + log_file_path
+
+    cmdlist = [cmd1, cmd2, cmd3]
+    list2exec(cmdlist)
 
     file2slack(log_file, log_file_path)
 
