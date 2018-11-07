@@ -1,0 +1,4 @@
+- name: "Delete Staging ElastiCache Cluster"
+  cloudformation:
+     stack_name: "{{ ELASTIC_CACHE.STACK_NAME.STAGING }}"
+     state: absent

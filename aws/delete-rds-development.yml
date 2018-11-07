@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - create-elasticache-cluster
+    - delete-rds-development
   vars_files:
     - ../vars/all.yml
