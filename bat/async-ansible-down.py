@@ -39,11 +39,10 @@ def async_ansible_down(loop):
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-backup.yml'
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
-    command03 = 'sudo -u qicoo kubectl delete --all namespace'
     one =   sh_exec(command01) 
     two =   sh_exec(command02)
-    three = sh_exec(command03)
 
+    command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
     command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
     command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
     command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
