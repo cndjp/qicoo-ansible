@@ -58,8 +58,9 @@ def mention_func(message):
     cmd2 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-rds-status.sh ' + log_file_path
     cmd3 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-ecache-status.sh ' + log_file_path
     cmd4 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-eks-status.sh ' + log_file_path 
+    cmd5 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-ec2-status.sh ' + log_file_path
 
-    cmdlist = [cmd1, cmd2, cmd3, cmd4]
+    cmdlist = [cmd1, cmd2, cmd3, cmd4, cmd5]
     list2exec(cmdlist)
 
     file2slack(log_file, log_file_path)
