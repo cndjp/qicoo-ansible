@@ -39,28 +39,30 @@ def async_ansible_down(loop):
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-backup.yml'
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
-    one = sh_exec(command01) 
-    two = sh_exec(command02)
+    command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
+    one =   sh_exec(command01) 
+    two =   sh_exec(command02)
+    three = sh_exec(command03)
 
-    command03 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
-    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
-    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
-    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-development.yml'
-    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
-    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
-    commands = asyncio.gather(sh_coroutine(command03), \
-                              sh_coroutine(command04), \
+    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
+    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
+    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
+    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-development.yml'
+    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
+    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
+    command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
+    commands = asyncio.gather(sh_coroutine(command04), \
                               sh_coroutine(command05), \
                               sh_coroutine(command06), \
                               sh_coroutine(command07), \
                               sh_coroutine(command08), \
-                              sh_coroutine(command09))
+                              sh_coroutine(command09), \
+                              sh_coroutine(command10))
 
-    three, four, five, six, seven, eight, nine  = loop.run_until_complete(commands)
+    four, five, six, seven, eight, nine, ten  = loop.run_until_complete(commands)
     loop.close()
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine]
+    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
