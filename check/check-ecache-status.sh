@@ -3,7 +3,7 @@
 CHECK_LOG_FILE=${1}
 
 function check_ecache_status() {
-  ECACHE_STATUS=`aws elasticache describe-cache-clusters --cache-cluster-id ${1} | jq '.CacheClusters[].CacheClusterStatus'`
+  ECACHE_STATUS=`/home/qicoo/.local/bin/aws elasticache describe-cache-clusters --cache-cluster-id ${1} | jq '.CacheClusters[].CacheClusterStatus'`
   echo "ElastiCache ${1} Status " >> ${CHECK_LOG_FILE}
   if [ -z ${ECACHE_STATUS} ];then
     echo '"May be not exists"' >> ${CHECK_LOG_FILE}
