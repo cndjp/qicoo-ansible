@@ -59,7 +59,7 @@ def async_ansible_up(loop):
     command09 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
     command10 = 'hal deploy apply -q'
     command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
-    command12 = ansible_ctl + '/home/sugi/qicoo-ansible/spinnaker/create-prometheus-env.yml'
+    command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/spinnaker/create-prometheus-env.yml'
     eight = sh_exec(command08)
     nine = sh_exec(command09)
     ten = sh_exec(command10)
