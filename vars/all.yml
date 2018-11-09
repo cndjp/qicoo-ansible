@@ -142,7 +142,7 @@ ARK:
   GC_SYNC_PERIOD: 30m
   SCHEDULE_SYNC_PERIOD: 1m
   RESTORE_ONLY_MODE: false
-  RESTORE_NAMESPACES: production,staging,monitoring
+  RESTORE_NAMESPACES: production,staging
 
 ## Slack Informing
 SLACK:
