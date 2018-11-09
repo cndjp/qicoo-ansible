@@ -5,6 +5,8 @@ metadata:
     prometheus: k8s
   name: prometheus-k8s
   namespace: monitoring
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: prometheus.qicoo.tokyo
 spec:
   type: LoadBalancer
   ports:
