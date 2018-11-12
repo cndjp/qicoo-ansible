@@ -42,6 +42,61 @@ def list2exec(cmdlist):
     for cmd in cmdlist:
         os.system(cmd)
 
+def check2connect_spinnaker(message):
+    i=0
+    INCONNECTED=True
+    USERNAME = ""
+    PASSWORD = ""
+    URL = 'https://spinnaker.qicoo.tokyo'
+    with open("/home/qicoo/diamond_spinnaker_username", "r") as USERNAME_FILE:
+            USERNAME = USERNAME_FILE.read().strip()
+
+    with open("/home/qicoo/diamond_spinnaker_password", "r") as PASSWORD_FILE:
+            PASSWORD = PASSWORD_FILE.read().strip()
+
+    for proc in process_iter():
+        if proc.name() == 'kubectl':
+            for conns in proc.connections(kind='inet'):
+                if conns.laddr.port in [8084, 9000] :
+                    message.send('さっき繋いだ分が残ってたみてーだ、消しておくぜ。')
+                    try:
+                        proc.send_signal(SIGTERM)
+                    except Exception:
+                        continue
+                    if i < 10:
+                        i+=1
+                        time.sleep(1)
+                        continue
+                    else:
+                        message.send('悪りぃ、上手く切れねーみてぇだ')
+                        return
+
+    Popen( 'hal deploy connect', shell=True )
+    while INCONNECTED:
+        try:
+            r = requests.get(url=URL, auth=(USERNAME, PASSWORD))
+            if r.status_code == 200:
+                INCONNECTED=False
+            else:
+                if i < 10:
+                    i+=1
+                    time.sleep(2)
+                else:
+                    message.send('悪りぃ、上手く動いてねーみてぇだ')
+                    return
+        except Exception:
+            if i < 10:
+                i+=1
+                time.sleep(2)
+            else:
+                message.send('悪りぃ、上手く動いてねーみてぇだ')
+                return
+
+    msg = '```URL: ' + URL + '\n'
+    msg += 'USERNAME: ' + USERNAME + '\n'
+    msg += 'PASSWORD: ' + PASSWORD + '```'
+    message.send(msg)
+
 @respond_to('テスト')
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
@@ -67,60 +122,7 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
-    i=0
-    INCONNECTED=True
-    USERNAME = ""
-    PASSWORD = ""
-    URL = 'https://spinnaker.qicoo.tokyo'
-    with open("/home/qicoo/diamond_spinnaker_username", "r") as USERNAME_FILE: 
-            USERNAME = USERNAME_FILE.read().strip()
-    
-    with open("/home/qicoo/diamond_spinnaker_password", "r") as PASSWORD_FILE: 
-            PASSWORD = PASSWORD_FILE.read().strip()
-
-    for proc in process_iter():
-        if proc.name() == 'kubectl':
-            for conns in proc.connections(kind='inet'):
-                if conns.laddr.port in [8084, 9000] :
-                    message.send('さっき繋いだ分が残ってたみてーだ、消しておくぜ。')
-                    try:
-                        proc.send_signal(SIGTERM)
-                    except Exception:
-                        continue
-                    if i < 10:
-                        i+=1
-                        time.sleep(1)
-                        continue 
-                    else:
-                        message.send('悪りぃ、上手く切れねーみてぇだ')
-                        return
-
-    message.send('物好きもいたもんだな・・・ほらよっ。')
-    Popen( 'hal deploy connect', shell=True )
-    while INCONNECTED:
-        try:
-            r = requests.get(url=URL, auth=(USERNAME, PASSWORD))
-            if r.status_code == 200:
-                INCONNECTED=False
-            else:
-                if i < 10:
-                    i+=1
-                    time.sleep(2)
-                else:
-                    message.send('悪りぃ、上手く動いてねーみてぇだ')
-                    return
-        except Exception:
-            if i < 10:
-                i+=1
-                time.sleep(2)
-            else:
-                message.send('悪りぃ、上手く動いてねーみてぇだ')
-                return
-            
-    msg = '```URL: ' + URL + '\n'
-    msg += 'USERNAME: ' + USERNAME + '\n'
-    msg += 'PASSWORD: ' + PASSWORD + '```'
-    message.send(msg)
+    check2connect_spinnaker(message)
     message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
@@ -216,9 +218,11 @@ def mention_func(message):
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
     os.system(cmd)
-    message.reply('デプロイ終わったんじゃあないか。')
-
     file2slack(log_file, log_file_path)
+
+    message.send('ついでに繋げておくぜ。')
+    check2connect_spinnaker(message)
+    message.reply('デプロイ終わったんじゃあないか。')
     flag2zero()
 
 @respond_to('下げて')
