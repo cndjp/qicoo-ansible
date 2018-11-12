@@ -219,10 +219,10 @@ def mention_func(message):
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
     os.system(cmd)
     message.send('デプロイ終わったんじゃあないか。')
+    file2slack(log_file, log_file_path)
 
     message.send('ついでに繋げておくぜ。')
     check2connect_spinnaker(message)
-    file2slack(log_file, log_file_path)
     flag2zero()
 
 @respond_to('下げて')
