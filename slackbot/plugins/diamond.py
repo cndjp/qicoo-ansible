@@ -96,7 +96,6 @@ def check2connect_spinnaker(message):
     msg += 'USERNAME: ' + USERNAME + '\n'
     msg += 'PASSWORD: ' + PASSWORD + '```'
     message.send(msg)
-    message.reply('繋げておいたぜ。') 
 
 @respond_to('テスト')
 def mention_func(message):
@@ -124,6 +123,7 @@ def mention_func(message):
 @respond_to('繋げて')
 def mention_func(message):
     check2connect_spinnaker(message)
+    message.reply('繋げておいたぜ。')
 
 @respond_to('戻して')
 def mention_func(message):
@@ -218,11 +218,11 @@ def mention_func(message):
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
     message.send('完璧じゃねーか、デプロイをしてる最中だという事を除いてよ〜〜〜〜〜〜〜〜〜〜。')
     os.system(cmd)
-    message.send('デプロイ終わったんじゃあないか。')
     file2slack(log_file, log_file_path)
 
     message.send('ついでに繋げておくぜ。')
     check2connect_spinnaker(message)
+    message.reply('デプロイ終わったんじゃあないか。')
     flag2zero()
 
 @respond_to('下げて')
