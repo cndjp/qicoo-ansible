@@ -42,7 +42,7 @@ def list2exec(cmdlist):
     for cmd in cmdlist:
         os.system(cmd)
 
-def ck2ct(message):
+def check2connect_spinnaker(message):
     i=0
     INCONNECTED=True
     USERNAME = ""
@@ -123,7 +123,7 @@ def mention_func(message):
 
 @respond_to('繋げて')
 def mention_func(message):
-    ck2ct(message)
+    check2connect_spinnaker(message)
 
 @respond_to('戻して')
 def mention_func(message):
@@ -221,7 +221,7 @@ def mention_func(message):
     message.send('デプロイ終わったんじゃあないか。')
 
     message.send('ついでに繋げておくぜ。')
-    ck2ct(message)
+    check2connect_spinnaker(message)
     file2slack(log_file, log_file_path)
     flag2zero()
 
