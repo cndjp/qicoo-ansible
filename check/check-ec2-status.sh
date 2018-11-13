@@ -7,8 +7,6 @@ function check_ec2_status() {
   INSTANCE_LIST=(`echo ${EC2_STATUS} | jq -r '.InstanceStatuses[].InstanceId'`)
   STATUS_LIST=(`echo ${EC2_STATUS} | jq '.InstanceStatuses[].InstanceStatus.Status'`)
 
-  INDEX=1
-  #echo ${INSTANCE_LIST} | while read INSTANCE
   for((i=0; i<${#INSTANCE_LIST[@]}; i++))
   do
     echo "EC2 Instace ${INSTANCE_LIST[i]} Status " >> ${CHECK_LOG_FILE}
