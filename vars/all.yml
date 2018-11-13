@@ -1,5 +1,4 @@
 ## general 
-ENV: production
 REGION: us-west-2
 GET_URL_TEMP_DIRECTORY: /tmp
 WORK_USER:
@@ -142,17 +141,4 @@ ARK:
   GC_SYNC_PERIOD: 30m
   SCHEDULE_SYNC_PERIOD: 1m
   RESTORE_ONLY_MODE: false
-  RESTORE_NAMESPACES: production,staging
-
-## Slack Informing
-SLACK:
-   BOT_NAME: qicoo-spinnaker-bot
-
-## Docker
-DOCKER_HUB:
-   ADDRESS: index.docker.io
-   REPOSITORIES: qicoo-api
-
-## Kayenta
-KAYENTA:
-   USER: qicoo-kayenta-user
+  RESTORE_NAMESPACES: production,staging,development
