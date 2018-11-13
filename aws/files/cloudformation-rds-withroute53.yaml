@@ -59,7 +59,7 @@ Resources:
         - !Ref VPCSecurityGroups
       CopyTagsToSnapshot: true
       BackupRetentionPeriod: 7
-    DeletionPolicy: Snapshot
+    DeletionPolicy: Delete
   DatabaseDNSRecord:
     Type: "AWS::Route53::RecordSet"
     Properties:
