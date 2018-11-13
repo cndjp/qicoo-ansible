@@ -59,7 +59,7 @@ def async_ansible_down(loop):
                               sh_coroutine(command09), \
                               sh_coroutine(command10))
 
-    three, five, six, seven, eight, nine, ten = loop.run_until_complete(commands)
+    three, four, five, six, seven, eight, nine, ten = loop.run_until_complete(commands)
     loop.close()
 
     command11 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
