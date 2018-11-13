@@ -40,29 +40,30 @@ def async_ansible_down(loop):
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-backup.yml'
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
     command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
-    command04 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
     one =   sh_exec(command01) 
     two =   sh_exec(command02)
     three = sh_exec(command03)
-    four =  sh_exec(command04)
 
-    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
-    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
-    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-development.yml'
-    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
-    command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
-    command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
-    commands = asyncio.gather(sh_coroutine(command05), \
+    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
+    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
+    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
+    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-development.yml'
+    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
+    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
+    command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
+    commands = asyncio.gather(sh_coroutine(command04), \
+                              sh_coroutine(command05), \
                               sh_coroutine(command06), \
                               sh_coroutine(command07), \
                               sh_coroutine(command08), \
                               sh_coroutine(command09), \
-                              sh_coroutine(command10), \
-                              sh_coroutine(command11))
+                              sh_coroutine(command10))
 
-    five, six, seven, eight, nine, ten, eleven  = loop.run_until_complete(commands)
+    four, five, six, seven, eight, nine, ten = loop.run_until_complete(commands)
     loop.close()
+
+    command11 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
+    eleven = sh_exec(command11)
 
     stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven]
     with open(log_file_path,'w') as f:
