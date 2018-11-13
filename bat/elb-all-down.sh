@@ -4,4 +4,5 @@ LB_LIST=(`aws elb describe-load-balancers | jq -r '.LoadBalancerDescriptions[].L
 for((i=0; i<${#LB_LIST[@]}; i++))
 do
   aws elb delete-load-balancer --load-balancer-name ${LB_LIST[i]}
+  echo "Delete the ELB, ${LB_LIST[i]}"
 done

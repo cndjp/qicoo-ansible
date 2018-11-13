@@ -59,10 +59,13 @@ def async_ansible_down(loop):
                               sh_coroutine(command09), \
                               sh_coroutine(command10))
 
-    four, five, six, seven, eight, nine, ten  = loop.run_until_complete(commands)
+    four, five, six, seven, eight, nine, ten = loop.run_until_complete(commands)
     loop.close()
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten]
+    command11 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
+    eleven = sh_exec(command11)
+
+    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
