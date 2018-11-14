@@ -312,6 +312,8 @@ Resources:
       LaunchConfigurationName: !Ref NodeLaunchConfig
       MinSize: !Ref NodeAutoScalingGroupMinSize
       MaxSize: !Ref NodeAutoScalingGroupMaxSize
+      TerminationPolicies: 
+      - "NewestInstance"
       VPCZoneIdentifier:
         !Ref Subnets
       Tags:

@@ -1,0 +1,49 @@
+- name: "Register EKS Cluster Name"
+  shell: |
+     aws cloudformation describe-stacks \
+          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+          --query  'Stacks[0].Outputs[?OutputKey==`EksClusterName`].OutputValue' \
+          --output text
+  register: E_S_EKS_CLUSTER_NAME
+
+- name: "Register Spinnaker Instance Profile ARN"
+  shell: |
+     aws cloudformation describe-stacks \
+          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+          --query  'Stacks[0].Outputs[?OutputKey==`SpinnakerInstanceProfileArn`].OutputValue' \
+          --output text
+  register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
+
+- name: "Register Secrity Group"
+  shell: |
+     aws cloudformation describe-stacks \
+          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+          --query  'Stacks[0].Outputs[?OutputKey==`SecurityGroups`].OutputValue' \
+          --output text
+  register: E_S_CONTROL_PLANE_SG
+
+- name: "Register Spinnaker Instance Profile ARN"
+  shell: |
+     aws cloudformation describe-stacks \
+          --stack-name {{ EKS.SPINNAKER.MANAGING_ACOUNT_STACK }} \
+          --query  'Stacks[0].Outputs[?OutputKey==`SpinnakerInstanceProfileArn`].OutputValue' \
+          --output text
+  register: E_S_SPINNAKER_INSTANCE_PROFILE_ARN
+
+- name: "Scale EKS Cluster Nodes"
+  cloudformation:
+     stack_name: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+     disable_rollback: true
+     state: present
+     template_parameters:
+        NodeInstanceProfile: "{{ E_S_SPINNAKER_INSTANCE_PROFILE_ARN.stdout }}"
+        NodeInstanceType: "{{ EKS.CLUSTER.FLAVOR }}"
+        ClusterName: "{{ E_S_EKS_CLUSTER_NAME.stdout }}"
+        NodeGroupName: "{{ EKS.SPINNAKER.EC2_NODEGROUP }}"
+        ClusterControlPlaneSecurityGroup: "{{ E_S_CONTROL_PLANE_SG.stdout }}"
+        Subnets: "{{ EKS.CLUSTER.SUBNET1 }},{{ EKS.CLUSTER.SUBNET2 }}"
+        VpcId: " {{ EKS.CLUSTER.VPC }} "
+        NodeAutoScalingGroupMinSize: "{{ scale_num }}" 
+        NodeAutoScalingGroupMaxSize: "{{ scale_num }}"
+        KeyName: "{{ EKS.CLUSTER.KEYNAME }}"
+     region: "{{ REGION }}"
