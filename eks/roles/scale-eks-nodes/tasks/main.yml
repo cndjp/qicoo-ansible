@@ -43,7 +43,7 @@
         ClusterControlPlaneSecurityGroup: "{{ E_S_CONTROL_PLANE_SG.stdout }}"
         Subnets: "{{ EKS.CLUSTER.SUBNET1 }},{{ EKS.CLUSTER.SUBNET2 }}"
         VpcId: " {{ EKS.CLUSTER.VPC }} "
-        NodeAutoScalingGroupMinSize: 5
-        NodeAutoScalingGroupMaxSize: 5
+        NodeAutoScalingGroupMinSize: "{{ scale_num }}" 
+        NodeAutoScalingGroupMaxSize: "{{ scale_num }}"
         KeyName: "{{ EKS.CLUSTER.KEYNAME }}"
      region: "{{ REGION }}"
