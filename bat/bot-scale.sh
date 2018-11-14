@@ -8,4 +8,4 @@ NODE_GROUPS=`/home/qicoo/.local/bin/aws cloudformation describe-stack-resources 
 SCALE_NUM=${2}
 
 ${ANSIBLE_CTL} /home/qicoo/qicoo-ansible/eks/scale-eks-nodes.yml --extra-vars "scale_num=${SCALE_NUM}" > ${EKSSCALE_LOG_FILE}
-/home/qicoo/.local/bin/aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names spinnaker-eks-nodes-NodeGroup-J7JQEIJ7D3AF --output table >> ${EKSSCALE_LOG_FILE}
+/home/qicoo/.local/bin/aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names ${NODE_GROUPS} --output table >> ${EKSSCALE_LOG_FILE}
