@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - scale-eks-nodes
+  vars_files:
+    - ../vars/all.yml
