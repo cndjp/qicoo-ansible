@@ -101,6 +101,34 @@ def check2connect_spinnaker(message):
 def mention_func(message):
     message.reply('テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。')
 
+@respond_to(r'^すけえる\s+\S.*')
+def mention_func(message):
+    if flag == 1:
+        message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
+        return
+
+    flag2one()
+
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = 'qicoo-bot-scale_' + now_str + '.log'
+    log_file_path = '/home/qicoo/qicoo-bot-scale/' + log_file
+
+    text = message.body['text']
+    tmp, num = text.split(None, 1)
+    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-scale.sh ' + log_file + ' ' + num
+    if num.isdigit():
+        msg = 'りょ〜〜〜〜かいっ！EKSノードを「' + num + '」個に すけえる するぜ！'
+        message.send(msg)
+        os.system(cmd)
+        file2slack(log_file, log_file_path)
+        message.reply('ふ〜〜〜〜これでオッケーか？')
+    else:
+        message.reply('おっと、すけえるの後は数字で指定してくれよな!')
+
+    flag2zero()
+
+
 @respond_to('試して')
 def mention_func(message):
     message.send('ちぃとばかし見てみるか・・・。')
