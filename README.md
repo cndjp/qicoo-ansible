@@ -58,7 +58,7 @@ Route53:qicoo-rds-01,qicoo-rds-s01,qicoo-rds-d01,qicoo-ecache-01,qicoo-ecache-s0
 
 [主なk8sリソース]
 ARK:`https://github.com/cndjp/qicoo-ansible/tree/master/ark/files/main`
-External-dns:`https://github.com/cndjp/qicoo-ansible/blob/master/eks/files/eks-externaldns-deployment.yaml`,`https://github.com/cndjp/qicoo-ansible/blob/master/eks/files/test-externakdns-deployment.yaml`...more
+External-dns:`https://github.com/cndjp/qicoo-ansible/blob/master/eks/files/eks-externaldns-deployment.yaml`,`https://github.com/cndjp/qicoo-ansible/blob/master/eks/files/eks-externakdns-namespace.yaml`,`https://github.com/cndjp/qicoo-ansible/blob/master/eks/files/eks-externakdns-serviceaccount.yaml`
 Spinnaker: `hal deploy apply`を実行
 Prometheus: `https://github.com/cndjp/qicoo-ansible/tree/master/spinnaker/files`
 前回のリストア※1: `https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-restore.sh`を実行
