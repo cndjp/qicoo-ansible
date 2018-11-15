@@ -36,9 +36,15 @@ $ cd /home/qicoo/qicoo-ansible
 前述の通り、これらのコマンドを使えばインフラの準備から全削除、バックアップリストア、スケールアップまでサポートされています。
 また、全てのコマンドの出力はログを取っており、そのログは `qicoo-controller-01` サーバ上の `/home/qicoo/`またはcndjpのslack上に送ります。
 
+### 東方仗助のロック
+
+東方仗助は同時に動作して欲しくないコマンドがあり、そのコマンドに対してはメモリ上にフラグを立ててロック排他制御を実施しています。  
+ロック作動時には `ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。` と呟きます。  
+コマンドリファレンス内で🔐マークがあるコマンドが対象です。
+
 ## 東方仗助コマンドリファレンス
 
-### @東方 仗助 上げて
+### @東方 仗助 上げて🔐
 このコマンドでは、以下のリソースをデプロイします(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-up.py`)。  
 Python3によって非同期、パイプラインの依存性解決が管理されており、大量のリソースをデプロイしながらも高速かつ正確に動きます。
 
@@ -62,7 +68,7 @@ Prometheus: `https://github.com/cndjp/qicoo-ansible/tree/master/spinnaker/files`
 
 ※1...リストアするk8sリソースは `https://github.com/cndjp/qicoo-ansible/blob/master/vars/all.yml#L144` に定義されている、ネームスペースに絞っています。
 
-### @東方 仗助 下げて
+### @東方 仗助 下げて🔐
 このコマンドでは、`@東方 仗助 上げて`によりデプロイされたリソースを `バックアップを取って` 全て削除します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-down.py`)。  
 Python3によって非同期、パイプラインの依存性解決が管理されており、大量のリソースを消しながらも高速かつ正確に動きます。
 
@@ -88,7 +94,7 @@ aws eks describe-cluster --name qicoo-eks-01
 aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table
 ```
 
-### @東方 仗助 覚えて
+### @東方 仗助 覚えて🔐
 このコマンドでは、以下のリソースのバックアップをとります(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-backup.sh`)。
 
 ```
@@ -98,7 +104,7 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 
 尚、Kubernetes上の全リソースは`heptio/ark`によってバックアップされ、S3上の `qicoo-backupbucket-01` に日付入りで永続化されています。
 
-### @東方 仗助 戻して
+### @東方 仗助 戻して🔐
 このコマンドでは、以下のリソースのリストアを実施します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-restore.sh`)。
 
 ```
@@ -117,7 +123,7 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 ### @東方 仗助 試して
 このコマンドでは、qicooで使用するAWS上のリソースの状態の一覧を表示します(ソース:`https://github.com/cndjp/qicoo-ansible/tree/master/check`)。
 
-### @東方 仗助 すけえる <数字>
+### @東方 仗助 すけえる <数字>🔐
 このコマンドでは、指定した <数字> の個数にEKSのノードをスケールさせます。
 
 すけえるすることによってノード数を増やす分にはEKS上のサービスが落ちる事はありません。  
