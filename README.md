@@ -113,6 +113,8 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 ・直前のSpinnakerの設定
 ```
 
+注意点としては、Spinnakerの設定の巻き戻しはデプロイし直さないとうまくいかないので、一度今立っているSpinnakerは全部けしてしまう動作をします。
+
 ### @東方 仗助 繋げて
 このコマンドでは、EKS上にデプロイしたSpinnakerの `gate` と `deck` に対して、`qicoo-controller-01` 上のnginx(ソース:`https://github.com/cndjp/qicoo-ansible/tree/master/nginx`)がリバプロさせます。
 
