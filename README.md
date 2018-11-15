@@ -15,7 +15,8 @@ $ cd /home/qicoo/qicoo-ansible
 
 ## 東方仗助について
 ほとんどのEKSやAWSリソースに対するアクションは `https://github.com/cndjp/qicoo-ansible/tree/master/slackbot` 配下にあるコードをソースとして動いている、  
-`qicoo-controller-01` サーバ上のslackbotのサービスをcndjpのslackの `#qicoo-updown` からオペレーション出来るようにデザインしてあります。
+`qicoo-controller-01` サーバ上のslackbotのサービスをcndjpのslackの `#qicoo-updown` からオペレーション出来るようにデザインしてあります。  
+細かなオペレーションはあえてしないようなデザインになってますので、細かい事をしたい場合は直接`qicoo-controller-01` サーバで実行してください。
 
 また東方仗助が使用するバッチやスクリプトは `https://github.com/cndjp/qicoo-ansible/tree/master/bat` 配下にあります。
 
@@ -33,7 +34,7 @@ $ cd /home/qicoo/qicoo-ansible
 @東方 仗助 テスト:生存確認用
 ```
 
-前述の通り、これらのコマンドを使えばインフラの準備から全削除、バックアップリストア、スケールアップまでサポートされています。
+前述の通り、これらのコマンドを使えばインフラの準備から全削除、バックアップリストア、スケールアップまでサポートされています。  
 また、全てのコマンドの出力はログを取っており、そのログは `qicoo-controller-01` サーバ上の `/home/qicoo/`またはcndjpのslack上に送ります。
 
 ### 東方仗助のロック
