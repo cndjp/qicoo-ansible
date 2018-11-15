@@ -234,7 +234,8 @@ $ a ark/create-heptio-backup.yml
 $ a ark/create-heptio-restore.yml
 ```
 
-## 削除する
+## 手で削除する
+以下のコマンドで東方仗助を使わずに削除もできます。
 
 ### 全部削除する
 
