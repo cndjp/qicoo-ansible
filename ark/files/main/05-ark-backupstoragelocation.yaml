@@ -12,22 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
----
 apiVersion: ark.heptio.com/v1
-kind: Config
+kind: BackupStorageLocation
 metadata:
-  namespace: heptio-ark
   name: default
-persistentVolumeProvider:
-  name: aws
+  namespace: heptio-ark
+spec:
+  provider: aws
+  objectStorage:
+    bucket: qicoo-backupbucket-01
   config:
-    region: {{ REGION }}
-backupStorageProvider:
-  name: aws
-  bucket: {{ S3.BACKUP.BUCKET }}
-  config:
-    region: {{ REGION }}
-backupSyncPeriod: {{ ARK.BACKUP_SYNC_PERIOD }}
-gcSyncPeriod: {{ ARK.GC_SYNC_PERIOD }}
-scheduleSyncPeriod: {{ ARK.SCHEDULE_SYNC_PERIOD }}
-restoreOnlyMode: {{ ARK.RESTORE_ONLY_MODE }}
+    region: us-west-2
+backupSyncPeriod: 30m
+gcSyncPeriod: 30m
+scheduleSyncPeriod: 1m
+restoreOnlyMode: False
