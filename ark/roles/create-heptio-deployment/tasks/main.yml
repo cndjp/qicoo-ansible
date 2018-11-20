@@ -9,8 +9,8 @@
 
 - name: "Create Ark Config Manifest"
   template:
-    src={{ ansible_env.PWD }}/template/10-ark-config.yaml.j2
-    dest={{ ansible_env.PWD }}/files/main/10-ark-config.yaml
+    src={{ ansible_env.PWD }}/template/05-ark-backupstoragelocation.yaml.j2
+    dest={{ ansible_env.PWD }}/files/main/05-ark-backupstoragelocation.yaml
     owner={{ WORK_USER.NAME }}
     group={{ WORK_USER.GROUP }}
   tags:
@@ -18,8 +18,8 @@
 
 - name: "Create Ark Config"
   shell: |
-     kubectl apply -f {{ ansible_env.PWD }}/files/main/10-ark-config.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/main/05-ark-backupstoragelocation.yaml
 
 - name: "Create Ark Deployment"
   shell: |
-     kubectl apply -f {{ ansible_env.PWD }}/files/main/20-deployment.yaml
+     kubectl apply -f {{ ansible_env.PWD }}/files/main/10-deployment.yaml
