@@ -20,7 +20,7 @@ metadata:
 spec:
   provider: aws
   objectStorage:
-    bucket: qicoo-backupbucket-01
+    bucket: qicoo-backupbucket-02
   config:
     region: us-west-2
 backupSyncPeriod: 30m

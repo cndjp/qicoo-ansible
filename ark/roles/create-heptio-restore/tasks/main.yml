@@ -1,14 +1,11 @@
 - name: "Register Last Dir"
   shell: |
-    aws s3api list-objects --bucket {{ S3.BACKUP.BUCKET }} | jq -r .Contents[].Key | awk -F '[/]' '{print $1}' | sort -r | head -n1
+    aws s3api list-objects --bucket {{ S3.BACKUP.BUCKET }} | jq -r .Contents[].Key | grep -v metadata | awk -F '[/]' '{print $2}' | sort -r | head -n1
   register: RESTORE_DIR
 
 - name: "Create Ark Restore"
   shell: |
-    ark restore create --from-backup {{ RESTORE_DIR.stdout }} --include-namespaces {{ ARK.RESTORE_NAMESPACES }}
-  until: result.stdout.find('submitted successfully') != -1
-  retries: 5
-  delay: 50
+    ark restore create --include-namespaces {{ ARK.RESTORE_NAMESPACES }} --from-backup {{ RESTORE_DIR.stdout }}
   register: result
 
 
