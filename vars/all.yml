@@ -44,7 +44,7 @@ ROUTE53:
 
 S3:
   BACKUP:
-    BUCKET: qicoo-backupbucket-01
+    BUCKET: qicoo-backupbucket-02
   SPINNAKER:
     BUCKET: qicoo-spinnakerbucket-01
 
