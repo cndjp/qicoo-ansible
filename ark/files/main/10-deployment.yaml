@@ -1,4 +1,3 @@
-
 # Copyright 2017 the Heptio Ark contributors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,11 +33,13 @@ spec:
       serviceAccountName: ark
       containers:
         - name: ark
-          image: gcr.io/heptio-images/ark:latest
+          image: gcr.io/heptio-images/ark@sha256:6f13f281c2e69cd70d90cfdec735a1a57ac79db2bb05723df9eafaad3f383559
           command:
             - /ark
           args:
             - server
+            ## uncomment following line and specify values if needed for multiple provider snapshot locations
+            # - --default-volume-snapshot-locations=<provider-1:location-1,provider-2:location-2,...>
           volumeMounts:
             - name: cloud-credentials
               mountPath: /credentials
@@ -61,4 +62,3 @@ spec:
           emptyDir: {}
         - name: scratch
           emptyDir: {}
-
