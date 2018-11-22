@@ -1,0 +1,9 @@
+- name: "Create EBS for The Prometheus"
+  cloudformation:
+     stack_name: "{{ EBS.PROMETHEUS.STACK_NAME }}"
+     template: "{{ ansible_env.PWD }}/files/cloudformation-ebs-prometheus.yaml"
+     disable_rollback: true
+     template_parameters:
+        AvailabilityZone: "{{ EBS.PROMETHEUS.AZ }}"
+        Size: "{{ EBS.PROMETHEUS.DISK }}"
+        VolumeType: "{{ EBS.PROMETHEUS.DEVICE }}"
