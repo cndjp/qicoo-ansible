@@ -1,10 +1,9 @@
 #!/bin/bash
 
-PV_LIST=($(kubectl --namespace monitoring get persistentvolumes | grep 'monitoring/prometheus-k8s-db-prometheus-k8s' | awk '{print $1}'))
+EBS_LIST=($(/home/qicoo/.local/bin/aws ec2 describe-tags --query 'Tags[?Key==`Name`]' | /usr/bin/jq -r '.[] | select( .ResourceType == "volume") | .ResourceId'))
 
-for((i=0; i<${#PV_LIST[@]}; i++))
+for((i=0; i<${#EBS_LIST[@]}; i++))
 do
-  EBS_ID=$(kubectl --namespace monitoring describe persistentvolumes ${PV_LIST[i]} | grep 'VolumeID:' | cut -c 34-)
-  echo "Delete Volume for the ${EBS_ID}"
-  /home/qicoo/.local/bin/aws ec2 delete-volume --volume-id ${EBS_ID}
+  echo "Delete Volume for the ${EBS_LIST[i]}"
+  /home/qicoo/.local/bin/aws ec2 delete-volume --volume-id ${EBS_LIST[i]}
 done

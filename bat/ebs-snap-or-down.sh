@@ -13,7 +13,8 @@ do
   EBS_ID=$(kubectl --namespace monitoring describe persistentvolumes ${PV_LIST[i]} | grep 'VolumeID:' | cut -c 34-)
   if [ ${1} = 'snapshot' ]; then
     echo "Create Snapshot for the ${EBS_ID}" >> ${PROMEBACKUP_LOG_FILE}
-    /home/qicoo/.local/bin/aws ec2 create-snapshot --volume-id ${EBS_ID} --description $(date +%Y%m%d%H%M%S) >> ${PROMEBACKUP_LOG_FILE}
+    SNAPSHOT_DESC='Source Qicoo'\''s Prometheus Snapshot at '$(date +%Y/%m/%d_%H:%M:%S)
+    /home/qicoo/.local/bin/aws ec2 create-snapshot --volume-id ${EBS_ID} --description ${SNAPSHOT_DESC} >> ${PROMEBACKUP_LOG_FILE}zz
   elif [${1} = 'delete' ]; then
     echo "Delete Volume for the ${EBS_ID}" >> ${PROMEBACKUP_LOG_FILE}
     /home/qicoo/.local/bin/aws ec2 delete-volume --volume-id ${EBS_ID} >> ${PROMEBACKUP_LOG_FILE}
