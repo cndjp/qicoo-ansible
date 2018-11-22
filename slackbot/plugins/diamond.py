@@ -174,7 +174,7 @@ def mention_func(message):
     file2slack(log_file, log_file_path)
     flag2zero()
 
-@respond_to('覚えて')
+@respond_to(r'^覚えて\s.*')
 def mention_func(message):
     if flag == 1:
         message.send('ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。')
@@ -184,11 +184,22 @@ def mention_func(message):
 
     now = datetime.now()
     now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-ark-backup_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-ark-backup/' + log_file
-    cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-backup.sh  ' + log_file
+    text = message.body['text']
+    tmp, msg = text.split(None, 1)
 
-    message.send('オーラオラオラオラオラオラオラオラ！！！！！！！！！`')
+    if msg == 'クラスター':
+        log_file = 'qicoo-ark-backup_' + now_str + '.log'
+        log_file_path = '/home/qicoo/qicoo-ark-backup/' + log_file
+        cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-backup.sh  ' + log_file
+    elif msg == 'プロメテウス':
+        log_file = 'qicoo-prometheus-backup_' + now_str + '.log'
+        log_file_path = '/home/qicoo/qicoo-prometheus-backup/' + log_file
+        cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/ebs-snap-or-down.sh snapshot ' + log_file
+    else:
+        message.send('クラスターかプロメテウスって言ってくれよな！')
+        return
+
+    message.send('オーラオラオラオラオラオラオラオラ！！！！！！！！！')
     os.system(cmd)
     message.reply('一生その形で生きていくんだな・・・お似合いだぜ！！')
 
