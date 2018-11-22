@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - create-ebs-prometheus
+  vars_files:
+    - ../vars/all.yml

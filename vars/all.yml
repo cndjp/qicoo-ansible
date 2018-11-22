@@ -114,6 +114,13 @@ ELASTIC_CACHE:
   SUBNET2: "{{ EKS.CLUSTER.SUBNET2 }}"
   SECURITY_GROUP: "{{ EC2_GROUP.ECACHE_EC2_GROUP.SECURITY_GROUP_ID }}"
 
+EBS:
+  PROMETHEUS:
+    STACK_NAME: ebs-prometheus
+    AZ: us-west-2a
+    DISK: 50
+    DEVICE: gp2
+
 EC2_GROUP:
   ECACHE_EC2_GROUP:
     NAME: redis-securitygroup-01
