@@ -1,3 +1,21 @@
+- name: "Register EBS from the Cloudformation"
+  shell: |
+     aws cloudformation describe-stack-resource \
+         --stack-name {{ EKS.PROMETHEUS.STACK_NAME }} \
+         --query 'StackResourceDetail.PhysicalResourceId' \
+         --logical-resource-id PrometheusDataVolume \
+         --output text
+  register: RESTORE_PROME_EBS 
+
+- name: "Create EBS PV Template"
+  template:
+    src={{ ansible_env.PWD }}/template/prometheus-persistentvolume.yaml.j2
+    dest={{ ansible_env.PWD }}/files/prometheus-persistentvolume.yaml
+    owner={{ WORK_USER.NAME }}
+    group={{ WORK_USER.GROUP }}
+  tags:
+    - always
+
 - name: "Deploy Prometheus"
   shell: |
      kubectl apply -f {{ ansible_env.PWD }}/files/
