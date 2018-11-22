@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  labels:
+    prometheus: k8s
+  name: persisted
+  namespace: monitoring
+spec:
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: gp2
+        resources:
+          requests:
+            storage: 40Gi
