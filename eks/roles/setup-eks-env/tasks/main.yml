@@ -176,3 +176,6 @@
   shell:
      kubectl apply -f {{ ansible_env.PWD }}/files/eks-externaldns-deployment.yaml
 
+- name: "Create EBS Storageclass"
+  shell:
+     kubectl apply -f {{ ansible_env.PWD }}/files/eks-ebs-storageclass.yaml

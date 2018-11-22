@@ -26,3 +26,10 @@ spec:
   serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
   version: v2.4.3
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: gp2
+        resources:
+          requests:
+            storage: 50Gi

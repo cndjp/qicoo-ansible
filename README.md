@@ -6,13 +6,6 @@
 # ブランチポリシー
 `master` ブランチのみが安定版です。
 
-## 作業ディレクトリ
-以下で動かすことが前提です。
-
-```
-$ cd /home/qicoo/qicoo-ansible
-```
-
 ## 東方仗助について
 ほとんどのEKSやAWSリソースに対するアクションは `https://github.com/cndjp/qicoo-ansible/tree/master/slackbot` 配下にあるコードをソースとして動いている、  
 `qicoo-controller-01` サーバ上のslackbotのサービスをcndjpのslackの `#qicoo-updown` からオペレーション出来るようにデザインしてあります。  
@@ -26,7 +19,7 @@ $ cd /home/qicoo/qicoo-ansible
 @東方 仗助 上げて:qicooのインフラを全部上げる
 @東方 仗助 下げて:qicooのインフラを全部下げる
 @東方 仗助 見せて:qicooの全インフラの状態を見る
-@東方 仗助 覚えて:今の状態でbackupをとる
+@東方 仗助 覚えて <クラスター/プロメテウス>:今の状態でbackupをとる
 @東方 仗助 戻して:直前のbackupに戻す
 @東方 仗助 繋げて:Spinnakerのweb画面を見れるようにする
 @東方 仗助 試して:AWSリソースの状態だけみる
@@ -95,7 +88,7 @@ aws eks describe-cluster --name qicoo-eks-01
 aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table
 ```
 
-### @東方 仗助 覚えて🔐
+### @東方 仗助 覚えて クラスター🔐
 このコマンドでは、以下のリソースのバックアップをとります(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-backup.sh`)。
 
 ```
@@ -104,6 +97,13 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 ```
 
 尚、Kubernetes上の全リソースは`heptio/ark`によってバックアップされ、S3上の `qicoo-backupbucket-01` に日付入りで永続化されています。
+
+### @東方 仗助 覚えて プロメテウス🔐
+このコマンドでは、以下のリソースのバックアップをとります(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/ebs-snap-or-down.sh`)。
+
+```
+・現在のPrometheusにマウントされたEBSのスナップショット
+```
 
 ### @東方 仗助 戻して🔐
 このコマンドでは、以下のリソースのリストアを実施します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-restore.sh`)。
@@ -137,7 +137,15 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 このコマンドは、東方仗助サービスが生きているか確認します。  
 `テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。` って返ってことなかったら確実に動いてません。
 
-## Alias
+
+## サーバ上でのコマンド
+以下で動かすことが前提です。
+
+```
+$ cd /home/qicoo/qicoo-ansible
+```
+
+### Alias
 ansibleのplaybookを適用する時のうんとかなんとかコマンド打つのが面倒なので便利なエイリアスを`qicoo-controller-01` サーバ上に既に設定してあります。
 
 ```
