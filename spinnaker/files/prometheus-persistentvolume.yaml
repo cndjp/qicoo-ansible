@@ -6,6 +6,6 @@ spec:
   capacity:
     storage: 50Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   awsElasticBlockStore:
-    volumeID: vol-066545cbbf8320d31
+    volumeID: vol-0edc38ab9c88b27ae
