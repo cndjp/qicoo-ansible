@@ -6,6 +6,6 @@ spec:
   capacity:
     storage: 50Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   awsElasticBlockStore:
     volumeID: {{ RESTORE_PROME_EBS.stdout }}
