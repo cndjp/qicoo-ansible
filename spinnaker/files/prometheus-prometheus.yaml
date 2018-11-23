@@ -29,7 +29,9 @@ spec:
   storage:
     volumeClaimTemplate:
       spec:
-        storageClassName: gp2
-        resources:
-          requests:
+        accessModes:
+    	  - ReadWriteMany
+  	resources:
+    	  requests:
             storage: 50Gi
+        volumeName: ebs-prometheus-pv 
