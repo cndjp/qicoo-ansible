@@ -30,8 +30,8 @@ spec:
     volumeClaimTemplate:
       spec:
         accessModes:
-    	  - ReadWriteMany
-  	resources:
-    	  requests:
+          - ReadWriteMany
+        resources:
+          requests:
             storage: 50Gi
         volumeName: ebs-prometheus-pv 
