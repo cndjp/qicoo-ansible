@@ -13,3 +13,7 @@
         Size: "{{ EBS.PROMETHEUS.DISK }}"
         VolumeType: "{{ EBS.PROMETHEUS.DEVICE }}"
         SnapshotId: "{{ LAST_EBS_SNAPSHOT.stdout }}"
+
+- name: "Delete Last EBS Snapshot"
+  shell: |
+     aws ec2 delete-snapshot --snapshot-id {{ LAST_EBS_SNAPSHOT.stdout }}
