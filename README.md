@@ -47,6 +47,7 @@ Python3によって非同期、パイプラインの依存性解決が管理さ�
 EKS:qicoo-eks-01
 RDS:qicoo-rds-01,qicoo-rds-s01,qicoo-rds-d01
 ElastiCache:qicoo-ecache-01,qicoo-ecache-s01,qicoo-ecache-d01
+EBS※2:ebs-prometheus
 Route53:qicoo-rds-01,qicoo-rds-s01,qicoo-rds-d01,qicoo-ecache-01,qicoo-ecache-s01,qicoo-ecache-d01のCNAME
 
 [主なk8sリソース]
@@ -60,7 +61,8 @@ Prometheus: `https://github.com/cndjp/qicoo-ansible/tree/master/spinnaker/files`
 尚このコマンドは`一応`冪等性が考慮されているので、何度実行してもOKです。  
 が、もちろん完全ではないので、主にSpinnaker周りで一部うまく動作しないコンポーネントがあるかもしれませんが、そうしたら手で修正してください。
 
-※1...リストアするk8sリソースは `https://github.com/cndjp/qicoo-ansible/blob/master/vars/all.yml#L144` に定義されている、ネームスペースに絞っています。
+※1...リストアするk8sリソースは `https://github.com/cndjp/qicoo-ansible/blob/master/vars/all.yml` に定義されている、ネームスペースに絞っています。  
+※2...Prometheusが使用するEBSに関しては、「上げて」時にCloudformationの`ebs-prometheus`により生成されたスナップショットからリストア、スナップショットの削除しています。そして「下げて」時に`ebs-prometheus`上の`DeletionPolicy: Snapshot`によってスナップショットが新たに生成され、このライフサイクルによりあたかもプロメテウスのメトリクスが継続して収集しているようなインフラを実現しています。
 
 ### @東方 仗助 下げて🔐
 このコマンドでは、`@東方 仗助 上げて`によりデプロイされたリソースを `バックアップを取って` 全て削除します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-down.py`)。  
@@ -219,6 +221,12 @@ $ a eks/setup-eks-env.yml
 $ hal deploy apply
 ```
 
+### Prometheus Operatorをデプロイする
+
+```
+$ kubectl apply -f spinnaker/files
+```
+
 #### コンパネを見たい時は
 
 ```
@@ -280,4 +288,10 @@ $ a eks/delete-eks-env.yml
 
 ```
 $ hal deploy clean
+```
+
+### Prometheus Operatorを削除する
+
+```
+$ kubectl delete -f spinnaker/files
 ```
