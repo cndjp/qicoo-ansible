@@ -1,7 +1,7 @@
 - name: "Register EBS from the Cloudformation"
   shell: |
      aws cloudformation describe-stack-resource \
-         --stack-name {{ EKS.PROMETHEUS.STACK_NAME }} \
+         --stack-name {{ EBS.PROMETHEUS.STACK_NAME }} \
          --query 'StackResourceDetail.PhysicalResourceId' \
          --logical-resource-id PrometheusDataVolume \
          --output text
