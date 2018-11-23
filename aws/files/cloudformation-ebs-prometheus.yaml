@@ -17,3 +17,4 @@ Resources:
       Size: !Ref Size
       SnapshotId: !Ref SnapshotId
       VolumeType: !Ref VolumeType
+    DeletionPolicy: Snapshot
