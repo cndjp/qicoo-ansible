@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - delete-ebs-prometheus
+  vars_files:
+    - ../vars/all.yml

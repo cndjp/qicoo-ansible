@@ -44,29 +44,31 @@ def async_ansible_up(loop):
     command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-production.yml'
     command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-staging.yml'
     command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-development.yml'
+    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-ebs-prometheus.yml'
     commands = asyncio.gather(sh_coroutine(command01), \
                               sh_coroutine(command02), \
                               sh_coroutine(command03), \
                               sh_coroutine(command04), \
                               sh_coroutine(command05), \
                               sh_coroutine(command06), \
-                              sh_coroutine(command07))
+                              sh_coroutine(command07), \
+                              sh_coroutine(command08))
 
-    one, two, three, four, five, six, seven  = loop.run_until_complete(commands)
+    one, two, three, four, five, six, seven, eight  = loop.run_until_complete(commands)
     loop.close()
 
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
-    command09 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
-    command10 = 'hal deploy apply -q'
-    command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
-    command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/spinnaker/create-prometheus-env.yml'
-    eight = sh_exec(command08)
-    nine = sh_exec(command09)
-    ten = sh_exec(command10)
-    eleven = sh_exec(command11)
-    twelve = sh_exec(command12)
+    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
+    command10 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
+    command11 = 'hal deploy apply -q'
+    command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
+    command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/spinnaker/create-prometheus-env.yml'
+    nine = sh_exec(command08)
+    ten = sh_exec(command09)
+    eleven = sh_exec(command10)
+    twelve = sh_exec(command11)
+    thirteen = sh_exec(command12)
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
+    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
