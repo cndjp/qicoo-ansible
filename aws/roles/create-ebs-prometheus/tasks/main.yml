@@ -1,3 +1,8 @@
+- name: "Register Last EBS Snapshot"
+  shell: |
+     aws ec2 describe-tags | /usr/bin/jq -r '.Tags[] | select( .ResourceType == "snapshot" ) | select( .Value == "ebs-prometheus" ) | .ResourceId'
+  register: LAST_EBS_SNAPSHOT
+
 - name: "Create EBS for The Prometheus"
   cloudformation:
      stack_name: "{{ EBS.PROMETHEUS.STACK_NAME }}"
@@ -7,3 +12,4 @@
         AvailabilityZone: "{{ EBS.PROMETHEUS.AZ }}"
         Size: "{{ EBS.PROMETHEUS.DISK }}"
         VolumeType: "{{ EBS.PROMETHEUS.DEVICE }}"
+        SnapshotId: "{{ LAST_EBS_SNAPSHOT.stdout }}"
