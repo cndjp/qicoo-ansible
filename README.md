@@ -224,7 +224,7 @@ $ hal deploy apply
 ### Prometheus Operatorをデプロイする
 
 ```
-$ kubectl apply -f spinnaker/files
+$ kubectl apply -f spinnaker/files/
 ```
 
 #### コンパネを見たい時は
