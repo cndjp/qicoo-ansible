@@ -1,0 +1,4 @@
+- name: "Delete EBS for The Prometheus"
+  cloudformation:
+     stack_name: "{{ EBS.PROMETHEUS.STACK_NAME }}"
+     state: "absent"

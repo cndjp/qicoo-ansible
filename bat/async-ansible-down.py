@@ -63,7 +63,7 @@ def async_ansible_down(loop):
     loop.close()
 
     command11 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
-    command12 = '/home/qicoo/qicoo-ansible/bat/ebs-all-down.sh'
+    command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ebs-prometheus.yml'
     eleven = sh_exec(command11)
     twelve = sh_exec(command12)
 
