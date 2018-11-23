@@ -22,7 +22,7 @@
 @東方 仗助 覚えて <クラスター/プロメテウス>:今の状態でbackupをとる
 @東方 仗助 戻して:直前のbackupに戻す
 @東方 仗助 繋げて:Spinnakerのweb画面を見れるようにする
-@東方 仗助 試して:AWSリソースの状態だけみる
+@東方 仗助 調べて:AWSリソースの状態だけみる
 @東方 仗助 すけえる <数字>:<数字>個にEKSをスケールする
 @東方 仗助 テスト:生存確認用
 ```
@@ -123,7 +123,7 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 尚、このコマンドは冪等性担保かつ例外処理に対応しているので、繰り返し打つと新たにSpinnakerの `gate` と `deck` に対してリバプロさせます。  
 これは、例えばSpinnakerを繰り返しデプロイし直す際に使えます。
 
-### @東方 仗助 試して
+### @東方 仗助 調べて
 このコマンドでは、qicooで使用するAWS上のリソースの状態の一覧を表示します(ソース:`https://github.com/cndjp/qicoo-ansible/tree/master/check`)。
 
 ### @東方 仗助 すけえる <数字>🔐
