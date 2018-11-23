@@ -14,7 +14,7 @@ spec:
   baseImage: quay.io/prometheus/prometheus
   nodeSelector:
     beta.kubernetes.io/os: linux
-  replicas: 2
+  replicas: 1
   resources:
     requests:
       memory: 400Mi
@@ -29,7 +29,9 @@ spec:
   storage:
     volumeClaimTemplate:
       spec:
-        storageClassName: gp2
+        accessModes:
+        - ReadWriteOnce
         resources:
           requests:
             storage: 50Gi
+        volumeName: ebs-prometheus-pv 
