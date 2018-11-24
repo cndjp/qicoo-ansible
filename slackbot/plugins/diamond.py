@@ -129,7 +129,7 @@ def mention_func(message):
     flag2zero()
 
 
-@respond_to('試して')
+@respond_to('調べて')
 def mention_func(message):
     message.send('ちぃとばかし見てみるか・・・。')
 
