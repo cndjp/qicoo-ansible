@@ -209,6 +209,7 @@ def mention_func(message):
 
     log_file, log_file_path = setup_logfile('qicoo-infra-all')
 
+    kube_config = 'kubeconfig'
     kube_config_path = '/home/qicoo/.kube/config'
     title1 = 'sudo -u qicoo echo [kubectl] >> ' + log_file_path
     cmd1 = 'sudo -u qicoo kubectl get all --all-namespaces >> ' + log_file_path
