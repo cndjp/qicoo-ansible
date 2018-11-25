@@ -22,12 +22,6 @@ def flag2one():
     global flag
     flag = 1
 
-def kill(proc_pid):
-    process = psutil.Process(proc_pid)
-    for proc in process.children(recursive=True):
-        proc.kill()
-    process.kill()
-
 def file2slack(filename, path):
     files = {'file': open(path, 'rb')}
     param = {
@@ -41,6 +35,13 @@ def file2slack(filename, path):
 def list2exec(cmdlist):
     for cmd in cmdlist:
         os.system(cmd)
+
+def setup_logfile(s):
+    now = datetime.now()
+    now_str = now.strftime('%Y%m%d%H%M%S')
+    log_file = s + '_' + now_str + '.log'
+    log_file_path = '/home/qicoo/' + s + '/' + log_file
+    return log_file, log_file_path
 
 def check2connect_spinnaker(message):
     i=0
@@ -109,10 +110,7 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-bot-scale_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-bot-scale/' + log_file
+    log_file, log_file_path = setup_logfile('qicoo-bot-scale')
 
     text = message.body['text']
     tmp, num = text.split(None, 1)
@@ -133,10 +131,8 @@ def mention_func(message):
 def mention_func(message):
     message.send('ちぃとばかし見てみるか・・・。')
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-aws-status_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-aws-status/' + log_file
+    log_file, log_file_path = setup_logfile('qicoo-aws-status')
+
     cmd1 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-route53-record.sh ' + log_file_path
     cmd2 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-rds-status.sh ' + log_file_path
     cmd3 = 'sudo -u qicoo /home/qicoo/qicoo-ansible/check/check-ecache-status.sh ' + log_file_path
@@ -161,10 +157,7 @@ def mention_func(message):
         return
 
     flag2one()
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-ark-restore_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-ark-restore/' + log_file
+    log_file, log_file_path = setup_logfile('qicoo-bot-restore')
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/bot-restore.sh  ' + log_file
 
     message.send('ダラララララララララララララララ！！！')
@@ -214,11 +207,8 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-infra-all_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-infra-all/' + log_file
-    kube_config = 'kubeconfig'
+    log_file, log_file_path = setup_logfile('qicoo-infra-all')
+
     kube_config_path = '/home/qicoo/.kube/config'
     title1 = 'sudo -u qicoo echo [kubectl] >> ' + log_file_path
     cmd1 = 'sudo -u qicoo kubectl get all --all-namespaces >> ' + log_file_path
@@ -249,10 +239,7 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-up_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-up/' + log_file
+    log_file, log_file_path = setup_logfile('qicoo-all-up')
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-up.py ' + log_file_path
 
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
@@ -273,10 +260,7 @@ def mention_func(message):
 
     flag2one()
 
-    now = datetime.now()
-    now_str = now.strftime('%Y%m%d%H%M%S')
-    log_file = 'qicoo-all-down_' + now_str + '.log'
-    log_file_path = '/home/qicoo/qicoo-all-down/' + log_file
+    log_file, log_file_path = setup_logfile('qicoo-all-down')
     cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/async-ansible-down.py ' + log_file_path
 
     message.send('クレイジーダイアモンドォオオオオオオオ！！！')
