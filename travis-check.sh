@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARY=(ark aws cli eks)
+ARY=(ark aws cli eks spinnaker)
 
 for DIR in ${ARY[@]}; do
   for FILE in `\find ${DIR} -maxdepth 1 -type f -name "*.yml"`; do
