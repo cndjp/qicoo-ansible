@@ -1,0 +1,4 @@
+- name: "Deploy Fluentd Daemonset"
+  shell: |
+     kubectl apply -f {{ ansible_env.PWD }}/files/
+  ignore_errors: True
