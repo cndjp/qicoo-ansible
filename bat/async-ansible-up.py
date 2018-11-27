@@ -62,13 +62,15 @@ def async_ansible_up(loop):
     command11 = 'hal deploy apply -q'
     command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
     command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/spinnaker/create-prometheus-env.yml'
+    command14 = ansible_ctl + '/home/qicoo/qicoo-ansible/fluentd/create-fluentd-daemonset.yml'
     nine = sh_exec(command09)
     ten = sh_exec(command10)
     eleven = sh_exec(command11)
     twelve = sh_exec(command12)
     thirteen = sh_exec(command13)
+    fourteen = sh_exec(command14)
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen]
+    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
