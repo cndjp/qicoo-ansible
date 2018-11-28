@@ -20,4 +20,4 @@
 - name: Unarchive bundle
   unarchive:
     src: /tmp/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
-    dest: ~/
+    dest: ~/gatling
