@@ -41,6 +41,8 @@ ROUTE53:
       PRODUCTION: cache
       STAGING: cache-s
       DEVELOPMENT: cache-d
+    EC2_NAME:
+      GATLING: gatling
 
 S3:
   BACKUP:
@@ -113,6 +115,13 @@ ELASTIC_CACHE:
   SUBNET1: "{{ EKS.CLUSTER.SUBNET1 }}"
   SUBNET2: "{{ EKS.CLUSTER.SUBNET2 }}"
   SECURITY_GROUP: "{{ EC2_GROUP.ECACHE_EC2_GROUP.SECURITY_GROUP_ID }}"
+
+EC2:
+  GATLING:
+    STACK_NAME: ec2-gatling
+    IMAGE_ID: ami-0bb5806b2e825a199
+    KEY_NAME: qicoo-gatling-nodekey
+    INSTANCE_TYPE: t2.xlarge
 
 EBS:
   PROMETHEUS:
