@@ -1,0 +1,5 @@
+- hosts: gatling-server
+  roles:
+    - install-gatling-env
+  vars_files:
+    - ../vars/all.yml

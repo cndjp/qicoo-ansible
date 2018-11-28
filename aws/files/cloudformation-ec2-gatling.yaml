@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  ImageId:
+    Type: String
+  VpcId:
+    Type: String
+  SubnetId:
+    Type: String
+  KeyName:
+    Type: String
+  InstanceType:
+    Type: String
+  Route53HostedZoneId:
+    Type: String
+  Route53GatlingInstanceName:
+    Type: String
+  Route53HostedZoneName:
+    Type: String
+Resources:
+  Ec2GatlingSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access via port 22
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: '0.0.0.0/0'
+  Ec2GatlingInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      Monitoring: false
+      KeyName: !Ref KeyName
+      InstanceType: !Ref InstanceType
+      NetworkInterfaces:
+         - AssociatePublicIpAddress: "true"
+           DeviceIndex: "0"
+           SubnetId: !Ref SubnetId
+           GroupSet:
+           - Ref: Ec2GatlingSecurityGroup
+  Ec2GatlingInstanceDNSRecord:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      HostedZoneId: !Ref Route53HostedZoneId
+      Comment: "CNAME record for the galing EC2."
+      Name:
+        "Fn::Join":
+          - ""
+          - - !Ref Route53GatlingInstanceName
+            - "."
+            - !Ref Route53HostedZoneName
+            - "."
+      Type: "CNAME"
+      TTL: 300
+      ResourceRecords:
+        - !GetAtt Ec2GatlingInstance.PublicDnsName

@@ -1,8 +1,8 @@
-[ciservers]
+[localhost]
 localhost
 
-[cliservers]
-localhost
+[gatling-server]
+gatling.qicoo.tokyo
 
 [all:vars]
 ENV=production
