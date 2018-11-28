@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - delete-ec2-gatling
+  vars_files:
+    - ../vars/all.yml

@@ -1,0 +1,23 @@
+- name: Yum Remove OpenJDK 7
+  become: yes
+  yum:
+    name: java-1.7.0-openjdk
+    state: absent
+
+- name: Yum install OpenJDK 8
+  become: yes
+  yum:
+    name: java-1.8.0-openjdk
+    state: latest
+
+- name: Get Gatling
+  get_url: 
+    url: https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/3.0.1.1/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
+    dest: /tmp/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
+    validate_certs: no
+    timeout: 30
+
+- name: Unarchive bundle
+  unarchive:
+    src: /tmp/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
+    dest: ~/
