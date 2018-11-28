@@ -44,7 +44,7 @@ Resources:
     Type: "AWS::Route53::RecordSet"
     Properties:
       HostedZoneId: !Ref Route53HostedZoneId
-      Comment: "CNAME record for the elasticache."
+      Comment: "CNAME record for the galing EC2."
       Name:
         "Fn::Join":
           - ""
