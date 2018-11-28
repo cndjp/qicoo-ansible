@@ -66,8 +66,8 @@ def async_ansible_down(loop):
 
     command12 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
     command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ebs-prometheus.yml'
-    twelve = sh_exec(command11)
-    thirteen = sh_exec(command12)
+    twelve = sh_exec(command12)
+    thirteen = sh_exec(command13)
 
     stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen]
     with open(log_file_path,'w') as f:
