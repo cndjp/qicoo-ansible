@@ -1,0 +1,14 @@
+- name: "Create EC2 for The Gatling"
+  cloudformation:
+     stack_name: "{{ EC2.GATLING.STACK_NAME }}"
+     template: "{{ ansible_env.PWD }}/files/cloudformation-ec2-gatling.yaml"
+     disable_rollback: true
+     template_parameters:
+        ImageId: "{{ EC2.GATLING.IMAGE_ID }}"
+        VpcId: "{{ EKS.CLUSTER.VPC }}"
+        SubnetId: "{{ EKS.CLUSTER.SUBNET1 }}"
+        KeyName: "{{ EC2.GATLING.KEY_NAME }}"
+        InstanceType: "{{ EC2.GATLING.INSTANCE_TYPE }}"
+        Route53HostedZoneId: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_ID }}"
+        Route53GatlingInstanceName: "{{ ROUTE53.QICOO_TOKYO.EC2_NAME.GATLING }}"
+        Route53HostedZoneName: "{{ ROUTE53.QICOO_TOKYO.HOSTED_ZONE_NAME }}"

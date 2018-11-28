@@ -1,0 +1,4 @@
+- name: "Delete EC2 for The Gatling"
+  cloudformation:
+     stack_name: "{{ EC2.GATLING.STACK_NAME }}"
+     state: "absent"

@@ -51,23 +51,25 @@ def async_ansible_down(loop):
     command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
     command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
     command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
+    command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ec2-gatling.yml'
     commands = asyncio.gather(sh_coroutine(command04), \
                               sh_coroutine(command05), \
                               sh_coroutine(command06), \
                               sh_coroutine(command07), \
                               sh_coroutine(command08), \
                               sh_coroutine(command09), \
-                              sh_coroutine(command10))
+                              sh_coroutine(command10), \
+                              sh_coroutine(command11))
 
-    four, five, six, seven, eight, nine, ten = loop.run_until_complete(commands)
+    four, five, six, seven, eight, nine, ten, eleven = loop.run_until_complete(commands)
     loop.close()
 
-    command11 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
-    command12 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ebs-prometheus.yml'
-    eleven = sh_exec(command11)
-    twelve = sh_exec(command12)
+    command12 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
+    command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ebs-prometheus.yml'
+    twelve = sh_exec(command11)
+    thirteen = sh_exec(command12)
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
+    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
