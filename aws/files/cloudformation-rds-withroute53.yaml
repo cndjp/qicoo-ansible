@@ -50,6 +50,7 @@ Resources:
       DBParameterGroupName: !Ref DBParameterGroupName
       AllocatedStorage: !Ref AllocatedStorage
       StorageType: gp2
+      EnablePerformanceInsights: true
       DBInstanceIdentifier: !Ref DBInstanceIdentifier
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !Ref MasterUserPassword
