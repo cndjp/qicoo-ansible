@@ -187,7 +187,7 @@ def mention_func(message):
     elif msg == 'プロメテウス':
         log_file = 'qicoo-prometheus-backup_' + now_str + '.log'
         log_file_path = '/home/qicoo/qicoo-prometheus-backup/' + log_file
-        cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/ebs-snap-or-down.sh snapshot ' + log_file
+        cmd = 'sudo -u qicoo /home/qicoo/qicoo-ansible/bat/ebs-snapshot.sh ' + log_file
     else:
         message.send('クラスターかプロメテウスって言ってくれよな！')
         return
