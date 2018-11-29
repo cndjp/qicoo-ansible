@@ -17,6 +17,13 @@
     validate_certs: no
     timeout: 30
 
+- name: Make Gatling Dir
+  file:
+    dest=~/gatling
+    state=directory
+    owner=ec2-user
+    group=ec2-user
+
 - name: Unarchive bundle
   unarchive:
     src: /tmp/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
