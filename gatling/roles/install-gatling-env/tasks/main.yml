@@ -19,12 +19,26 @@
 
 - name: Make Gatling Dir
   file:
-    dest=~/gatling
-    state=directory
-    owner=ec2-user
-    group=ec2-user
+    dest: ~/gatling
+    state: directory
+    owner: {{ GATLING_USER.NAME }}
+    group: {{ GATLING_USER.GROUP }}
 
 - name: Unarchive bundle
   unarchive:
     src: /tmp/gatling-charts-highcharts-bundle-3.0.1.1-bundle.zip
     dest: ~/gatling
+
+- name: Copy Scenario Dir
+  copy:
+    src_dir: /home/qicoo/qicoo-ansible/gatling/files/qicoo
+    dest_dir: /home/ec2-user/gatling/gatling-charts-highcharts-bundle-3.0.1.1/user-files/simulations/qicoo
+
+
+- name: Modify Scenario File Owner
+  file:
+    path: /home/ec2-user/gatling/gatling-charts-highcharts-bundle-3.0.1.1/user-files/simulations/qicoo
+    state: directory
+    recurse: yes
+    owner: {{ GATLING_USER.NAME }}
+    group: {{ GATLING_USER.GROUP }}

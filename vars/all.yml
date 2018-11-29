@@ -4,6 +4,9 @@ GET_URL_TEMP_DIRECTORY: /tmp
 WORK_USER:
   NAME: qicoo
   GROUP: qicoo
+GATLING_USER:
+  NAME: ec2-user
+  GROUP: ec2-user
 AWSCTL_CONFIG: /home/qicoo/.aws/config
 KUBECTL_CONFIG: /home/qicoo/.kube/config
 
