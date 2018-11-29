@@ -21,8 +21,8 @@
   file:
     dest: ~/gatling
     state: directory
-    owner: {{ GATLING_USER.NAME }}
-    group: {{ GATLING_USER.GROUP }}
+    owner: "{{ GATLING_USER.NAME }}"
+    group: "{{ GATLING_USER.GROUP }}"
 
 - name: Unarchive bundle
   unarchive:
@@ -40,5 +40,5 @@
     path: /home/ec2-user/gatling/gatling-charts-highcharts-bundle-3.0.1.1/user-files/simulations/qicoo
     state: directory
     recurse: yes
-    owner: {{ GATLING_USER.NAME }}
-    group: {{ GATLING_USER.GROUP }}
+    owner: "{{ GATLING_USER.NAME }}"
+    group: "{{ GATLING_USER.GROUP }}"
