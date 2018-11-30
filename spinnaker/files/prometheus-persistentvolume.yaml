@@ -1,0 +1,11 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: ebs-prometheus-pv
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: vol-0a9979befdfc97743
