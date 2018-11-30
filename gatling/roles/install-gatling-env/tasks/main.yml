@@ -41,3 +41,4 @@
     recurse: yes
     owner: "{{ GATLING_USER.NAME }}"
     group: "{{ GATLING_USER.GROUP }}"
+    
