@@ -2,3 +2,4 @@
 .kube
 __pycache__
 *.pyc
+spinnaker/files/prometheus-persistentvolume.yaml
