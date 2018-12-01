@@ -69,10 +69,10 @@ EKS:
     SUBNET2: subnet-0a5780fbae0795a51
     SECURITY_GROUP: sg-0e7a697d77858ebc3
     CLUSTER_NAME: qicoo-eks-01
-    NODE: 3
-    MIN_NODE: 3
-    MAX_NODE: 3 
-    FLAVOR: t2.large 
+    NODE: 6
+    MIN_NODE: 6
+    MAX_NODE: 6 
+    FLAVOR: t3.large 
     KEYNAME: qicoo-eks-nodekey
 
 RDS:
