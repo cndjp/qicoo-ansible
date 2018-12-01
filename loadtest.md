@@ -93,4 +93,4 @@ JKDまでの性能目標
 ### WRITE
 （likeQidパラメータは、その時登録されている質問のQIDに書き換える）
 
-    JAVA_OPTS="-DpostUsers=10 -DlikeUsers=200 -DlikeQid=8456f373-0c58-4547-ad43-fb2f26bf3a80 -Dduring=300" bin/gatling.s
+    JAVA_OPTS="-DpostUsers=10 -DlikeUsers=200 -DlikeQid=8456f373-0c58-4547-ad43-fb2f26bf3a80 -Dduring=300" bin/gatling.sh
