@@ -81,7 +81,7 @@ Parameters:
   NodeAutoScalingGroupMaxSize:
     Type: Number
     Description: Maximum size of Node Group ASG.
-    Default: 3
+    Default: 6
 
   ClusterName:
     Description: The cluster name provided when the cluster was created.  If it is incorrect, nodes will not be able to join the cluster.
@@ -224,6 +224,16 @@ Mappings:
       MaxPods: 234
     x1.32xlarge:
       MaxPods: 234
+    t3.small:
+      MaxPods: 8
+    t3.medium:
+      MaxPods: 17
+    t3.large:
+      MaxPods: 35
+    t3.xlarge:
+      MaxPods: 44
+    t3.2xlarge:
+      MaxPods: 44
 
 Metadata:
   AWS::CloudFormation::Interface:
