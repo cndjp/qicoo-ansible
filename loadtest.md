@@ -15,7 +15,7 @@ Gatling実行環境へのアクセス
 ### 1. Gatling Homeに移動
 
 
-    cc gatling/gatling-charts-highcharts-bundle-3.0.1.1/
+    cd gatling/gatling-charts-highcharts-bundle-3.0.1.1/
 
 ### 2. Gatling 起動
 
