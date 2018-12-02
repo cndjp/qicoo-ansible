@@ -15,7 +15,7 @@ Gatling実行環境へのアクセス
 ### 1. Gatling Homeに移動
 
 
-    cc gatling/gatling-charts-highcharts-bundle-3.0.1.1/
+    cd /home/ec2-user/gatling/gatling-charts-highcharts-bundle-3.0.1.1/
 
 ### 2. Gatling 起動
 
@@ -88,9 +88,9 @@ JKDまでの性能目標
 
 ### READ
 
-    JAVA_OPTS="-Dusers=500 -Dduring=300" bin/gatling.sh
+    JAVA_OPTS="-DbaseUrl=https://api.qicoo.tokyo -Dusers=500 -Dduring=300" bin/gatling.sh
 
 ### WRITE
 （likeQidパラメータは、その時登録されている質問のQIDに書き換える）
 
-    JAVA_OPTS="-DpostUsers=10 -DlikeUsers=200 -DlikeQid=8456f373-0c58-4547-ad43-fb2f26bf3a80 -Dduring=300" bin/gatling.sh
+    JAVA_OPTS="-DbaseUrl=https://api.qicoo.tokyo -DpostUsers=10 -DlikeUsers=200 -DlikeQid=8456f373-0c58-4547-ad43-fb2f26bf3a80 -Dduring=300" bin/gatling.sh
