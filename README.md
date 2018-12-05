@@ -6,39 +6,39 @@
 # ブランチポリシー
 `master` ブランチのみが安定版です。
 
-## 東方仗助について
+## 東●仗助について
 ほとんどのEKSやAWSリソースに対するアクションは `https://github.com/cndjp/qicoo-ansible/tree/master/slackbot` 配下にあるコードをソースとして動いている、  
 `qicoo-controller-01` サーバ上のslackbotのサービスをcndjpのslackの `#qicoo-updown` からオペレーション出来るようにデザインしてあります。  
 細かなオペレーションはあえてしないようなデザインになってますので、細かい事をしたい場合は直接`qicoo-controller-01` サーバで実行してください。
 
-また東方仗助が使用するバッチやスクリプトは `https://github.com/cndjp/qicoo-ansible/tree/master/bat` 配下にあります。
+また東●仗助が使用するバッチやスクリプトは `https://github.com/cndjp/qicoo-ansible/tree/master/bat` 配下にあります。
 
 現状では以下のコマンドがサポートされています。
 
 ```
-@東方 仗助 上げて:qicooのインフラを全部上げる
-@東方 仗助 下げて:qicooのインフラを全部下げる
-@東方 仗助 見せて:qicooの全インフラの状態を見る
-@東方 仗助 覚えて <クラスター/プロメテウス>:今の状態でbackupをとる
-@東方 仗助 戻して:直前のbackupに戻す
-@東方 仗助 繋げて:Spinnakerのweb画面を見れるようにする
-@東方 仗助 調べて:AWSリソースの状態だけみる
-@東方 仗助 すけえる <数字>:<数字>個にEKSをスケールする
-@東方 仗助 テスト:生存確認用
+@東● 仗助 上げて:qicooのインフラを全部上げる
+@東● 仗助 下げて:qicooのインフラを全部下げる
+@東● 仗助 見せて:qicooの全インフラの状態を見る
+@東● 仗助 覚えて <クラスター/プロメテウス>:今の状態でbackupをとる
+@東● 仗助 戻して:直前のbackupに戻す
+@東● 仗助 繋げて:Spinnakerのweb画面を見れるようにする
+@東● 仗助 調べて:AWSリソースの状態だけみる
+@東● 仗助 すけえる <数字>:<数字>個にEKSをスケールする
+@東● 仗助 テスト:生存確認用
 ```
 
 前述の通り、これらのコマンドを使えばインフラの準備から全削除、バックアップリストア、スケールアップまでサポートされています。  
 また、全てのコマンドの出力はログを取っており、そのログは `qicoo-controller-01` サーバ上の `/home/qicoo/`またはcndjpのslack上に送ります。
 
-### 東方仗助のロック
+### 東●仗助のロック
 
-東方仗助は同時に動作して欲しくないコマンドがあり、そのコマンドに対してはメモリ上にフラグを立ててロック排他制御を実施しています。  
+東●仗助は同時に動作して欲しくないコマンドがあり、そのコマンドに対してはメモリ上にフラグを立ててロック排他制御を実施しています。  
 ロック作動時には `ちょっと待てって。オレはバカだから一つの事しかできねぇんでよぉ。` と呟きます。  
 コマンドリファレンス内で🔐マークがあるコマンドが対象です。
 
-## 東方仗助コマンドリファレンス
+## 東●仗助コマンドリファレンス
 
-### @東方 仗助 上げて🔐
+### @東● 仗助 上げて🔐
 このコマンドでは、以下のリソースをデプロイします(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-up.py`)。  
 Python3によって非同期、パイプラインの依存性解決が管理されており、大量のリソースをデプロイしながらも高速かつ正確に動きます。
 
@@ -64,8 +64,8 @@ Prometheus: `https://github.com/cndjp/qicoo-ansible/tree/master/spinnaker/files`
 ※1...リストアするk8sリソースは `https://github.com/cndjp/qicoo-ansible/blob/master/vars/all.yml` に定義されている、ネームスペースに絞っています。  
 ※2...Prometheusが使用するEBSに関しては、「上げて」時にCloudformationの`ebs-prometheus`により生成されたスナップショットからリストア、スナップショットの削除しています。そして「下げて」時に`ebs-prometheus`上の`DeletionPolicy: Snapshot`によってスナップショットが新たに生成され、このライフサイクルによりあたかもプロメテウスのメトリクスが継続して収集しているようなインフラを実現しています。
 
-### @東方 仗助 下げて🔐
-このコマンドでは、`@東方 仗助 上げて`によりデプロイされたリソースを `バックアップを取って` 全て削除します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-down.py`)。  
+### @東● 仗助 下げて🔐
+このコマンドでは、`@東● 仗助 上げて`によりデプロイされたリソースを `バックアップを取って` 全て削除します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/async-ansible-down.py`)。  
 Python3によって非同期、パイプラインの依存性解決が管理されており、大量のリソースを消しながらも高速かつ正確に動きます。
 
 尚、バックアップ対象は以下です。
@@ -78,7 +78,7 @@ Python3によって非同期、パイプラインの依存性解決が管理さ�
 尚このコマンドは冪等性が考慮されているので、何度実行してもOKです。
 下げての方は、安定して何度も実行できます。
 
-### @東方 仗助 見せて
+### @東● 仗助 見せて
 このコマンドでは、`qicoo`で使うほとんどのリソースの状態を確認できます。
 以下のコマンドを打っています。
 
@@ -90,7 +90,7 @@ aws eks describe-cluster --name qicoo-eks-01
 aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output table
 ```
 
-### @東方 仗助 覚えて クラスター🔐
+### @東● 仗助 覚えて クラスター🔐
 このコマンドでは、以下のリソースのバックアップをとります(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-backup.sh`)。
 
 ```
@@ -100,14 +100,14 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 
 尚、Kubernetes上の全リソースは`heptio/ark`によってバックアップされ、S3上の `qicoo-backupbucket-01` に日付入りで永続化されています。
 
-### @東方 仗助 覚えて プロメテウス🔐
+### @東● 仗助 覚えて プロメテウス🔐
 このコマンドでは、以下のリソースのバックアップをとります(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/ebs-snap-or-down.sh`)。
 
 ```
 ・現在のPrometheusにマウントされたEBSのスナップショット
 ```
 
-### @東方 仗助 戻して🔐
+### @東● 仗助 戻して🔐
 このコマンドでは、以下のリソースのリストアを実施します(ソース:`https://github.com/cndjp/qicoo-ansible/blob/master/bat/bot-restore.sh`)。
 
 ```
@@ -117,7 +117,7 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 
 注意点としては、Spinnakerの設定の巻き戻しはデプロイし直さないとうまくいかないので、一度今立っているSpinnakerは全部けしてしまう動作をします。
 
-### @東方 仗助 繋げて
+### @東● 仗助 繋げて
 このコマンドでは、EKS上にデプロイしたSpinnakerの `gate` と `deck` に対して、`qicoo-controller-01` 上のnginx(ソース:`https://github.com/cndjp/qicoo-ansible/tree/master/nginx`)がリバプロさせます。
 
 これの発動後、cndjpのslackの `#qicoo-updown` に表示されるログイン情報をブラウザに入力すればSpinnakerのWeb UIが見れます。
@@ -125,18 +125,18 @@ aws route53 list-resource-record-sets --hosted-zone-id Z36M600IDI6K7I --output t
 尚、このコマンドは冪等性担保かつ例外処理に対応しているので、繰り返し打つと新たにSpinnakerの `gate` と `deck` に対してリバプロさせます。  
 これは、例えばSpinnakerを繰り返しデプロイし直す際に使えます。
 
-### @東方 仗助 調べて
+### @東● 仗助 調べて
 このコマンドでは、qicooで使用するAWS上のリソースの状態の一覧を表示します(ソース:`https://github.com/cndjp/qicoo-ansible/tree/master/check`)。
 
-### @東方 仗助 すけえる <数字>🔐
+### @東● 仗助 すけえる <数字>🔐
 このコマンドでは、指定した <数字> の個数にEKSのノードをスケールさせます。
 
 すけえるすることによってノード数を増やす分にはEKS上のサービスが落ちる事はありません。  
 ノードを減らす時は、新しくできた順にノードを消すようにしているのでそれに乗っ取ってポッドをどかす操作をする必要はあります。  
 すごいクラウドネイティブでインスタ映えする機能です。
 
-### @東方 仗助 テスト
-このコマンドは、東方仗助サービスが生きているか確認します。  
+### @東● 仗助 テスト
+このコマンドは、東●仗助サービスが生きているか確認します。  
 `テストで失敗しても直せばいいのによぉ〜〜〜〜〜〜〜。` って返ってことなかったら確実に動いてません。
 
 
@@ -173,7 +173,7 @@ $ vim vars/secret.yml
 ```
 
 ## 手でデプロイする
-以下のコマンドで東方仗助を使わずにデプロイもできます。
+以下のコマンドで東●仗助を使わずにデプロイもできます。
 
 ### 全部デプロイする
 
@@ -254,7 +254,7 @@ $ a ark/create-heptio-restore.yml
 ```
 
 ## 手で削除する
-以下のコマンドで東方仗助を使わずに削除もできます。
+以下のコマンドで東●仗助を使わずに削除もできます。
 
 ### 全部削除する
 
