@@ -2,6 +2,7 @@
 
 systemctl stop nginx
 docker run \
+  --name docker-nginx \
   --rm \
   -p "80:80" \
   -v /etc/letsencrypt:/etc/letsencrypt \
@@ -15,4 +16,3 @@ docker run \
   --email 'n4sekai5y@gmail.com' \
   -d 'spinnaker.qicoo.tokyo'
 systemctl start nginx
-
