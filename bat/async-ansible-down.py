@@ -6,6 +6,7 @@ import os
 import subprocess
 from subprocess import Popen
 import sys
+import time
 
 os.environ['PATH'] = '/usr/local/bin:/usr/bin:/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/home/qicoo/.local/bin:/home/qicoo/bin:/usr/local/bin:/usr/bin:/home/qicoo/go/bin:/home/qicoo/go-third-party/bin'
 os.environ['KUBECONFIG'] = '/home/qicoo/.kube/config'
@@ -41,6 +42,7 @@ def async_ansible_down(loop):
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
     command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
     one =   sh_exec(command01) 
+    time.sleep(30)
     two =   sh_exec(command02)
     three = sh_exec(command03)
 

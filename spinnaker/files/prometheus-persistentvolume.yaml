@@ -8,4 +8,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   awsElasticBlockStore:
-    volumeID: vol-0f4dc9b32bb89c911
+    volumeID: None
