@@ -1,6 +1,6 @@
 - name: "Register Last EBS Snapshot"
   shell: |
-     aws ec2 describe-tags | /usr/bin/jq -r '.Tags[] | select( .ResourceType == "snapshot" ) | select( .Value == "ebs-prometheus" ) | .ResourceId'
+     aws ec2 describe-tags | /usr/bin/jq -r '.Tags[] | select( .ResourceType == "snapshot" ) | select( .Value == "ebs-prometheus" ) | .ResourceId' | head -n1
   register: LAST_EBS_SNAPSHOT
 
 - name: "Create EBS for The Prometheus"
