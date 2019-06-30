@@ -42,7 +42,7 @@ def async_ansible_down(loop):
     command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
     command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
     one =   sh_exec(command01) 
-    time.sleep(30)
+    time.sleep(120)
     two =   sh_exec(command02)
     three = sh_exec(command03)
 
