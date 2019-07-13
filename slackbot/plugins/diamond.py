@@ -248,8 +248,8 @@ def mention_func(message):
     os.system(cmd)
     file2slack(log_file, log_file_path)
 
-    message.send('ついでに繋げておくぜ。')
-    check2connect_spinnaker(message)
+    #message.send('ついでに繋げておくぜ。')
+    #check2connect_spinnaker(message)
     message.reply('デプロイ終わったんじゃあないか。')
     flag2zero()
 

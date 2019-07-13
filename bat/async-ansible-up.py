@@ -39,44 +39,12 @@ def async_ansible_up(loop):
     log_file_path = sys.argv[1]
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/setup-eks-env.yml --skip-tags "no-routine"'
-    command02 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-production.yml'
-    command03 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-staging.yml'
-    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-rds-development.yml'
-    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-production.yml'
-    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-staging.yml'
-    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-elasticache-development.yml'
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-ebs-prometheus.yml'
-    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/create-ec2-gatling.yml'
-    commands = asyncio.gather(sh_coroutine(command01), \
-                              sh_coroutine(command02), \
-                              sh_coroutine(command03), \
-                              sh_coroutine(command04), \
-                              sh_coroutine(command05), \
-                              sh_coroutine(command06), \
-                              sh_coroutine(command07), \
-                              sh_coroutine(command08), \
-                              sh_coroutine(command09))
+    commands = asyncio.gather(sh_coroutine(command01))
 
-    one, two, three, four, five, six, seven, eight, nine  = loop.run_until_complete(commands)
+    one = loop.run_until_complete(commands)
     loop.close()
 
-    command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-deployment.yml'
-    command11 = '/home/qicoo/qicoo-ansible/bat/hal-restore.sh'
-    command12 = 'hal deploy apply -q'
-    command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-restore.yml'
-    command14 = ansible_ctl + '/home/qicoo/qicoo-ansible/spinnaker/create-prometheus-env.yml'
-    command15 = ansible_ctl + '/home/qicoo/qicoo-ansible/fluentd/create-fluentd-daemonset.yml'
-    command16 = remote_ansible_ctl + '/home/qicoo/qicoo-ansible/gatling/install-gatling-env.yml'
-    ten = sh_exec(command10)
-    eleven = sh_exec(command11)
-    twelve = sh_exec(command12)
-    thirteen = sh_exec(command13)
-    fourteen = sh_exec(command14)
-    fifteen = sh_exec(command15)
-    sixteen = sh_exec(command16)
-
-
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen]
+    stdoutlist = [one]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)

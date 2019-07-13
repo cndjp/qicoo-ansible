@@ -38,40 +38,16 @@ def async_ansible_down(loop):
 
     log_file_path = sys.argv[1]
 
-    command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/ark/create-heptio-backup.yml'
-    command02 = '/home/qicoo/qicoo-ansible/bat/hal-backup.sh'
-    command03 = '/home/qicoo/qicoo-ansible/bat/elb-all-down.sh'
-    one =   sh_exec(command01) 
-    time.sleep(120)
-    two =   sh_exec(command02)
-    three = sh_exec(command03)
+    command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
+                              sh_coroutine(command01))
 
-    command04 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
-    command05 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-production.yml'
-    command06 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-staging.yml'
-    command07 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-rds-development.yml'
-    command08 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-production.yml'
-    command09 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-staging.yml'
-    command10 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-elasticache-development.yml'
-    command11 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ec2-gatling.yml'
-    commands = asyncio.gather(sh_coroutine(command04), \
-                              sh_coroutine(command05), \
-                              sh_coroutine(command06), \
-                              sh_coroutine(command07), \
-                              sh_coroutine(command08), \
-                              sh_coroutine(command09), \
-                              sh_coroutine(command10), \
-                              sh_coroutine(command11))
-
-    four, five, six, seven, eight, nine, ten, eleven = loop.run_until_complete(commands)
+    one = loop.run_until_complete(commands)
     loop.close()
 
-    command12 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
-    command13 = ansible_ctl + '/home/qicoo/qicoo-ansible/aws/delete-ebs-prometheus.yml'
-    twelve = sh_exec(command12)
-    thirteen = sh_exec(command13)
+    command02 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
+    two = sh_exec(command02)
 
-    stdoutlist = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen]
+    stdoutlist = [one, two]
     with open(log_file_path,'w') as f:
         for stdout in stdoutlist:
             f.write(stdout)
