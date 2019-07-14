@@ -39,12 +39,8 @@ def async_ansible_down(loop):
     log_file_path = sys.argv[1]
 
     command01 = ansible_ctl + '/home/qicoo/qicoo-ansible/eks/delete-eks-env.yml'
-                              sh_coroutine(command01))
-
-    one = loop.run_until_complete(commands)
-    loop.close()
-
     command02 = '/home/qicoo/qicoo-ansible/bat/sg-all-down.sh'
+    one = sh_exec(command01)
     two = sh_exec(command02)
 
     stdoutlist = [one, two]
